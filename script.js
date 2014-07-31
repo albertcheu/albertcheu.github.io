@@ -1,7 +1,7 @@
 function wellFormed(textVal){
     //a valid string begins with a sequence of numbers
     //followed by zero or more [+-*/][numbers]
-    var res = textVal.match(/([\d]+)([-\+\*\/]([\d]+))*/);
+    var res = textVal.match(/((\d+\.\d+)|\d+)([-\+\*\/]((\d+\.\d+)|\d+))*/);
     for (var i = 0; i < res.length; i++){
 	if (res[i] == textVal) return true;
     }
@@ -65,15 +65,23 @@ function compute(textVal){
 $(document).ready(function(){
     $("li").hover(
 	function(){
-	    var id = this.id;
-	    $("#"+id).css("background-color","yellow");
+	    $(this).css("background-color","yellow");
 	},
 	function(){
-	    var id = this.id;
-	    $("#"+id).css("background-color","orange");
+	    $(this).css("background-color","orange");
 	}
     );
-    $("button").click(function(){
+    $("td").hover(
+	function(){
+	    $(this).css("background-color","blue");
+	    $(this).css("border-color","orange");
+	},
+	function(){
+	    $(this).css("background-color","black");
+	    $(this).css("border-color","white");
+	}
+    );
+    $("td").click(function(){
 	var val = this.id;
 	var textBox = $("#theText");
 	var textVal = textBox.val();
@@ -81,7 +89,7 @@ $(document).ready(function(){
 	//If C, clear text box
 	if (val == "C") { textBox.val(""); }
 	//elif E, compute
-	else if (val == "E"){ compute(textVal); }
+	else if (val == "Enter"){ compute(textVal); }
 	//Else, append to string
 	else { textBox.val(textVal+val); }
     });

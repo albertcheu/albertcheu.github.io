@@ -5,9 +5,8 @@
     <title> Albert's page </title>
     <meta name="author" content="Albert F Cheu">
     <meta name="description" content="A test web page">
-    <style>
-      table,th,td{border:1px solid black;border-collapse:collapse;}
-    </style>
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="script.js">
@@ -15,10 +14,17 @@
     </script>
   </head>
 
-  <body style="background-color:beige;">
-    <h1 style="font-family:bookman;">Cheu's Fun Game</h1>
+  <body>
+    <div id="menu">
+      <h1>Cheu's Fun Game</h1>
+      <ul>
+	<li id="home"><a href="#">HOME</a></li>
+	<li id="news"><a href="#">NEWS</a></li>
+	<li id="contact"><a href="#">CONTACT</a></li>
+	<li id="about"><a href="#">ABOUT</a></li>
+      </ul>
+    </div>
     <hr>
-    
     <table>
       <tr>
 	<td colspan="4">

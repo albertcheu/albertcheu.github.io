@@ -24,11 +24,11 @@ body {
      width: 160px;
      height: 330px;
 }
-#iconTargets{
+.iconTarget{
      height: 80px;
      min-width: 80px;
 }
-#iconList li, #iconTargets li {
+#iconList li, .iconTarget li {
     float:left;
     padding: 5px;
     width: 70px;

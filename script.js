@@ -5,24 +5,24 @@ function shortenFilename(fname){
     i = fname.length-5;
     ans = "";
     while(fname.charAt(i) != '/'){
-	ans = fname.charAt(i).concat(ans);
+	ans = fname.charAt(i) + ans;
 	i -= 1;
     }
     return ans;
 }
 
 function anyMod(fname){
-    if (fname.length == 2 && fname != 'or') { return fname.charAt(1); }
+    if (fname.length == 2) { return fname.charAt(1); }
     return fname;
 }
 
 function mod(fname, color, colorChar){
+    //Change the upper right letter
     if (fname == "red" || fname == "green" || fname == "blue"){ return color; }
-    else if (fname != "or"){
-	if (fname.length == 1) { return colorChar + fname; }
-	return colorChar + fname.charAt(1);
-    }
-    return fname;
+    //Colorless shape
+    if (fname.length == 1) { return colorChar + fname; }
+    //Colored shape -> preserve second letter, change first
+    return colorChar + fname.charAt(1);
 }
 
 function redMod(fname){ return mod(fname, 'red', 'r'); }
@@ -39,30 +39,31 @@ function changeImageColor(radioId){
     $("#iconList li").each(function(i){
 	var image = $(this).children()[0];
 	var fname = shortenFilename(image.src);
-	image.src = 'icons/'+f(fname)+'.png';
+	if (fname != 'or') { image.src = 'icons/'+f(fname)+'.png'; }
     });
 }
 
 $(document).ready(function(){
-    //Make tabs work
+    //Enable tabs
     $( "#tabs" ).tabs();
 
-    //Make radio selection work
+    //Enable radio selection work
     $("#colorSelection").buttonset();
 
     //Enable dragging and dropping
     $("#iconList li").draggable({
 	helper:"clone",
-	connectToSortable: "#iconTargets"
+	connectToSortable: ".iconTarget"
     });
 
     //Enable sorting
-    $("#iconTargets").sortable({
+    $(".iconTarget").sortable({
 	revert: true
     });
     //Dunno what this is, was part of the sample code I copied
-    $( "#iconList, #iconTargets" ).disableSelection();
+    $( "#iconList, .iconTarget" ).disableSelection();
 
+    //Enable radio buttons
     $(":radio").click(function(){
 	changeImageColor($(this).attr('id'));
     });

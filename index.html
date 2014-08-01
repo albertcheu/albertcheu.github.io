@@ -16,8 +16,7 @@
   </head>
 
   <body>
-
-    <h1>Albert's page</h1>
+    <h1 style="font-size:2.5em">Albert's page</h1>
 
     <hr>    
         
@@ -29,14 +28,24 @@
       </ul>
 
       <div id="tabs-1">
+	<form>
+	  <div id="colorSelection">
+	    <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
+	    <input type="radio" id="red" name="radio"><label for="red">Red</label>
+	    <input type="radio" id="green" name="radio"><label for="green">Green</label>
+	    <input type="radio" id="blue" name="radio"><label for="blue">Blue</label>
+	  </div>
+	</form>
 
 	<ul id="iconList" class="dragdroparea">
-	  <li ><img class="icon" src="icons/b.png"></li>
-	  <li ><img class="icon" src="icons/t.png"></li>
-	  <li ><img class="icon" src="icons/c.png"></li>
-	  <li ><img class="icon" src="icons/x.png"></li>
-	  <li ><img class="icon" src="icons/s.png"></li>
-	  <li ><img class="icon" src="icons/f.png"></li>
+	  <li ><img class="icon" alt="or" src="icons/or.png"></li>
+	  <li ><img class="icon" alt="red" src="icons/red.png"></li>
+	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
+	  <li ><img class="icon" alt="t" src="icons/t.png"></li>
+	  <li ><img class="icon" alt="c" src="icons/c.png"></li>
+	  <li ><img class="icon" alt="x" src="icons/x.png"></li>
+	  <li ><img class="icon" alt="s" src="icons/s.png"></li>
+	  <li ><img class="icon" alt="f" src="icons/f.png"></li>
 	</ul>
 	
 	<ul id="iconTargets" class="dragdroparea"></ul>

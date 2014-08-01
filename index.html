@@ -1,62 +1,56 @@
 <!DOCTYPE html>
-<html encoding="utf-8">
+<html>
 
   <head>
     <title> Albert's page </title>
     <meta name="author" content="Albert F Cheu">
     <meta name="description" content="A test web page">
-    
+    <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="script.js">
-
-    </script>
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script src="script.js"></script>
   </head>
 
   <body>
 
-    <div id="menu">
-      <h1>Hello World</h1>
+    <h1>Albert's page</h1>
+
+    <hr>    
+        
+    <div id="tabs">
       <ul>
-	<li id="c1"><a href="#">CHOICE1</a></li>
-	<li id="c2"><a href="#">CHOICE2</a></li>
-	<li id="c3"><a href="#">CHOICE3</a></li>
-	<li id="c4"><a href="#">CHOICE4</a></li>
+	<li><a href="#tabs-1">Game</a></li>
+	<li><a href="#tabs-2">Writing</a></li>
+	<li><a href="#tabs-3">About</a></li>
       </ul>
-      
+
+      <div id="tabs-1">
+
+	<img id="draggable" class="ui-widget-content" src="f.png">
+
+	<div id="droppable" class="ui-widget-content">
+	  <p>Drop here</p>
+	</div>
+
+      </div>
+
+      <div id="tabs-2">
+	<p>This is where I'll put my writing</p>
+	<p>And I just did!</p>
+      </div>
+
+      <div id="tabs-3">
+	<p>This is where I describe myself</p>
+	<p>And I just did!</p>
+      </div>
+
     </div>
 
-    <hr>
-
-    <table>
-
-      <tr>
-	<td colspan="4">
-	  <form>
-	    <input type="text" id="theText" size="10">
-	  </form>
-	</td>
-      </tr>
-
-      <tr>
-	<td id="7">7</td><td id="8">8</td><td id="9">9</td><td id="+">+</td>
-      </tr>
-      <tr>
-	<td id="4">4</td><td id="5">5</td><td id="6">6</td><td id="-">-</td>
-      </tr>
-      <tr>
-	<td id="1">1</td><td id="2">2</td><td id="3">3</td><td id="*">*</td>
-      </tr>
-      <tr>
-	<td id="C">C</td><td id="0">0</td><td id=".">.</td><td id="/">/</td>
-      </tr>
-      <tr>
-	<td colspan="4" id="Enter">Enter</td>
-      </tr>
-    </table>
     
-    </div>
 
   </body>
 

@@ -1,32 +1,10 @@
 body {
     background-color:tan;
+
 }
 
-h1,h2,h3 {
-    font-family:bookman;
-}
+#draggable,#droppable {
+    width: 96px;
+    height: 96px;
 
-#menu {
-    background-color:orange;
-}
-ul {
-    list-style-type: none;
-    margin: 20;
-    padding: 0;
-}
-li {
-    display:inline;
-    font-family:arial;
-}
-a {
-    color:black;
-}
-
-table,td {
-    background-color:black;
-    border:2px solid white;
-    border-collapse:collapse;
-    text-align:center;
-    color:white;
-    font-family:arial;
 }

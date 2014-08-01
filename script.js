@@ -1,17 +1,11 @@
 $(document).ready(function(){
-    $( "#draggable" ).draggable({ containment: "parent",
-				  revert: "invalid"
-				});
-    $( "#droppable" ).droppable({
-	activeClass: "ui-state-default",
-	hoverClass: "ui-state-hover",
-	drop: function( event, ui ) {
-	    $( this )
-		.addClass( "ui-state-highlight" )
-		.find( "p" )
-		.html( "Dropped!" );
-	}
+    $("#iconList li").draggable({
+	helper:"clone",
+	connectToSortable: "#iconTargets"
     });
-    
+    $( "#iconTargets" ).sortable({
+	revert: true
+    });
+    $( "#iconList, #iconTargets" ).disableSelection();
     $( "#tabs" ).tabs();
 });

@@ -2,9 +2,31 @@ body {
     background-color:tan;
 
 }
-
-#draggable,#droppable {
-    width: 96px;
-    height: 96px;
-
+#tabs{
+    height:555px;
+}
+.icon{
+    width:70px;
+    height:70px;
+}
+.dragdroparea {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     float: left;
+     margin-right: 10px;
+     background: #eee;
+     padding: 5px;
+}
+#iconList{
+     width: 160px;
+     height: 250px;
+}
+#iconTargets{
+     height: 80px;
+}
+#iconList li, #iconTargets li {
+    float:left;
+    padding: 5px;
+    width: 70px;
 }

@@ -1,3 +1,20 @@
+//Preload images
+images = new Array();
+function preload() {
+    var filenames = [];
+    var color = ['','r','g','b'];
+    var shape = ['b','t','x','s','f','c'];
+    for (i = 0; i < 4; i ++){
+	for (j = 0; j < 6; j++){
+	    filenames.push('icons/'+color[i]+shape[j]+'.png');
+	}
+    }
+
+    for (i = 0; i < filenames.length; i++) {
+	images[i] = new Image();
+	images[i].src = filenames[i];
+    }
+}
 
 function shortenFilename(fname){
     //the filename is something like /blah.../blah/foo.png
@@ -43,7 +60,11 @@ function changeImageColor(radioId){
     });
 }
 
+
 $(document).ready(function(){
+
+    preload();
+
     //Enable tabs
     $( "#tabs" ).tabs();
 

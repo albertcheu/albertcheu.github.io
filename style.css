@@ -2,6 +2,11 @@ body {
     background-color:tan;
 
 }
+
+h1 {
+    font-size:2.5em;
+}
+
 #tabs{
     min-height:555px;
     font-size:1.3em;
@@ -10,7 +15,7 @@ body {
     width:70px;
     height:70px;
 }
-.dragdroparea {
+#iconList, .iconTarget {
      list-style-type: none;
      margin: 0;
      padding: 0;

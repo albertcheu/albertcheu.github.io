@@ -4,7 +4,7 @@
   <head>
     <title> Albert's page </title>
     <meta name="author" content="Albert F Cheu">
-    <meta name="description" content="A test web page">
+    <meta name="description" content="My web page">
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
@@ -17,18 +17,19 @@
   </head>
 
   <body>
-    <h1 style="font-size:2.5em">Albert's page</h1>
+    <h1>Albert's page</h1>
 
     <hr>    
         
     <div id="tabs">
       <ul>
 	<li><a href="#tabs-1">Game</a></li>
-	<li><a href="#tabs-2">Writing</a></li>
+	<li><a href="#tabs-2">Game Instructions</a></li>
 	<li><a href="#tabs-3">About</a></li>
       </ul>
 
       <div id="tabs-1">
+
 	<form>
 	  <div id="colorSelection">
 	    <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
@@ -38,7 +39,7 @@
 	  </div>
 	</form>
 
-	<ul id="iconList" class="dragdroparea">
+	<ul id="iconList">
 	  <li ><img class="icon" alt="or" src="icons/or.png"></li>
 	  <li ><img class="icon" alt="red" src="icons/red.png"></li>
 	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
@@ -49,13 +50,21 @@
 	  <li ><img class="icon" alt="f" src="icons/f.png"></li>
 	</ul>
 	
-	<ul class="dragdroparea iconTarget"></ul>
+	<ul class="iconTarget"></ul>
 
       </div>
 
       <div id="tabs-2">
-	<p>This is where I'll put my writing</p>
-	<p>And I just did!</p>
+	<p> Three color classes: R, G, B </p>
+	<p>Six shape sets: Box, Triangle, Circle, X, Star, Face</p>
+	<p>A symbol is colored shape (i.e. a green triangle)</p>
+	<p>The left side of the screen lists Good and Bad Sequences. Good sequences follow the Rule; the objective of the game is to determine the Rule.</p>
+	<p>The right side of the screen is where players input Rule Rows. A Rule Row is denoted by a number (starting @ 0) and a sequence of Tiles.</p>
+	<p>A Tile can be a color class, a shape set, or a single symbol. For instance "0: R B Square" says that a Good sequence consists of a red symbol, a blue symbol, and a square.</p>
+	<p>In addition, there is the OR tile. For instance, "0: G OR X" means that a Good sequence is made up of one green symbol or one X</p>
+	<p>Finally, a Rule Row can be referenced in other Rows (or itself!). For instance, "0: G 1 OR X 2" means that a Good sequence is made up of a green symbol followed by whatever Row 1 says OR an X followed by whatever Row 2 says.</p>
+	<p>Each valid solution gets 50 points, minus one point per tile. For instance, if a solution has 8 tiles in total, the final score is 42.</p>
+
       </div>
 
       <div id="tabs-3">

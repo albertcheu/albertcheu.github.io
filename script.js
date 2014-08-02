@@ -1,6 +1,6 @@
 //Preload images
 images = new Array();
-function preload() {
+function preloadImages() {
     var filenames = [];
     var color = ['','r','g','b'];
     var shape = ['b','t','x','s','f','c'];
@@ -19,8 +19,8 @@ function preload() {
 function shortenFilename(fname){
     //the filename is something like /blah.../blah/foo.png
     //we just want foo
-    i = fname.length-5;
-    ans = "";
+    var i = fname.length-5;
+    var ans = "";
     while(fname.charAt(i) != '/'){
 	ans = fname.charAt(i) + ans;
 	i -= 1;
@@ -29,28 +29,32 @@ function shortenFilename(fname){
 }
 
 function anyMod(fname){
+    //User clicked the 'any color' radio button
     if (fname.length == 2) { return fname.charAt(1); }
     return fname;
 }
 
-function mod(fname, color, colorChar){
-    //Change the upper right letter
-    if (fname == "red" || fname == "green" || fname == "blue"){ return color; }
-    //Colorless shape
-    if (fname.length == 1) { return colorChar + fname; }
-    //Colored shape -> preserve second letter, change first
-    return colorChar + fname.charAt(1);
-}
+function mod (color) {
+    //user clicked a radio button that isn't the 'any color' one
+    //change the image sources of the icons accordingly
+    return function (fname) {
+	//Change the upper right letter
+	if (fname == "red" || fname == "green" || fname == "blue")
+	{ return color; }
 
-function redMod(fname){ return mod(fname, 'red', 'r'); }
-function greenMod(fname){ return mod(fname, 'green', 'g'); }
-function blueMod(fname){ return mod(fname, 'blue', 'b'); }
+	var colorChar = color.charAt(0);
+
+	//Colorless shape
+	if (fname.length == 1) { return colorChar + fname; }
+
+	//Colored shape -> preserve second letter, change first
+	return colorChar + fname.charAt(1);
+    }
+}
 
 function changeImageColor(radioId){
     if (radioId == 'any') { var f = anyMod; }
-    else if (radioId == 'red') { var f = redMod; }
-    else if (radioId == 'green') { var f = greenMod; }
-    else { var f = blueMod; }
+    else { var f = mod(radioId); }
 
     //Iterate through the iconList and change the source of each image if needed
     $("#iconList li").each(function(i){
@@ -60,32 +64,39 @@ function changeImageColor(radioId){
     });
 }
 
-
 $(document).ready(function(){
 
-    preload();
+    preloadImages();
 
     //Enable tabs
     $( "#tabs" ).tabs();
 
-    //Enable radio selection work
+    //Enable radio buttons
     $("#colorSelection").buttonset();
+    $(":radio").click(function(){
+	changeImageColor($(this).attr('id'));
+    });
 
     //Enable dragging and dropping
     $("#iconList li").draggable({
 	helper:"clone",
+	revert: "invalid",
 	connectToSortable: ".iconTarget"
     });
 
     //Enable sorting
     $(".iconTarget").sortable({
-	revert: true
+	revert: "invalid"
     });
     //Dunno what this is, was part of the sample code I copied
     $( "#iconList, .iconTarget" ).disableSelection();
 
-    //Enable radio buttons
-    $(":radio").click(function(){
-	changeImageColor($(this).attr('id'));
+    //Enable deletion
+    $("#trash").droppable({
+	accept:".iconTarget > li",
+	drop: function(event, ui){
+	    ui.draggable.remove();//fadeOut({speed:100});
+	}
     });
+
 });

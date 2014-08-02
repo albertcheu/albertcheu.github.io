@@ -30,12 +30,14 @@ h1 {
      height: 330px;
 }
 #trash{
-    height: 80px;
-    min-width: 80px;
+    height: 330px;
+    width: 80px;
 }
 .iconTarget{
     height: 80px;
     min-width: 80px;
+    margin-top:2px;
+    padding:0px;
 }
 #iconList li, .iconTarget li {
     float:left;

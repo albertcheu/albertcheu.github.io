@@ -80,14 +80,14 @@ $(document).ready(function(){
     //Enable dragging and dropping
     $("#iconList li").draggable({
 	helper:"clone",
-	revert: "invalid",
 	connectToSortable: ".iconTarget"
     });
 
     //Enable sorting
     $(".iconTarget").sortable({
-	revert: "invalid"
+	connectWith: '.iconTarget'
     });
+
     //Dunno what this is, was part of the sample code I copied
     $( "#iconList, .iconTarget" ).disableSelection();
 
@@ -95,7 +95,7 @@ $(document).ready(function(){
     $("#trash").droppable({
 	accept:".iconTarget > li",
 	drop: function(event, ui){
-	    ui.draggable.remove();//fadeOut({speed:100});
+	    ui.draggable.remove();
 	}
     });
 

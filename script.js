@@ -102,6 +102,20 @@ $(document).ready(function(){
     //Enable tabs
     $( "#tabs" ).tabs();
 
+    //Enable slider
+    $("#problemSelect").slider({
+	range:'min',
+	value:0,
+	min:0,
+	max:10,
+	slide:function(event, ui){
+	    $('#whichProblem').val(ui.value);
+	}
+    });
+
+    //Enable submit button
+    $('button').button();
+
     //Enable radio buttons
     $("#colorSelection").buttonset();
     $(":radio").click(function(){
@@ -119,6 +133,7 @@ $(document).ready(function(){
 	//Do not receive if limit is reached
 	deactivate: function(){
 	    updateSizes(ruleRowSizes);
+	    //Only connect with rule rows that have space (size < limit)
 	    connectors = getConnectors(ruleRowSizes, limit);
 	    $(".ruleRow").sortable('option','connectWith',connectors);
 

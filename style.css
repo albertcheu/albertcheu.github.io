@@ -1,6 +1,5 @@
 body {
     background-color:tan;
-
 }
 
 h1 {
@@ -8,8 +7,26 @@ h1 {
 }
 
 #tabs{
-    min-height:555px;
-    font-size:1.3em;
+    min-height:500px;
+
+}
+.fudge{
+    float:left;
+    width:700px;
+}
+p,label,form{
+    margin:0;
+    padding:0;
+    font-size:1.2em;
+}
+
+#whichProblem{
+    border:0;
+    width:24px;
+}
+#problemSelect{
+    margin-top:5px;
+    width:305px;
 }
 
 #problemPic, #iconList, #numList, #trash, .ruleRow {
@@ -22,8 +39,9 @@ h1 {
     background: #eee;
     padding: 5px;
 }
+
 #problemPic{
-    height:330px;
+    height:350px;
     width:300px;
 }
 #iconList{

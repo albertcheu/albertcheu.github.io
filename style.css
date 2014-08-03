@@ -11,35 +11,40 @@ h1 {
     min-height:555px;
     font-size:1.3em;
 }
-.icon{
-    width:70px;
-    height:70px;
+
+#problemPic, #iconList, #numList, #trash, .ruleRow {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    background: #eee;
+    padding: 5px;
 }
-#iconList, #trash, .iconTarget {
-     list-style-type: none;
-     margin: 0;
-     padding: 0;
-     float: left;
-     margin-right: 10px;
-     margin-top: 10px;
-     background: #eee;
-     padding: 5px;
+#problemPic{
+    height:330px;
+    width:300px;
 }
 #iconList{
      width: 160px;
      height: 330px;
 }
-#trash{
+.icon{
+    width:70px;
+    height:70px;
+}
+#trash, #numList{
     height: 330px;
     width: 80px;
 }
-.iconTarget{
+.ruleRow{
     height: 80px;
     min-width: 80px;
     margin-top:2px;
     padding:0px;
 }
-#iconList li, .iconTarget li {
+#iconList li, #numList li, .ruleRow li {
     float:left;
     padding: 5px;
     width: 70px;

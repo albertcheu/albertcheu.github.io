@@ -64,8 +64,39 @@ function changeImageColor(radioId){
     });
 }
 
-$(document).ready(function(){
+function countChildren(jqObj){
+    //count the number of children (of a rule row)
+    var size = jqObj.children().length;
+    var actualSize = 0;
+    for(var i = 0; i < size; i++){
+	var ih = jqObj.children()[i].innerHTML;
+	if (ih != "") { actualSize++; }
+    }
+    return actualSize;
+}
 
+function getConnectors(ruleRowSizes, limit){
+    //Given the number of icons in each rule row,
+    //produce a list of ids that correspond to those rows with empty space
+    var ans = [];
+    for(var i = 0; i < ruleRowSizes.length; i++){
+	if (ruleRowSizes[i] < limit) { ans.push('#rr'+(i+1).toString()); }
+    }
+    return ans;
+}
+
+function updateSizes(ruleRowSizes){
+    //Update the array that lists the number of icons in each rule row
+    for(var i = 0; i < ruleRowSizes.length; i++){
+	ruleRow = $('#rr'+(i+1).toString());
+	c = countChildren(ruleRow);
+	ruleRowSizes[i] = c;
+    }
+}
+
+$(document).ready(function(){
+    var limit = 6;
+    var ruleRowSizes = [0,0,0,0];
     preloadImages();
 
     //Enable tabs
@@ -78,22 +109,32 @@ $(document).ready(function(){
     });
 
     //Enable dragging and dropping
-    $("#iconList li").draggable({
-	helper:"clone",
-	connectToSortable: ".iconTarget"
-    });
+    var params = { helper:"clone", connectToSortable: ".ruleRow" };
+    $("#iconList li").draggable(params);
+    $("#numList li").draggable(params);
 
-    //Enable sorting
-    $(".iconTarget").sortable({
-	connectWith: '.iconTarget'
+    //Enable sorting, movement from one rule row to another
+    $(".ruleRow").sortable({
+	connectWith: '.ruleRow',
+	//Do not receive if limit is reached
+	deactivate: function(){
+	    updateSizes(ruleRowSizes);
+	    connectors = getConnectors(ruleRowSizes, limit);
+	    $(".ruleRow").sortable('option','connectWith',connectors);
+
+	    var params = {helper:'clone',connectToSortable:connectors.join()};
+	    $("#iconList li").draggable(params);
+	    $("#numList li").draggable(params);
+
+	}
     });
 
     //Dunno what this is, was part of the sample code I copied
-    $( "#iconList, .iconTarget" ).disableSelection();
+    $( "#iconList, #numList, .ruleRow" ).disableSelection();
 
     //Enable deletion
     $("#trash").droppable({
-	accept:".iconTarget > li",
+	accept:".ruleRow > li",
 	drop: function(event, ui){
 	    ui.draggable.remove();
 	}

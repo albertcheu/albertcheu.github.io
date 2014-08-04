@@ -28,39 +28,52 @@ function shortenFilename(fname){
     return ans;
 }
 
-function anyMod(fname){
+function anyMod(image, fname){
     //User clicked the 'any color' radio button
-    if (fname.length == 2) { return fname.charAt(1); }
-    return fname;
+    if (fname == "red" || fname == "green" || fname == "blue") { return; }
+    else if (fname.length == 2) { ans = fname.charAt(1); }
+    else { ans = fname; }
+    image.src = 'icons/'+ans+'.png';
 }
 
 function mod (color) {
     //user clicked a radio button that isn't the 'any color' one
     //change the image sources of the icons accordingly
-    return function (fname) {
-	//Change the upper right letter
-	if (fname == "red" || fname == "green" || fname == "blue")
-	{ return color; }
-
+    return function (image, fname) {
 	var colorChar = color.charAt(0);
 
+	//Change the color class
+	if (fname == "red" || fname == "green" || fname == "blue"){
+	    if (fname == color) { return; }
+	    ans = color;
+	}
+
 	//Colorless shape
-	if (fname.length == 1) { return colorChar + fname; }
+	else if (fname.length == 1) { ans = colorChar + fname; }
 
 	//Colored shape -> preserve second letter, change first
-	return colorChar + fname.charAt(1);
+	else { ans = colorChar + fname.charAt(1); }
+
+	image.src = 'icons/'+ans+'.png';
     }
 }
 
 function changeImageColor(radioId){
-    if (radioId == 'any') { var f = anyMod; }
-    else { var f = mod(radioId); }
+    //Clicked a radio button to change the colors of the icons
+    if (radioId == 'any') {
+	var f = anyMod;
+	$("#iconList li:last").hide();
+    }
+    else {
+	var f = mod(radioId);
+	$("#iconList li:last").show();
+    }
 
     //Iterate through the iconList and change the source of each image if needed
     $("#iconList li").each(function(i){
 	var image = $(this).children()[0];
 	var fname = shortenFilename(image.src);
-	if (fname != 'or') { image.src = 'icons/'+f(fname)+'.png'; }
+	if (fname != 'or') { f(image, fname); }
     });
 }
 
@@ -98,6 +111,7 @@ $(document).ready(function(){
     var limit = 6;
     var ruleRowSizes = [0,0,0,0];
     preloadImages();
+    $("#iconList li:last").hide();
 
     //Enable tabs
     $( "#tabs" ).tabs();
@@ -105,8 +119,8 @@ $(document).ready(function(){
     //Enable slider
     $("#problemSelect").slider({
 	range:'min',
-	value:0,
-	min:0,
+	value:1,
+	min:1,
 	max:10,
 	slide:function(event, ui){
 	    $('#whichProblem').val(ui.value);
@@ -133,7 +147,7 @@ $(document).ready(function(){
 	//Do not receive if limit is reached
 	deactivate: function(){
 	    updateSizes(ruleRowSizes);
-	    //Only connect with rule rows that have space (size < limit)
+	    //Only connect with rule rows that have space (i.e. size < limit)
 	    connectors = getConnectors(ruleRowSizes, limit);
 	    $(".ruleRow").sortable('option','connectWith',connectors);
 

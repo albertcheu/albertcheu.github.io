@@ -33,15 +33,18 @@
 	  <img id="problemPic" src="problems/p1.png">
 	</div>
 
-	<form>
-	  <div id="colorSelection">
-	    <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
-	    <input type="radio" id="red" name="radio"><label for="red">Red</label>
-	    <input type="radio" id="green" name="radio"><label for="green">Green</label>
-	    <input type="radio" id="blue" name="radio"><label for="blue">Blue</label>
-	  </div>
-	</form>
-	
+	<div>
+	  <form style="float:left;margin-top:3px;margin-left:15px;">
+	    <div id="colorSelection">
+	      <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
+	      <input type="radio" id="red" name="radio"><label for="red">Red</label>
+	      <input type="radio" id="green" name="radio"><label for="green">Green</label>
+	      <input type="radio" id="blue" name="radio"><label for="blue">Blue</label>
+	    </div>
+	  </form>
+	  <button><b>Submit!</b></button>
+	</div>
+
 	<ul id="iconList">
 	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
 	  <li ><img class="icon" alt="t" src="icons/t.png"></li>
@@ -69,12 +72,12 @@
 
 	<div style="clear:left;width:100%;">
 	  <div style="width:300px;float:left;">
-	    <label for="whichProblem">Problem Number:</label>
-	    <input type="text" id="whichProblem" value="1" readonly>
+	    <label style="font-size:14px;" for="whichProblem">Problem Number:</label>
+	    <input style="font-size:12px;" type="text" id="whichProblem" value="1" readonly>
 	    <div id="problemSelect"></div>
-	    <button style="margin:10px;width:280px;"><b>Submit!</b></button>
+
 	  </div>
-	  <div id="trash">Drag here<br>to delete</div>
+	  <div id="trash">Drag here to delete</div>
 	</div>
 
       </div>

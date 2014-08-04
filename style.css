@@ -7,28 +7,14 @@ h1 {
 }
 
 #tabs{
-    min-height:500px;
+    min-height:550px;
     width:1260px;
-}
-.fudge{
-    float:left;
-    width:700px;
 }
 a,p,label,form{
     margin:0;
     padding:0;
     font-size:12px;
 }
-
-#whichProblem{
-    border:0;
-    width:24px;
-}
-#problemSelect{
-    margin-top:5px;
-    width:305px;
-}
-
 #problemPicArea, #iconList, #numList, #trash, .ruleRow {
     list-style-type: none;
     margin: 0;
@@ -39,7 +25,6 @@ a,p,label,form{
     background: #eee;
     padding: 5px;
 }
-
 #problemPicArea{
     height:350px;
     width:300px;
@@ -67,7 +52,29 @@ a,p,label,form{
     padding: 5px;
     width: 70px;
 }
+
+#whichProblem{
+    border:0;
+    width:24px;
+}
+#problemSelect{
+    margin-top:5px;
+    width:305px;
+}
+button{
+    height:30px;
+    margin:10px;
+    margin-left:30px;
+    margin-top:0;
+    margin-bottom:0;
+    width:280px;
+    color:"cyan";
+}
 #trash{
+    float:left;
     margin-left:20px;
     width:850px;
+    height:80px;
+    font-size:20px;
+    text-align:center;
 }

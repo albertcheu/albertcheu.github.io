@@ -52,7 +52,7 @@ a,p,label,form{
     width:70px;
     height:70px;
 }
-#trash, #numList{
+#numList{
     height: 330px;
     width: 80px;
 }
@@ -66,4 +66,8 @@ a,p,label,form{
     float:left;
     padding: 5px;
     width: 70px;
+}
+#trash{
+    margin-left:20px;
+    width:850px;
 }

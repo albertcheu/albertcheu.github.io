@@ -110,11 +110,106 @@ function updateSizes(ruleRowSizes){
     }
 }
 
+function getGrammar(){
+    var grammar = [];
+    $('.ruleRow').each(function(){
+	var production = [];
+	if (countChildren($(this)) > 0){
+	    $(this).children().each(function(){
+		var tile = shortenFilename($(this).children()[0].src);
+		if (tile.length==2 && tile.charAt(0)=='t') {
+		    tile = parseInt(tile.charAt(1));
+		}
+		production.push(tile);
+	    });
+	}
+	grammar.push(production);
+    });
+    return grammar;
+}
+
+function checkOR(grammar){
+    //Check if each production is well formed
+    //i.e. does not end or begin with OR; no ORs are adjacent
+    for (var i = 0; i < 4; i++){
+	var size = grammar[i].length;
+	if (grammar[i][0] == 'or' || grammar[i][size-1] == 'or'){
+	    console.log('Hey, a rule row should not begin or end with OR');
+	    return false;
+	}
+	for(var j = 1; j < size; j++){
+	    if (grammar[i][j] == 'or' && grammar[i][j-1] == 'or'){
+		console.log('hey, there should be something between two ORs');
+		return false;
+	    }
+	}
+    }
+    return true;
+}
+
+function checkStructure(grammar){
+    //Check if the grammar's structure is a tree (rooted at row 1)
+    var explore = function(grammar, visited, index){
+	visited[index] = true;
+	if (grammar[index].length == 0) {
+	    console.log('Hey, you need tiles in row '+(index+1).toString());
+	    return false;
+	}
+	for (var i = 0; i < grammar[index].length; i++){
+	    //convert to zero based indexing
+	    token = grammar[index][i];
+	    if (typeof token === 'number'){
+		token -= 1;
+		if (visited[token]){
+		    console.log('Hey, you cannot refer to an earlier rule');
+		    return false;
+		}
+		explore(grammar, visited, token);
+	    }
+	}
+	return true;
+    };
+
+    var visited = [false,false,false,false];
+    if (! explore(grammar, visited, 0)) {
+	return false;
+    }
+    for (var i = 1; i < 4; i++){
+	if (! visited[i]) {
+	    if (grammar[i].length > 0) {
+		console.log('Hey, only rows reachable from 1 can have tiles');
+		return false;
+	    }
+	}
+    }
+    return true;
+}
+
+function foobar(){
+    grammar = getGrammar();
+    if (! checkOR(grammar)){}
+    if (! checkStructure(grammar)){}
+    //Handle self-reference: only one instance allowed
+}
+
 $(document).ready(function(){
+    var problem = 1;
+    var codes = [];
     var limit = 6;
     var ruleRowSizes = [0,0,0,0];
+
     preloadImages();
+
     $("#iconList li:last").hide();
+
+    //Get the codes for the problems
+    $.get('problemCodes',function(data){
+	var lines = data.split('\n');
+	for (var i = 0; i < lines.length; i++) {
+	    var tokens = lines[i].split(' ');
+	    codes.push(tokens);
+	}
+    },'text');
 
     //Enable tabs
     $( "#tabs" ).tabs();
@@ -129,12 +224,19 @@ $(document).ready(function(){
 	    $('#whichProblem').val(ui.value);
 	},
 	stop:function(event,ui){
+	    problem = ui.value;
 	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	}
     });
+    $("#whichProblem").val($("#problemSelect").slider('value'));
 
     //Enable submit button
-    $('button').button();
+    $('button').button().click(function(){
+	//Make grammar from the rule rows (productions)
+	foobar();
+	//Check if each row of the problem belongs
+	
+    });
 
     //Enable radio buttons
     $("#colorSelection").buttonset();
@@ -150,7 +252,8 @@ $(document).ready(function(){
     //Enable sorting, movement from one rule row to another
     $(".ruleRow").sortable({
 	connectWith: '.ruleRow',
-	//Do not receive if limit is reached
+
+	//Upon letting go of a tile...
 	deactivate: function(){
 	    updateSizes(ruleRowSizes);
 	    //Only connect with rule rows that have space (i.e. size < limit)

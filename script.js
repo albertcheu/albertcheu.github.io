@@ -4,10 +4,13 @@ function preloadImages() {
     var filenames = [];
     var color = ['','r','g','b'];
     var shape = ['b','t','x','s','f','c'];
-    for (i = 0; i < 4; i ++){
+    for (i = 0; i < 4; i++){
 	for (j = 0; j < 6; j++){
 	    filenames.push('icons/'+color[i]+shape[j]+'.png');
 	}
+    }
+    for (i = 0; i < 5; i++){
+	filenames.push('problems/p'+(i.toString()+1)+'.png');
     }
 
     for (i = 0; i < filenames.length; i++) {
@@ -121,9 +124,12 @@ $(document).ready(function(){
 	range:'min',
 	value:1,
 	min:1,
-	max:10,
+	max:5,
 	slide:function(event, ui){
 	    $('#whichProblem').val(ui.value);
+	},
+	stop:function(event,ui){
+	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	}
     });
 

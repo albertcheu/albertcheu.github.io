@@ -29,7 +29,9 @@
       </ul>
 
       <div id="tabs-1">
-	<div id="problemPic"></div>
+	<div id="problemPicArea">
+	  <img id="problemPic" src="problems/p1.png">
+	</div>
 
 	<form>
 	  <div id="colorSelection">
@@ -39,7 +41,6 @@
 	    <input type="radio" id="blue" name="radio"><label for="blue">Blue</label>
 	  </div>
 	</form>
-
 	
 	<ul id="iconList">
 	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
@@ -58,8 +59,6 @@
 	  <li ><img class="icon" alt="x" src="icons/t3.png"></li>
 	  <li ><img class="icon" alt="x" src="icons/t4.png"></li>
 	</ul>
-	
-	<div id="trash">Drag here<br>to delete</div>
 
 	<table style="float:left;margin-top:6px;">
 	  <tr><td><ul id="rr1" class="ruleRow"></ul></td></tr>
@@ -67,6 +66,8 @@
 	  <tr><td><ul id="rr3" class="ruleRow"></ul></td></tr>
 	  <tr><td><ul id="rr4" class="ruleRow"></ul></td></tr>
 	</table>
+
+	<div id="trash">Drag here<br>to delete</div>
 
 	<div style="clear:left;">
 	  <label for="whichProblem">Problem Number:</label>

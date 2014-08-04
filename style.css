@@ -14,10 +14,10 @@ h1 {
     float:left;
     width:700px;
 }
-p,label,form{
+a,p,label,form{
     margin:0;
     padding:0;
-    font-size:1.2em;
+    font-size:12px;
 }
 
 #whichProblem{
@@ -29,7 +29,7 @@ p,label,form{
     width:305px;
 }
 
-#problemPic, #iconList, #numList, #trash, .ruleRow {
+#problemPicArea, #iconList, #numList, #trash, .ruleRow {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -40,7 +40,7 @@ p,label,form{
     padding: 5px;
 }
 
-#problemPic{
+#problemPicArea{
     height:350px;
     width:300px;
 }

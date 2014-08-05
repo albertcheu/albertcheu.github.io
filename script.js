@@ -134,12 +134,12 @@ function checkOR(grammar){
     for (var i = 0; i < 4; i++){
 	var size = grammar[i].length;
 	if (grammar[i][0] == 'or' || grammar[i][size-1] == 'or'){
-	    console.log('Hey, a rule row should not begin or end with OR');
+	    alert('Hey, a rule row should not begin or end with OR');
 	    return false;
 	}
 	for(var j = 1; j < size; j++){
 	    if (grammar[i][j] == 'or' && grammar[i][j-1] == 'or'){
-		console.log('hey, there should be something between two ORs');
+		alert('Hey, there should be something between two ORs');
 		return false;
 	    }
 	}
@@ -152,7 +152,7 @@ function checkStructure(grammar){
     var explore = function(grammar, visited, index){
 	visited[index] = true;
 	if (grammar[index].length == 0) {
-	    console.log('Hey, you need tiles in row '+(index+1).toString());
+	    alert('Hey, you need tiles in row '+(index+1).toString());
 	    return false;
 	}
 	for (var i = 0; i < grammar[index].length; i++){
@@ -161,7 +161,7 @@ function checkStructure(grammar){
 	    if (typeof token === 'number'){
 		token -= 1;
 		if (visited[token]){
-		    console.log('Hey, you cannot refer to an earlier rule');
+		    alert('Hey, you cannot refer to an earlier rule');
 		    return false;
 		}
 		explore(grammar, visited, token);
@@ -177,7 +177,7 @@ function checkStructure(grammar){
     for (var i = 1; i < 4; i++){
 	if (! visited[i]) {
 	    if (grammar[i].length > 0) {
-		console.log('Hey, only rows reachable from 1 can have tiles');
+		alert('Hey, only rows reachable from 1 can have tiles');
 		return false;
 	    }
 	}
@@ -185,11 +185,32 @@ function checkStructure(grammar){
     return true;
 }
 
-function foobar(){
+function checkSelfLoops(grammar){
+    //Handle self-reference: only one allowed in each OR-separated term
+    for (var i = 0; i < grammar.length; i++){
+	var counter = 0;
+	for (var j = 0; j < grammar[i].length; j++){
+	    var token = grammar[i][j];
+	    if (token == 'or'){
+		if (counter > 1) {
+		    alert('Hey, only one self reference is allowed per term');
+		    return false;
+		}
+		counter = 0;
+	    }
+	    if (token == i) { counter++; }
+	}
+    }
+    return true;
+}
+
+function foobar(problemArray){
     grammar = getGrammar();
-    if (! checkOR(grammar)){}
-    if (! checkStructure(grammar)){}
-    //Handle self-reference: only one instance allowed
+    if(checkOR(grammar) && checkStructure(grammar) && checkSelfLoops(grammar)){
+	//Parse the contents of problemArray
+	console.log('parse');
+	
+    }
 }
 
 $(document).ready(function(){
@@ -206,8 +227,8 @@ $(document).ready(function(){
     $.get('problemCodes',function(data){
 	var lines = data.split('\n');
 	for (var i = 0; i < lines.length; i++) {
-	    var tokens = lines[i].split(' ');
-	    codes.push(tokens);
+	    var problemArray = lines[i].split(' ');
+	    codes.push(problemArray);
 	}
     },'text');
 
@@ -233,7 +254,7 @@ $(document).ready(function(){
     //Enable submit button
     $('button').button().click(function(){
 	//Make grammar from the rule rows (productions)
-	foobar();
+	foobar(codes[problem]);
 	//Check if each row of the problem belongs
 	
     });

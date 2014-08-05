@@ -1,7 +1,10 @@
 //Preload images
 images = new Array();
 function preloadImages() {
+    //Load when page is loaded and never after
     var filenames = [];
+
+    //Tiles, aka icons
     var color = ['','r','g','b'];
     var shape = ['b','t','x','s','f','c'];
     for (i = 0; i < 4; i++){
@@ -9,6 +12,7 @@ function preloadImages() {
 	    filenames.push('icons/'+color[i]+shape[j]+'.png');
 	}
     }
+    //The problem image/picture
     for (i = 0; i < 5; i++){
 	filenames.push('problems/p'+(i.toString()+1)+'.png');
     }
@@ -150,6 +154,8 @@ function checkOR(grammar){
 
 function checkStructure(grammar){
     //Check if the grammar's structure is a tree (rooted at row 1)
+    //I.e. do DFS to make sure we have a DAG (acronyms ahoy)
+
     var explore = function(grammar, visited, index, pre, post){
 	pre[index] = counter++;
 	visited[index] = true;
@@ -229,16 +235,20 @@ function stringifyGrammar(grammar){
 	var prod = grammar[i];
 	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
 	for(var j = 0; j < prod.length; j++){
+	    var selfref = false;
 	    if (prod[j] == 'or') { ans += ' / '; }
 	    //Refer to another rule row/production
 	    else if (typeof prod[j] === 'number') {
 		ans += ' prod'+(prod[j]-1).toString();
+		selfref = true;
 	    }
 	    //Shape set & color class
 	    else if (prod[j].length != 2) { ans += ' '+prod[j]+' '; }
 	    //Specific symbol (terminal)
 	    else { ans += " '"+prod[j]+"' "; }
 	}
+	//Make sure there is no infinite regress by putting a dummy terminal
+	if (selfref) { ans += " / ''"; }
 	if (prod.length > 0) { ans += '\n'; }
     }
     return ans;
@@ -316,10 +326,18 @@ $(document).ready(function(){
 	validateInput(codes[problem-1])
     });
 
+    //Make the 'any' button the chosen one, the button who lived, Harry Button
+    var radios = document.getElementsByName('radio');
+    for (var i = 0; i < radios.length; i++){
+	radios[i].checked = false;
+    }
+    document.getElementById('any').checked = true;
+
     //Enable radio buttons
     $("#colorSelection").buttonset();
     $(":radio").click(function(){
 	changeImageColor($(this).attr('id'));
+
     });
 
     //Enable dragging and dropping

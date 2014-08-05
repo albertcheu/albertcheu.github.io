@@ -92,19 +92,32 @@
       </div>
 
       <div id="tabs-2">
-	<p>The left of the screen lists sequences of symbols that obey a common pattern; the objective of the game is to formally express the pattern</p>
+	<p>Welcome to my game!</p>
+	<br>
+	<p>The objective is to find a pattern obeyed by the left-hand image</p>
+	<p>Select which image to view with the slider beneath</p>
+	<br>
+	<p>Each problem-image consists of a grid of symbols. Each row of the grid obeys the mystery pattern.</p>
+	<br>
 	<p>A <em>symbol</em> is colored shape (i.e. a green triangle)</p>
 	<p>There are three <em>color classes</em> (Red, Green, Blue) and six <em>shape sets</em> (Box, Triangle, Circle, X, Star, Face)</p>
 
-	<p>The right of the screen is where players input <em>Rule Rows</em>. A Rule Row is denoted by a number (1-4) and a sequence of Tiles.</p>
-	<p><em>A tile</em> can be a color class, a shape set, or a symbol. For instance "1: R B box" says that each sequence consists of a red symbol, a blue symbol, and a box of any color.</p>
-	<p>In addition, there is <em>the OR tile</em>. For instance, "1: G OR X" means that all sequences are made up of one green symbol or one X</p>
-	<p>Finally, a Rule Row can be <em>referenced</em> in other Rows (or itself!). For instance, "1: G 1 OR X 2" means that a Good sequence is made up of a green symbol followed by whatever Row 1 says OR an X followed by whatever Row 2 says.</p>
+	<br>
+	<p>To the right of the problem-image is the interaction region, where you have to drag tiles into the four <em>Rule Rows</em>.</p>
+	<br>
+	<p>A Rule Row is denoted by a number (1-4) and consists of tiles.</p>
+	<br>
+	<p><em>A tile</em> can be a color class, a shape set, or a symbol. For instance "1: R B box" says that each row of the problem-image consists of a red symbol, a blue symbol, and a box of any color.</p>
+	<br>
+	<p>In addition, there is <em>the OR tile</em>. For instance, "1: G OR X" means that each row of the problem-image is made up of one green symbol or one X</p>
+	<br>
+	<p>Finally, a Rule Row can be <em>referenced</em> in other Rows (or itself!). For instance, "1: G 3 OR X 2" means that a green symbol is followed by whatever Row 1 says OR an X followed by whatever Row 2 says.</p>
+	<br>
 	<p>Each valid solution gets 50 points, minus one point per tile. For instance, if a solution has 8 tiles in total, the final score is 42.</p>
       </div>
 
       <div id="tabs-3">
-	<p>Cheu's Fun Game is inspired by the concept of Context-Free Grammar</p>
+	<p>I used JQuery UI for the interface and PEG behind the scenes to create parsers from the user input.</p>
       </div>
 
     </div>

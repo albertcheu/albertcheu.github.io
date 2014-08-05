@@ -111,6 +111,7 @@ function updateSizes(ruleRowSizes){
 }
 
 function getGrammar(){
+    //Make grammar from the rule rows (productions)
     var grammar = [];
     $('.ruleRow').each(function(){
 	var production = [];
@@ -149,31 +150,47 @@ function checkOR(grammar){
 
 function checkStructure(grammar){
     //Check if the grammar's structure is a tree (rooted at row 1)
-    var explore = function(grammar, visited, index){
+    var explore = function(grammar, visited, index, pre, post){
+	pre[index] = counter++;
 	visited[index] = true;
+
 	if (grammar[index].length == 0) {
 	    alert('Hey, you need tiles in row '+(index+1).toString());
 	    return false;
 	}
+	var neighbors = [false,false,false,false];
 	for (var i = 0; i < grammar[index].length; i++){
 	    //convert to zero based indexing
 	    token = grammar[index][i];
-	    if (typeof token === 'number'){
+	    if (typeof token === 'number' && token-1 != index){
 		token -= 1;
-		if (visited[token]){
-		    alert('Hey, you cannot refer to an earlier rule');
+		if (! visited[token] ){ neighbors[token] = true; }
+	    }
+	}
+	post[index] = counter++;
+	for (var i = 0; i < 4; i++){
+	    if (neighbors[i] &&
+		! explore(grammar, visited, i, pre, post))
+	    { return false; }
+	}
+
+	for (var i = 0; i < 4; i++){
+	    if (neighbors[i]){
+		if (pre[i] > pre[index] && post[i] < post[index]) {
+		    alert('Hey, you can not have a back reference');
 		    return false;
 		}
-		explore(grammar, visited, token);
 	    }
 	}
 	return true;
     };
 
+    var counter = 0;
     var visited = [false,false,false,false];
-    if (! explore(grammar, visited, 0)) {
-	return false;
-    }
+    var pre = [-1,-1,-1,-1];
+    var post = [-1,-1,-1,-1];
+    if (! explore(grammar, visited, 0, pre, post)) { return false; }
+
     for (var i = 1; i < 4; i++){
 	if (! visited[i]) {
 	    if (grammar[i].length > 0) {
@@ -204,12 +221,55 @@ function checkSelfLoops(grammar){
     return true;
 }
 
-function foobar(problemArray){
-    grammar = getGrammar();
+function stringifyGrammar(grammar){
+    //Convert the doubly-nested array into a string
+    //to pass to PEG.buildParser
+    var ans = '';
+    for(var i = 0; i < 4; i++){
+	var prod = grammar[i];
+	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
+	for(var j = 0; j < prod.length; j++){
+	    if (prod[j] == 'or') { ans += ' / '; }
+	    //Refer to another rule row/production
+	    else if (typeof prod[j] === 'number') {
+		ans += ' prod'+(prod[j]-1).toString();
+	    }
+	    //Shape set & color class
+	    else if (prod[j].length != 2) { ans += ' '+prod[j]+' '; }
+	    //Specific symbol (terminal)
+	    else { ans += " '"+prod[j]+"' "; }
+	}
+	if (prod.length > 0) { ans += '\n'; }
+    }
+    return ans;
+}
+
+function validateInput(problemArray){
+    var grammar = getGrammar();
     if(checkOR(grammar) && checkStructure(grammar) && checkSelfLoops(grammar)){
-	//Parse the contents of problemArray
-	console.log('parse');
-	
+
+	var s = stringifyGrammar(grammar);
+	$.get('grammar',function(data){
+	    var lines = data.split('\n');
+	    for (var i = 0; i < lines.length; i++) { s += lines[i]+'\n'; }
+	    var parser = PEG.buildParser(s);
+	    //Check if each row of the problem belongs
+	    //i.e. parse the contents of problemArray
+	    for (var i = 0; i < problemArray.length; i++){
+		var tokenString = problemArray[i];
+		try {
+		    var parseData = parser.parse(tokenString);
+		    alert('Your solution works!');
+		    return true;
+		}
+		catch (err) {
+		    alert('Your solution does not work!');
+		    console.log(tokenString);
+		    console.log(err.toString());
+		    return false;
+		}
+	    }
+	},'text');
     }
 }
 
@@ -253,10 +313,7 @@ $(document).ready(function(){
 
     //Enable submit button
     $('button').button().click(function(){
-	//Make grammar from the rule rows (productions)
-	foobar(codes[problem]);
-	//Check if each row of the problem belongs
-	
+	validateInput(codes[problem-1])
     });
 
     //Enable radio buttons

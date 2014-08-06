@@ -1,5 +1,6 @@
 //Preload images
 var images = [];
+var NUMROWS = 4;
 var NUMPROBLEMS = 5;
 var LIMIT = 6;
 
@@ -102,16 +103,16 @@ function getConnectors(ruleRowSizes){
     //Given the number of icons in each rule row,
     //produce a list of ids that correspond to those rows with empty space
     var ans = [];
-    for(var i = 0; i < ruleRowSizes.length; i++){
-	if (ruleRowSizes[i] < LIMIT) { ans.push('#rr'+(i+1).toString()); }
+    for(var i = 0; i < NUMROWS; i++){
+	if (ruleRowSizes[i] < LIMIT) { ans.push('#rr'+i.toString()); }
     }
     return ans;
 }
 
 function updateSizes(ruleRowSizes){
     //Update the array that lists the number of icons in each rule row
-    for(var i = 0; i < ruleRowSizes.length; i++){
-	var ruleRow = $('#rr'+(i+1).toString());
+    for(var i = 0; i < NUMROWS; i++){
+	var ruleRow = $('#rr'+i.toString());
 	ruleRowSizes[i] = countChildren(ruleRow);
     }
 }
@@ -125,7 +126,7 @@ function getGrammar(){
 	    $(this).children().each(function(){
 		var tile = shortenFilename($(this).children()[0].src);
 		if (tile.length==2 && tile.charAt(0)=='t') {
-		    tile = parseInt(tile.charAt(1));
+		    tile = parseInt(tile.charAt(1)) - 1;
 		}
 		production.push(tile);
 	    });
@@ -138,7 +139,7 @@ function getGrammar(){
 function checkOR(grammar){
     //Check if each production is well formed
     //i.e. does not end or begin with OR; no ORs are adjacent
-    for (var i = 0; i < 4; i++){
+    for (var i = 0; i < NUMROWS; i++){
 	var size = grammar[i].length;
 	if (grammar[i][0] == 'or' || grammar[i][size-1] == 'or'){
 	    alert('Hey, a rule row should not begin or end with OR');
@@ -163,26 +164,24 @@ function checkStructure(grammar){
 	visited[index] = true;
 
 	if (grammar[index].length == 0) {
-	    alert('Hey, you need tiles in row '+(index+1).toString());
+	    alert('Hey, you need tiles in row '+index.toString());
 	    return false;
 	}
 	var neighbors = [false,false,false,false];
 	for (var i = 0; i < grammar[index].length; i++){
-	    //convert to zero based indexing
-	    token = grammar[index][i];
-	    if (typeof token === 'number' && token-1 != index){
-		token -= 1;
+	    var token = grammar[index][i];
+	    if (typeof token === 'number' && token != index){
 		if (! visited[token] ){ neighbors[token] = true; }
 	    }
 	}
 	post[index] = counter++;
-	for (var i = 0; i < 4; i++){
+	for (var i = 0; i < NUMROWS; i++){
 	    if (neighbors[i] &&
 		! explore(grammar, visited, i, pre, post))
 	    { return false; }
 	}
 
-	for (var i = 0; i < 4; i++){
+	for (var i = 0; i < NUMROWS; i++){
 	    if (neighbors[i]){
 		if (pre[i] > pre[index] && post[i] < post[index]) {
 		    alert('Hey, you can not have a back reference');
@@ -199,7 +198,7 @@ function checkStructure(grammar){
     var post = [-1,-1,-1,-1];
     if (! explore(grammar, visited, 0, pre, post)) { return false; }
 
-    for (var i = 1; i < 4; i++){
+    for (var i = 1; i < NUMROWS; i++){
 	if (! visited[i]) {
 	    if (grammar[i].length > 0) {
 		alert('Hey, only rows reachable from 1 can have tiles');
@@ -212,7 +211,7 @@ function checkStructure(grammar){
 
 function checkSelfLoops(grammar){
     //Handle self-reference: only one allowed in each OR-separated term
-    for (var i = 0; i < grammar.length; i++){
+    for (var i = 0; i < NUMROWS; i++){
 	var counter = 0;
 	for (var j = 0; j < grammar[i].length; j++){
 	    var token = grammar[i][j];
@@ -233,7 +232,7 @@ function stringifyGrammar(grammar){
     //Convert the doubly-nested array into a string
     //to pass to PEG.buildParser
     var ans = '';
-    for(var i = 0; i < 4; i++){
+    for(var i = 0; i < NUMROWS; i++){
 	var prod = grammar[i];
 	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
 	for(var j = 0; j < prod.length; j++){
@@ -241,8 +240,8 @@ function stringifyGrammar(grammar){
 	    if (prod[j] == 'or') { ans += ' / '; }
 	    //Refer to another rule row/production
 	    else if (typeof prod[j] === 'number') {
-		ans += ' prod'+(prod[j]-1).toString();
-		selfref = true;
+		ans += ' prod'+prod[j].toString();
+		if (i == prod[j]) { selfref = true; }
 	    }
 	    //Shape set & color class
 	    else if (prod[j].length != 2) { ans += ' '+prod[j]+' '; }
@@ -259,30 +258,29 @@ function stringifyGrammar(grammar){
 function validateInput(problemArray){
     var grammar = getGrammar();
     if(checkOR(grammar) && checkStructure(grammar) && checkSelfLoops(grammar)){
-
 	var s = stringifyGrammar(grammar);
 	$.get('grammar',function(data){
 	    var lines = data.split('\n');
 	    for (var i = 0; i < lines.length; i++) { s += lines[i]+'\n'; }
 	    var parser = PEG.buildParser(s);
+
 	    //Check if each row of the problem belongs
 	    //i.e. parse the contents of problemArray
 	    var bad = false;
 	    for (var i = 0; i < problemArray.length; i++){
 		try { var parseData = parser.parse(problemArray[i]); }
-		catch (err) {
-		    alert('Your solution does not work!');
-		    console.log(problemArray[i]);
-		    console.log(err.toString());
-		    bad = true;
-		}
+		catch (err) { bad = true; }
 	    }
+
 	    if (! bad){
 		var points = 50;
-		for(var i = 0; i < 4; i++){ points -= grammar[i].length; }
+		for(var i = 0; i < NUMROWS; i++){ points -= grammar[i].length; }
 		var ps = points.toString();
 		alert('Your solution works!\nYou get '+ps+' points.');
 	    }
+
+	    else{ alert('Your solution does not work!'); }
+
 	},'text');
     }
 }
@@ -292,18 +290,20 @@ function initCache(){
     var ans = [];
     for (var i = 0; i < NUMPROBLEMS; i++){
 	ans.push([]);
-	//Each X is an array of 4 arrays
-	//Each of those shall hold what is in each rule row
-	for (var j = 0; j < 4; j++){ ans[i].push([]); }
+	//Each X is an array of rule rows
+	for (var j = 0; j < NUMROWS; j++){ ans[i].push([]); }
     }
     return ans;
 }
 
 $(document).ready(function(){
-    var problem = 1;
+    var problem = 0;
     var codes = [];
     var ruleRowSizes = [0,0,0,0];
     var cachedInput = initCache();
+
+    //Enable tabs
+    $( "#tabs" ).tabs();
 
     preloadImages();
 
@@ -314,42 +314,37 @@ $(document).ready(function(){
     //Get the codes for the problems
     $.get('problemCodes',function(data){
 	var lines = data.split('\n');
-	for (var i = 0; i < lines.length; i++) {
+	for (var i = 0; i < NUMPROBLEMS; i++) {
 	    var problemArray = lines[i].split(' ');
 	    codes.push(problemArray);
 	}
     },'text');
 
-    //Enable tabs
-    $( "#tabs" ).tabs();
-
     //Enable slider
     $("#problemSelect").slider({
-	range:'min',
-	value:1,
-	min:1,
-	max:NUMPROBLEMS,
+	range:'min', value:1, min:1, max:NUMPROBLEMS,
 	slide:function(event, ui){
 	    $('#whichProblem').val(ui.value);
 	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	},
+
 	stop:function(event,ui){
-	    for (var i = 0; i < 4; i++){
+	    for (var i = 0; i < NUMROWS; i++){
 		//Store what is in the rule rows
-		var currentRuleRow = $('#rr'+(i+1).toString());
-		cachedInput[problem-1][i] = currentRuleRow.children();
+		var currentRuleRow = $('#rr'+i.toString());
+		cachedInput[problem][i] = currentRuleRow.children();
 
 		//Load rule rows for the chosen problem		
 		currentRuleRow.empty();
 		currentRuleRow.append(cachedInput[ui.value-1][i]);
 	    }
-	    problem = ui.value;
+	    problem = ui.value-1;
 	}
     });
     $("#whichProblem").val($("#problemSelect").slider('value'));
 
     //Enable submit button
-    $('button').button().click(function(){ validateInput(codes[problem-1]) });
+    $('button').button().click(function(){ validateInput(codes[problem]) });
 
     //Make the 'any' button the chosen one, the button who lived, Harry Button
     var radios = document.getElementsByName('radio');
@@ -391,8 +386,8 @@ $(document).ready(function(){
 	accept: ".ruleRow > li",
 	drop: function(event, ui){ ui.draggable.remove(); }
     }).click(function(){
-	//The rule row is a cousin of the trash cell
-	var ruleRow = $($(this).parent().prev().children()[0]);
+	//The rule row is the older sibling of the trash div
+	var ruleRow = $(this).prev();
 	ruleRow.empty();
     });
 

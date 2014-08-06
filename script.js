@@ -291,6 +291,9 @@ $(document).ready(function(){
 
     preloadImages();
 
+
+    //By default, we are on the 'any color' selection; we shouldnt see
+    // the last tile
     $("#iconList li:last").hide();
 
     //Get the codes for the problems
@@ -367,11 +370,13 @@ $(document).ready(function(){
     $( "#iconList, #numList, .ruleRow" ).disableSelection();
 
     //Enable deletion
-    $("#trash").droppable({
-	accept:".ruleRow > li",
-	drop: function(event, ui){
-	    ui.draggable.remove();
-	}
+    $(".trash").droppable({
+	accept: ".ruleRow > li",
+	drop: function(event, ui){ ui.draggable.remove(); }
+    }).click(function(){
+	//The rule row is a cousin of the trash cell
+	var ruleRow = $($(this).parent().prev().children()[0]);
+	ruleRow.empty();
     });
 
 });

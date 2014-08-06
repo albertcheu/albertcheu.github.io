@@ -30,13 +30,13 @@
       </ul>
 
       <div id="tabs-1">
-	<div id="problemPicArea">
+	<div id="problemPicArea" title="Find the pattern each row obeys">
 	  <img id="problemPic" src="problems/p1.png">
 	</div>
 
 	<div>
 	  <form>
-	    <div id="colorSelection">
+	    <div id="colorSelection" title="Select the color of the tiles">
 	      <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
 	      <input type="radio" id="red" name="radio"><label for="red">Red</label>
 	      <input type="radio" id="green" name="radio"><label for="green">Green</label>
@@ -46,7 +46,7 @@
 	  <button><b>Submit!</b></button>
 	</div>
 
-	<ul id="iconList">
+	<ul id="iconList" title="Drag tiles from here to the rule rows">
 	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
 	  <li ><img class="icon" alt="t" src="icons/t.png"></li>
 	  <li ><img class="icon" alt="c" src="icons/c.png"></li>
@@ -57,7 +57,7 @@
 	  <li ><img class="icon" alt="red" src="icons/red.png"></li>
 	</ul>
 	
-	<ul id="numList">
+	<ul id="numList" title="These tiles refer to rule rows">
 	  <li ><img class="icon" alt="x" src="icons/t1.png"></li>
 	  <li ><img class="icon" alt="x" src="icons/t2.png"></li>
 	  <li ><img class="icon" alt="x" src="icons/t3.png"></li>
@@ -65,19 +65,32 @@
 	</ul>
 
 	<table style="float:left;margin-top:6px;">
-	  <tr><td><ul id="rr1" class="ruleRow"></ul></td></tr>
-	  <tr><td><ul id="rr2" class="ruleRow"></ul></td></tr>
-	  <tr><td><ul id="rr3" class="ruleRow"></ul></td></tr>
-	  <tr><td><ul id="rr4" class="ruleRow"></ul></td></tr>
-	</table>
+	  <tr>
+	    <td><ul id="rr1" class="ruleRow" title="Rule row 1"></ul></td>
+	    <td><div class="trash" title="Drop to trash, click to clear">
+		Drop to<br>trash tile.<br>Click to<br>clear row.
+	    </div></td>
+	  </tr>
+	  <tr>
+	    <td><ul id="rr2" class="ruleRow" title="Rule row 2"></ul></td>
+	    <td><div class="trash" title="Drop to trash, click to clear">
+		Drop to<br>trash tile.<br>Click to<br>clear row.
+	    </div></td>
+	  </tr>
+	  <tr>
+	    <td><ul id="rr3" class="ruleRow" title="Rule row 3"></ul></td>
+	    <td><div class="trash" title="Drop to trash, click to clear">
+		Drop to<br>trash tile.<br>Click to<br>clear row.
+	    </div></td>
+	  </tr>
+	  <tr>
+	    <td><ul id="rr4" class="ruleRow" title="Rule row 4"></ul></td>
+	    <td><div class="trash" title="Drop to trash, click to clear">
+		Drop to<br>trash tile.<br>Click to<br>clear row.
+	    </div></td>
+	  </tr>
 
-	<div id="trash">
-	  T<br><br><br>
-	  R<br><br><br>
-	  A<br><br><br>
-	  S<br><br><br>
-	  H
-	</div>
+	</table>
 
 	<div style="clear:left;">
 	  <div style="width:300px;float:left;">
@@ -103,21 +116,25 @@
 	<p>There are three <em>color classes</em> (Red, Green, Blue) and six <em>shape sets</em> (Box, Triangle, Circle, X, Star, Face)</p>
 
 	<br>
-	<p>To the right of the problem-image is the interaction region, where you have to drag tiles into the four <em>Rule Rows</em>.</p>
-	<br>
-	<p>A Rule Row is denoted by a number (1-4) and consists of tiles.</p>
+	<p>To the right of the problem-image is the interaction region, where you have to drag tiles into the four Rule Rows. Every solution must start at 1.</p>
+
 	<br>
 	<p><em>A tile</em> can be a color class, a shape set, or a symbol. For instance "1: R B box" says that each row of the problem-image consists of a red symbol, a blue symbol, and a box of any color.</p>
 	<br>
-	<p>In addition, there is <em>the OR tile</em>. For instance, "1: G OR X" means that each row of the problem-image is made up of one green symbol or one X</p>
+	<p>In addition, there is <em>the OR tile</em>. For instance, "1: G OR X" means that each row of the problem-image is made up of either one green symbol OR one X</p>
 	<br>
-	<p>Finally, a Rule Row can be <em>referenced</em> in other Rows (or itself!). For instance, "1: G 3 OR X 2" means that a green symbol is followed by whatever Row 1 says OR an X followed by whatever Row 2 says.</p>
+	<p>Finally, a Rule Row can be <em>referenced</em> in other Rows (or itself!). For instance, "1: X 2" means an X is followed by whatever Row 2 says.</p>
 	<br>
 	<p>Each valid solution gets 50 points, minus one point per tile. For instance, if a solution has 8 tiles in total, the final score is 42.</p>
       </div>
 
       <div id="tabs-3">
-	<p>I used JQuery UI for the interface and PEG behind the scenes to create parsers from the user input.</p>
+	<p>
+	  I used <a href="http://jqueryui.com/">JQuery UI</a> for the interface and <a href="http://pegjs.majda.cz/">PEG.js</a> behind the scenes to create parsers from the user input.
+	  <br>
+	  <br>
+	  <a href="http://www.libreoffice.org/">Libreoffice Draw</a> was used to create the tiles and problem-images.
+	</p>
       </div>
 
     </div>

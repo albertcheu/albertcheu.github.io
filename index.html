@@ -34,37 +34,41 @@
 	  <img id="problemPic" src="problems/p1.png">
 	</div>
 
-	<div style="display:table;width:900px;">
+	<div style="float:left;">
 	  <form>
 	    <div id="colorSelection" title="Select the color of the tiles">
-	      <input type="radio" id="any" name="radio" checked="checked"><label for="any">Any color</label>
-	      <input type="radio" id="red" name="radio"><label for="red">Red</label>
-	      <input type="radio" id="green" name="radio"><label for="green">Green</label>
-	      <input type="radio" id="blue" name="radio"><label for="blue">Blue</label>
+	      <input type="radio" id="any" name="radio" checked="checked">
+	      <label for="any">Any color</label>
+	      <input type="radio" id="red" name="radio">
+	      <label for="red">Red</label>
+	      <input type="radio" id="green" name="radio">
+	      <label for="green">Green</label>
+	      <input type="radio" id="blue" name="radio">
+	      <label for="blue">Blue</label>
 	    </div>
 	  </form>
-	  <button><b>Submit!</b></button>
+	  
+	  <ul id="iconList" title="Drag tiles from here to the rule rows">
+	    <li ><img class="icon" alt="b" src="icons/b.png"></li>
+	    <li ><img class="icon" alt="t" src="icons/t.png"></li>
+	    <li ><img class="icon" alt="c" src="icons/c.png"></li>
+	    <li ><img class="icon" alt="x" src="icons/x.png"></li>
+	    <li ><img class="icon" alt="s" src="icons/s.png"></li>
+	    <li ><img class="icon" alt="f" src="icons/f.png"></li>
+	    <li ><img class="icon" alt="or" src="icons/or.png"></li>
+	    <li ><img class="icon" alt="red" src="icons/red.png"></li>
+	  </ul>
+
+	  <ul id="numList" title="These tiles refer to rule rows">
+	    <li ><img class="icon" alt="t1" src="icons/t1.png"></li>
+	    <li ><img class="icon" alt="t2" src="icons/t2.png"></li>
+	    <li ><img class="icon" alt="t3" src="icons/t3.png"></li>
+	    <li ><img class="icon" alt="t4" src="icons/t4.png"></li>
+	  </ul>
 	</div>
 
-	<ul id="iconList" title="Drag tiles from here to the rule rows">
-	  <li ><img class="icon" alt="b" src="icons/b.png"></li>
-	  <li ><img class="icon" alt="t" src="icons/t.png"></li>
-	  <li ><img class="icon" alt="c" src="icons/c.png"></li>
-	  <li ><img class="icon" alt="x" src="icons/x.png"></li>
-	  <li ><img class="icon" alt="s" src="icons/s.png"></li>
-	  <li ><img class="icon" alt="f" src="icons/f.png"></li>
-	  <li ><img class="icon" alt="or" src="icons/or.png"></li>
-	  <li ><img class="icon" alt="red" src="icons/red.png"></li>
-	</ul>
-	
-	<ul id="numList" title="These tiles refer to rule rows">
-	  <li ><img class="icon" alt="x" src="icons/t1.png"></li>
-	  <li ><img class="icon" alt="x" src="icons/t2.png"></li>
-	  <li ><img class="icon" alt="x" src="icons/t3.png"></li>
-	  <li ><img class="icon" alt="x" src="icons/t4.png"></li>
-	</ul>
-
-	<table style="float:left;margin-top:6px;">
+	<table>
+	  <th><button><b>Submit!</b></button></th>
 	  <tr>
 	    <td>
 	      <ul id="rr0" class="ruleRow" title="Rule row 1"></ul>

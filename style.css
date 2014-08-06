@@ -8,8 +8,11 @@ h1 {
 
 #tabs{
     min-height:550px;
-    width:1260px;
+    min-width:1000px;
+    max-width:1260px;
 }
+
+table { float:left; }
 
 a,p,label,form{
     margin:0;
@@ -19,17 +22,13 @@ a,p,label,form{
 
 form{
     height:25px;
-    width:auto;
-    float:left;
+    width:100%;
     margin-top:3px;
 }
 
 button{
     height:30px;
-    margin-left:10px;
-    margin-top:3px;
-    width:570px;
-    float:left;
+    width:100%;
 }
 
 #problemPicArea, #iconList, #numList, .ruleRow, .trash {
@@ -46,17 +45,23 @@ button{
     height:350px;
     width:300px;
 }
-#iconList{
-     width: 160px;
-     height: 330px;
-}
 .icon{
     width:70px;
     height:70px;
 }
-#numList, #trash{
+#iconList{
+    clear:left;
+    width: 160px;
+    height: 330px;
+}
+#numList{
     height: 330px;
     width: 80px;
+}
+#iconList li, #numList li, .ruleRow li {
+    float:left;
+    padding: 5px;
+    width: 70px;
 }
 .ruleRow, .trash{
     height: 80px;
@@ -64,11 +69,12 @@ button{
     margin-top:2px;
     padding:0px;
 }
-#iconList li, #numList li, .ruleRow li {
-    float:left;
-    padding: 5px;
-    width: 70px;
+.trash{
+    margin-right:0;
+    font-size:12px;
+    text-align:center;
 }
+
 
 #whichProblem{
     border:0;
@@ -77,9 +83,4 @@ button{
 #problemSelect{
     margin-top:5px;
     width:305px;
-}
-
-.trash{
-    font-size:12px;
-    text-align:center;
 }

@@ -1,5 +1,8 @@
 //Preload images
-images = new Array();
+var images = [];
+var NUMPROBLEMS = 5;
+var LIMIT = 6;
+
 function preloadImages() {
     //Load when page is loaded and never after
     var filenames = [];
@@ -13,12 +16,12 @@ function preloadImages() {
 	}
     }
     //The problem image/picture
-    for (i = 0; i < 5; i++){
+    for (i = 0; i < NUMPROBLEMS; i++){
 	filenames.push('problems/p'+(i.toString()+1)+'.png');
     }
 
     for (i = 0; i < filenames.length; i++) {
-	images[i] = new Image();
+	images.push(new Image());
 	images[i].src = filenames[i];
     }
 }
@@ -95,12 +98,12 @@ function countChildren(jqObj){
     return actualSize;
 }
 
-function getConnectors(ruleRowSizes, limit){
+function getConnectors(ruleRowSizes){
     //Given the number of icons in each rule row,
     //produce a list of ids that correspond to those rows with empty space
     var ans = [];
     for(var i = 0; i < ruleRowSizes.length; i++){
-	if (ruleRowSizes[i] < limit) { ans.push('#rr'+(i+1).toString()); }
+	if (ruleRowSizes[i] < LIMIT) { ans.push('#rr'+(i+1).toString()); }
     }
     return ans;
 }
@@ -108,9 +111,8 @@ function getConnectors(ruleRowSizes, limit){
 function updateSizes(ruleRowSizes){
     //Update the array that lists the number of icons in each rule row
     for(var i = 0; i < ruleRowSizes.length; i++){
-	ruleRow = $('#rr'+(i+1).toString());
-	c = countChildren(ruleRow);
-	ruleRowSizes[i] = c;
+	var ruleRow = $('#rr'+(i+1).toString());
+	ruleRowSizes[i] = countChildren(ruleRow);
     }
 }
 
@@ -265,32 +267,45 @@ function validateInput(problemArray){
 	    var parser = PEG.buildParser(s);
 	    //Check if each row of the problem belongs
 	    //i.e. parse the contents of problemArray
+	    var bad = false;
 	    for (var i = 0; i < problemArray.length; i++){
-		var tokenString = problemArray[i];
-		try {
-		    var parseData = parser.parse(tokenString);
-		    alert('Your solution works!');
-		    return true;
-		}
+		try { var parseData = parser.parse(problemArray[i]); }
 		catch (err) {
 		    alert('Your solution does not work!');
-		    console.log(tokenString);
+		    console.log(problemArray[i]);
 		    console.log(err.toString());
-		    return false;
+		    bad = true;
 		}
+	    }
+	    if (! bad){
+		var points = 50;
+		for(var i = 0; i < 4; i++){ points -= grammar[i].length; }
+		var ps = points.toString();
+		alert('Your solution works!\nYou get '+ps+' points.');
 	    }
 	},'text');
     }
 }
 
+function initCache(){
+    //An array containing instances of X, with length NUMPROBLEMS
+    var ans = [];
+    for (var i = 0; i < NUMPROBLEMS; i++){
+	ans.push([]);
+	//Each X is an array of 4 arrays
+	//Each of those shall hold what is in each rule row
+	for (var j = 0; j < 4; j++){ ans[i].push([]); }
+    }
+    return ans;
+}
+
 $(document).ready(function(){
     var problem = 1;
     var codes = [];
-    var limit = 6;
     var ruleRowSizes = [0,0,0,0];
+    var cachedInput = initCache();
 
     preloadImages();
-
 
     //By default, we are on the 'any color' selection; we shouldnt see
     // the last tile
@@ -313,35 +328,37 @@ $(document).ready(function(){
 	range:'min',
 	value:1,
 	min:1,
-	max:5,
+	max:NUMPROBLEMS,
 	slide:function(event, ui){
 	    $('#whichProblem').val(ui.value);
+	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	},
 	stop:function(event,ui){
+	    for (var i = 0; i < 4; i++){
+		//Store what is in the rule rows
+		var currentRuleRow = $('#rr'+(i+1).toString());
+		cachedInput[problem-1][i] = currentRuleRow.children();
+
+		//Load rule rows for the chosen problem		
+		currentRuleRow.empty();
+		currentRuleRow.append(cachedInput[ui.value-1][i]);
+	    }
 	    problem = ui.value;
-	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	}
     });
     $("#whichProblem").val($("#problemSelect").slider('value'));
 
     //Enable submit button
-    $('button').button().click(function(){
-	validateInput(codes[problem-1])
-    });
+    $('button').button().click(function(){ validateInput(codes[problem-1]) });
 
     //Make the 'any' button the chosen one, the button who lived, Harry Button
     var radios = document.getElementsByName('radio');
-    for (var i = 0; i < radios.length; i++){
-	radios[i].checked = false;
-    }
+    for (var i = 0; i < radios.length; i++){ radios[i].checked = false; }
     document.getElementById('any').checked = true;
 
     //Enable radio buttons
     $("#colorSelection").buttonset();
-    $(":radio").click(function(){
-	changeImageColor($(this).attr('id'));
-
-    });
+    $(":radio").click(function(){ changeImageColor($(this).attr('id'));  });
 
     //Enable dragging and dropping
     var params = { helper:"clone", connectToSortable: ".ruleRow" };
@@ -356,7 +373,7 @@ $(document).ready(function(){
 	deactivate: function(){
 	    updateSizes(ruleRowSizes);
 	    //Only connect with rule rows that have space (i.e. size < limit)
-	    connectors = getConnectors(ruleRowSizes, limit);
+	    var connectors = getConnectors(ruleRowSizes);
 	    $(".ruleRow").sortable('option','connectWith',connectors);
 
 	    var params = {helper:'clone',connectToSortable:connectors.join()};

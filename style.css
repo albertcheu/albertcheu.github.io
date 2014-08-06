@@ -10,26 +10,28 @@ h1 {
     min-height:550px;
     width:1260px;
 }
+
 a,p,label,form{
     margin:0;
     padding:0;
     font-size:14px;
 }
+
 form{
     height:25px;
+    width:auto;
     float:left;
     margin-top:3px;
-    margin-left:15px;
 }
+
 button{
     height:30px;
-    margin:10px;
-    margin-left:30px;
-    margin-top:0;
-    margin-bottom:0;
-    width:280px;
-    color:"cyan";
+    margin-left:10px;
+    margin-top:3px;
+    width:570px;
+    float:left;
 }
+
 #problemPicArea, #iconList, #numList, .ruleRow, .trash {
     list-style-type: none;
     margin: 0;

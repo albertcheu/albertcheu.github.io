@@ -37,7 +37,7 @@
 	<div style="float:left;">
 	  <form>
 	    <div id="colorSelection" title="Select the color of the tiles">
-	      <input type="radio" id="any" name="radio" checked="checked">
+	      <input type="radio" id="any" name="radio">
 	      <label for="any">Any color</label>
 	      <input type="radio" id="red" name="radio">
 	      <label for="red">Red</label>
@@ -107,7 +107,9 @@
 	<div style="clear:left;">
 	  <div style="width:300px;float:left;">
 	    <label for="whichProblem">Problem Number:</label>
-	    <input style="font-size:12px;" type="text" id="whichProblem" value="1" readonly>
+	    <input class="numDisplay" type="text" id="whichProblem" value="1" readonly>
+	    <label for="scoreDisp">Max Score:</label>
+	    <input class="numDisplay" type="text" id="scoreDisp" value="0" readonly>
 	    <div id="problemSelect"></div>
 
 	  </div>

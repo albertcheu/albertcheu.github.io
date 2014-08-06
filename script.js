@@ -255,7 +255,7 @@ function stringifyGrammar(grammar){
     return ans;
 }
 
-function validateInput(problemArray){
+function validateInput(problemArray, maxScores, index){
     var grammar = getGrammar();
     if(checkOR(grammar) && checkStructure(grammar) && checkSelfLoops(grammar)){
 	var s = stringifyGrammar(grammar);
@@ -277,6 +277,10 @@ function validateInput(problemArray){
 		for(var i = 0; i < NUMROWS; i++){ points -= grammar[i].length; }
 		var ps = points.toString();
 		alert('Your solution works!\nYou get '+ps+' points.');
+		if (points > maxScores[index]) {
+		    maxScores[index] = points;
+		    $('#scoreDisp').val(points);
+		}
 	    }
 
 	    else{ alert('Your solution does not work!'); }
@@ -295,12 +299,19 @@ function initCache(){
     }
     return ans;
 }
+function initScores(){
+    //An array containing 0, NUMPROBLEMS times
+    var ans = [];
+    for (var i = 0; i < NUMPROBLEMS; i++){ ans.push(0); }
+    return ans;
+}
 
 $(document).ready(function(){
     var problem = 0;
     var codes = [];
     var ruleRowSizes = [0,0,0,0];
     var cachedInput = initCache();
+    var maxScores = initScores();
 
     //Enable tabs
     $( "#tabs" ).tabs();
@@ -320,11 +331,15 @@ $(document).ready(function(){
 	}
     },'text');
 
+    //Initialize the score display to 0
+    $('#scoreDisp').val(0);
+
     //Enable slider
     $("#problemSelect").slider({
 	range:'min', value:1, min:1, max:NUMPROBLEMS,
 	slide:function(event, ui){
 	    $('#whichProblem').val(ui.value);
+	    $('#scoreDisp').val(maxScores[ui.value-1]);
 	    $('#problemPic').attr('src','problems/p'+ui.value+'.png');
 	},
 
@@ -344,7 +359,10 @@ $(document).ready(function(){
     $("#whichProblem").val($("#problemSelect").slider('value'));
 
     //Enable submit button
-    $('button').button().click(function(){ validateInput(codes[problem]) });
+    $('button').button().click(function(){
+	var problemArray = codes[problem];
+	validateInput(problemArray, maxScores, problem);
+    });
 
     //Make the 'any' button the chosen one, the button who lived, Harry Button
     var radios = document.getElementsByName('radio');

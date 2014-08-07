@@ -36,38 +36,39 @@ button{
     background: #eee;
     padding: 5px;
 }
+
 #problemPicArea{
     height:350px;
     width:300px;
 }
-.icon{
-    width:70px;
-    height:70px;
-}
+
 #iconList{
     clear:left;
     width: 160px;
     height: 330px;
 }
+
 #numList{
     height: 330px;
     width: 80px;
 }
+
 #iconList li, #numList li, .ruleRow li {
     float:left;
     padding: 5px;
     width: 70px;
 }
+
+.icon{
+    width:70px;
+    height:70px;
+}
+
 .ruleRow, .trash{
     height: 80px;
     min-width: 80px;
     margin-top:2px;
     padding:0px;
-}
-.trash{
-    margin-right:0;
-    font-size:12px;
-    text-align:center;
 }
 
 .numDisplay{

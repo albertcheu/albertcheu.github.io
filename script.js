@@ -18,7 +18,7 @@ function preloadImages() {
     }
     //The problem image/picture
     for (i = 0; i < NUMPROBLEMS; i++){
-	filenames.push('problems/p'+(i.toString()+1)+'.png');
+	filenames.push('problems/p'+(i+1).toString()+'.png');
     }
 
     for (i = 0; i < filenames.length; i++) {
@@ -164,7 +164,7 @@ function checkStructure(grammar){
 	visited[index] = true;
 
 	if (grammar[index].length == 0) {
-	    alert('Hey, you need tiles in row '+index.toString());
+	    alert('Hey, you need tiles in row '+(index+1).toString());
 	    return false;
 	}
 	var neighbors = [false,false,false,false];
@@ -215,14 +215,16 @@ function checkSelfLoops(grammar){
 	var counter = 0;
 	for (var j = 0; j < grammar[i].length; j++){
 	    var token = grammar[i][j];
-	    if (token == 'or'){
-		if (counter > 1) {
-		    alert('Hey, only one self reference is allowed per term');
+	    if (token == i) {
+		if (j == 0) {
+		    alert('Please position the self-reference elsewhere');
 		    return false;
 		}
-		counter = 0;
+		if (++counter > 1) {
+		    alert('Sorry, only one self-reference is allowed per row');
+		    return false;
+		}
 	    }
-	    if (token == i) { counter++; }
 	}
     }
     return true;
@@ -234,24 +236,26 @@ function stringifyGrammar(grammar){
     var ans = '';
     for(var i = 0; i < NUMROWS; i++){
 	var prod = grammar[i];
+	var prodString = '';
 	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
 	for(var j = 0; j < prod.length; j++){
 	    var selfref = false;
-	    if (prod[j] == 'or') { ans += ' / '; }
+	    if (prod[j] == 'or') { prodString += ' / '; }
 	    //Refer to another rule row/production
 	    else if (typeof prod[j] === 'number') {
-		ans += ' prod'+prod[j].toString();
 		if (i == prod[j]) { selfref = true; }
+		prodString += ' prod'+prod[j].toString();
 	    }
 	    //Shape set & color class
-	    else if (prod[j].length != 2) { ans += ' '+prod[j]+' '; }
+	    else if (prod[j].length != 2) { prodString += ' '+prod[j]+' '; }
 	    //Specific symbol (terminal)
-	    else { ans += " '"+prod[j]+"' "; }
+	    else { prodString += " '"+prod[j]+"' "; }
 	}
 	//Make sure there is no infinite regress by putting a dummy terminal
-	if (selfref) { ans += " / ''"; }
-	if (prod.length > 0) { ans += '\n'; }
+	if (selfref) { prodString += " / ''"; }
+	if (prod.length > 0) { ans += prodString+'\n'; }
     }
+    console.log(ans);
     return ans;
 }
 
@@ -269,7 +273,11 @@ function validateInput(problemArray, maxScores, index){
 	    var bad = false;
 	    for (var i = 0; i < problemArray.length; i++){
 		try { var parseData = parser.parse(problemArray[i]); }
-		catch (err) { bad = true; }
+		catch (err) {
+		    console.log(problemArray[i]);
+		    console.log(err.toString());
+		    bad = true;
+		}
 	    }
 
 	    if (! bad){

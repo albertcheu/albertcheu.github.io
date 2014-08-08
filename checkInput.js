@@ -112,12 +112,55 @@ function checkSelfLoops(grammar){
     return true;
 }
 
-function recursionKluge(prodArr, index){
+function min(a,b){ return a<b?a:b; }
+function max(a,b){ return a>b?a:b; }
+
+function recursionKluge(prodArr, ruleRowNum, index){
     //Given an array of strings, where each string represents a tile
     //and one of those tiles (at index) is a self-ref,
     //change the production to make it compatible with PEG
+    //return a string to append to the grammar
+    var rs = ruleRowNum.toString();
+    prodArr[index] = 'prod'+rs+'helper';
+
+    //Find the beginning and end of the term that the self-ref belongs to
+    begin = 0;
+    for(var i = index; i > -1; i--){
+	if (prodArr[i] == '/') {
+	    begin = i;
+	    break;
+	}
+    }
+    end = prodArr.length;
+    for(var i = index; i < prodArr.length; i++){
+	if (prodArr[i] == '/') {
+	    end = i;
+	    break;
+	}
+    }
+
+    if (begin == 0 && end == prodArr.length) {
+	var a = 'prod'+rs+'helper\n';
+    }
+    else{
+	var left = prodArr.slice(0,begin-1);
+	var right = prodArr.slice(end+1,prodArr.length);
+	var primary = left.concat(right);
+	var a = 'prod'+rs+'='+primary.join(' ')+' / prod'+rs+'helper\n';
+    }
+
+    var b = 'prod'+rs+'helper=';
+    var secondary = prodArr.slice(begin,end);
+    var q = secondary.indexOf('prod'+rs+'helper');
+    left = secondary.slice(0,q);
+    left.unshift('(');left.push(')');left.push('*');
+    right = secondary.slice(q+1,secondary.length);
+    right.unshift('(');right.push(')');right.push('*');
+    left.concat(right);
+    b += left.join(' ');
     
-    return;
+    var ans = a + b + '\n';
+    return ans;
 }
 
 function stringifyGrammar(grammar){
@@ -127,23 +170,27 @@ function stringifyGrammar(grammar){
     for(var i = 0; i < NUMROWS; i++){
 	var prod = grammar[i];
 	var prodArr = [];
-	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
-	for(var j = 0; j < prod.length; j++){
+	if (prod.length > 0) {
+	    ans += 'prod'+i.toString()+' = ';
 	    var index = -1;
-	    if (prod[j] == 'or') { prodArr.push('/'); }
-	    //Refer to another rule row/production
-	    else if (typeof prod[j] === 'number') {
-		if (i == prod[j]) { index = j; }
-		prodArr.push('prod'+prod[j].toString());
-	    }
-	    //Shape set & color class
-	    else if (prod[j].length != 2) { prodArr.push(prod[j]); }
-	    //Specific symbol (terminal)
-	    else { prodArr.push("'"+prod[j]+"'"); }
-	}
+	    for(var j = 0; j < prod.length; j++){
 
-	if (prod.length > 0) { ans += prodArr.join(' ')+'\n'; }
+		if (prod[j] == 'or') { prodArr.push('/'); }
+		//Refer to another rule row/production
+		else if (typeof prod[j] === 'number') {
+		    prodArr.push('prod'+prod[j].toString());
+		    if (i == prod[j]) { index = j; }
+		}
+		//Shape set & color class
+		else if (prod[j].length != 2) { prodArr.push(prod[j]); }
+		//Specific symbol (terminal)
+		else { prodArr.push("'"+prod[j]+"'"); }
+	    }
+	    if (index != -1) { ans += recursionKluge(prodArr, i, index); }
+	    else { ans += prodArr.join(' ')+'\n'; }
+	}
     }
+    alert(ans);
     return ans;
 }
 

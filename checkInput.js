@@ -112,30 +112,37 @@ function checkSelfLoops(grammar){
     return true;
 }
 
+function recursionKluge(prodArr, index){
+    //Given an array of strings, where each string represents a tile
+    //and one of those tiles (at index) is a self-ref,
+    //change the production to make it compatible with PEG
+    
+    return;
+}
+
 function stringifyGrammar(grammar){
     //Convert the doubly-nested array into a string
     //to pass to PEG.buildParser
     var ans = '';
     for(var i = 0; i < NUMROWS; i++){
 	var prod = grammar[i];
-	var prodString = '';
+	var prodArr = [];
 	if (prod.length > 0) { ans += 'prod'+i.toString()+' = '; }
 	for(var j = 0; j < prod.length; j++){
-	    var selfref = false;
-	    if (prod[j] == 'or') { prodString += ' / '; }
+	    var index = -1;
+	    if (prod[j] == 'or') { prodArr.push('/'); }
 	    //Refer to another rule row/production
 	    else if (typeof prod[j] === 'number') {
-		if (i == prod[j]) { selfref = true; }
-		prodString += ' prod'+prod[j].toString();
+		if (i == prod[j]) { index = j; }
+		prodArr.push('prod'+prod[j].toString());
 	    }
 	    //Shape set & color class
-	    else if (prod[j].length != 2) { prodString += ' '+prod[j]+' '; }
+	    else if (prod[j].length != 2) { prodArr.push(prod[j]); }
 	    //Specific symbol (terminal)
-	    else { prodString += " '"+prod[j]+"' "; }
+	    else { prodArr.push("'"+prod[j]+"'"); }
 	}
-	//Make sure there is no infinite regress by putting a dummy terminal
-	if (selfref) { prodString += " / ''"; }
-	if (prod.length > 0) { ans += prodString+'\n'; }
+
+	if (prod.length > 0) { ans += prodArr.join(' ')+'\n'; }
     }
     return ans;
 }

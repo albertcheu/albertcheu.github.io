@@ -83,9 +83,11 @@ function updateCache(cachedInput, problem){
 	var currentRuleRow = $('#rr'+i.toString());
 	cachedInput[problem][i] = '';
 	$.each(currentRuleRow.children(), function(){
-	    var imageDom = $(this).children()[0];
-	    var src = shortenFilename(imageDom.src);
-	    cachedInput[problem][i] += left+src+mid+src+right;
+	    if ($(this).children().length){
+		var imageDom = $(this).children()[0];
+		var src = shortenFilename(imageDom.src);
+		cachedInput[problem][i] += left+src+mid+src+right;
+	    }
 	});
     }
 }

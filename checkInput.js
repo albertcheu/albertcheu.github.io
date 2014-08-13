@@ -102,10 +102,12 @@ function checkSelfLoops(grammar){
 	for (var j = 0; j < grammar[i].length; j++){
 	    var token = grammar[i][j];
 	    if (token == i) {
+/*
 		if (j == 0) {
 		    alert('Please position the self-reference elsewhere');
 		    return false;
 		}
+*/
 		if (++counter > 1) {
 		    alert('Sorry, only one self-reference is allowed per row');
 		    return false;
@@ -152,6 +154,7 @@ function validateInput(problemArray, cachedInput, maxScores, index){
 
 	    //Convert to CNF
 	    convertToCNF(grammar);
+	    console.log(JSON.stringify(grammar));
 
 	    //Check if each row of the problem belongs
 	    //i.e. parse the contents of problemArray

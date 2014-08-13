@@ -1,5 +1,5 @@
 var NUMROWS = 4;
-var NUMPROBLEMS = 5;
+var NUMPROBLEMS = 8;
 var LIMIT = 6;
 
 $(document).ready(function(){

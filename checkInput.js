@@ -1,21 +1,28 @@
-
 function getGrammar(){
     //Make grammar from the rule rows (productions)
+    //The returned object is a doubly nested array of strings
+    //i.e. the number of arrays is NUMROWS
+    //Each array contains strings, which are the filenames of the tiles
+
     var grammar = [];
     $('.ruleRow').each(function(){
 	var production = [];
+
 	if (countChildren($(this)) > 0){
 	    $(this).children().each(function(){
 		var tile = shortenFilename($(this).children()[0].src);
+
 		if (tile.length==2){
 		    if (tile.charAt(0)=='t') {
 			tile = parseInt(tile.charAt(1)) - 1;
 		    }
 		    else if (tile!='or') { tile = "'"+tile+"'"; }
 		}
+
 		production.push(tile);
 	    });
 	}
+
 	grammar.push(production);
     });
     return grammar;
@@ -52,6 +59,7 @@ function checkStructure(grammar){
 	    alert('Hey, you need tiles in row '+(index+1).toString());
 	    return false;
 	}
+
 	var neighbors = [false,false,false,false];
 	for (var i = 0; i < grammar[index].length; i++){
 	    var token = grammar[index][i];
@@ -59,6 +67,7 @@ function checkStructure(grammar){
 		if (! visited[token] ){ neighbors[token] = true; }
 	    }
 	}
+
 	post[index] = counter++;
 	for (var i = 0; i < NUMROWS; i++){
 	    if (neighbors[i] &&
@@ -102,33 +111,41 @@ function checkSelfLoops(grammar){
 	for (var j = 0; j < grammar[i].length; j++){
 	    var token = grammar[i][j];
 	    if (token == i) {
-/*
-		if (j == 0) {
-		    alert('Please position the self-reference elsewhere');
-		    return false;
-		}
-*/
+
 		if (++counter > 1) {
 		    alert('Sorry, only one self-reference is allowed per row');
 		    return false;
 		}
+
 		selfref = true;
 	    }
 	}
+
+	//If there is self-reference, mark it
 	if (selfref) { grammar[i].push('*'); }
     }
     return true;
 }
 
 function convertToObject(g){
+    //Given the previous grammar object (just a nested array),
+    //Copy the data into an Object
+    //Instead of the 'or' string, each term will be in its own array
+    //So the structure is Obj->key->Array of Arrays->String/Integer
     var grammar = new Object();
     for (var i = 0; i < NUMROWS; i++){
 	grammar[i] = [[]];
 	for (var j = 0; j < g[i].length; j++){
+
 	    if (g[i][j]!='or') {
+		//Put a blank array in place of the marker (i.e. null string)
 		if (g[i][j]=='*') { grammar[i].push([]); }
+
+		//Put the tile/file/production name in the last term's array
 		else { grammar[i][grammar[i].length-1].push(g[i][j]); }
 	    }
+
+	    //Put a blank array in preparation for the next term
 	    else { grammar[i].push([]); }
 	}
     }

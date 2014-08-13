@@ -199,7 +199,7 @@ function step5(grammar){
 
     //Part 2: chains
     var unitDag = getUnitDag(grammar);
-    //alert(JSON.stringify(unitDag));
+    console.log(JSON.stringify(unitDag));
     for (var i = 0; i < unitDag.length; i++){
         var B = unitDag[i][1];
 	for (var j = i+1; j < unitDag.length; j++){
@@ -215,11 +215,11 @@ function step5(grammar){
 		}
 	    }
 	    if (unitIndices.length) {
+		console.log("Production "+A+" has a unit rule to "+B);
 		for(var k = 0; k < unitIndices.length; k++){
 		    grammar[A].splice(unitIndices[k]-k,1);
 		}
 		grammar[A] = grammar[A].concat(grammar[B]);
-		//grammar[B] = undefined;
 	    }
 	}
     }

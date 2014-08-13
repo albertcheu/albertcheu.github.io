@@ -188,7 +188,7 @@ function getUnitDag(grammar){
     //Reverse order needed in next function
     var ans = [];
     for (var pv in postvisits) { ans.push([pv,postvisits[pv]]); }
-    ans.sort(function(a,b){return b-a;});
+    ans.sort(function(a,b){return b[0]-a[0];});
     return ans;
 }
 

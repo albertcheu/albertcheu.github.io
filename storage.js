@@ -63,7 +63,10 @@ function initCache(){
 
 function initScores(){
     var oldData = readStorage('maxScores');
-    if (oldData) { return oldData; }
+    if (oldData) {
+	while (oldData.length < NUMPROBLEMS) { oldData.push(0); }
+	return oldData;
+    }
     //An array containing 0, NUMPROBLEMS times
     var ans = [];
     for (var i = 0; i < NUMPROBLEMS; i++){ ans.push(0); }

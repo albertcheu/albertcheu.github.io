@@ -15,7 +15,15 @@ $(document).ready(function(){
 
     //Enable tabs
     $( "#tabs" ).tabs();
-
+/*
+    if (window.innerWidth > 1290) { $('#tabs').width(window.innerWidth-30); }
+    $(window).resize(function(){
+	if (window.innerWidth > 1290) {
+	    $('#tabs').width(window.innerWidth-30);
+	}
+	else { $('#tabs').width(1240); }
+    });
+    */
     preloadImages();
 
     //By default, we are on the 'any color' selection; we shouldnt see

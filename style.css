@@ -1,7 +1,5 @@
 body {
     background-color:tan;
-    overflow:scroll;
-    overflow-y:auto;
 }
 
 h1 { font-size:2.5em; }

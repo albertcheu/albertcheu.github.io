@@ -117,7 +117,10 @@ function findNullRules(grammar){
 		    }
 		}
 
-		if (reducedProd.length < prod[i].length) { prodChanged = true; }
+		if (reducedProd.length < prod[i].length){
+		    prodChanged = prodChanged || true;
+		    prod[i] = reducedProd;
+		}
 	    }
 	    if (prodChanged) {
 		ans.push(prodName);
@@ -161,7 +164,7 @@ function step4(grammar){
 }
 
 function getUnitDag(grammar){
-    //Given a grammar, linearize the graph (starting @ 0)
+    //Given a grammar, linearize the subtree rooted @ 0
     var seen = new Object();
     var postvisits = new Object();
     var stack = [0];
@@ -199,26 +202,37 @@ function step5(grammar){
 
     //Part 2: chains
     var unitDag = getUnitDag(grammar);
-    console.log(JSON.stringify(unitDag));
     for (var i = 0; i < unitDag.length; i++){
         var B = unitDag[i][1];
 	for (var j = i+1; j < unitDag.length; j++){
-
             var A = unitDag[j][1];
 
-            //If there is a unit rule A->B...
-	    //replace it with all of B's productions
+	    //Find unit rules A->B
 	    var unitIndices = [];
 	    for(var k = 0; k < grammar[A].length; k++){
 		if (grammar[A][k].length == 1 && grammar[A][k][0] == B) {
 		    unitIndices.push(k);
 		}
 	    }
+
+            //If there is one or more unit rule A->B...	    
 	    if (unitIndices.length) {
 		console.log("Production "+A+" has a unit rule to "+B);
+
+		//Eliminate them
 		for(var k = 0; k < unitIndices.length; k++){
 		    grammar[A].splice(unitIndices[k]-k,1);
 		}
+
+		//If B has self-ref productions, change to refer to A
+		for(var k = 0; k < grammar[B].length; k++){
+		    var alt = grammar[B][k];
+		    for(var l = 0; l < alt.length; l++){
+			if (alt[l]==B) { alt[l] = A; }
+		    }
+		}
+
+		//replace with all of B's productions
 		grammar[A] = grammar[A].concat(grammar[B]);
 	    }
 	}

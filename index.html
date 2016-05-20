@@ -2,192 +2,23 @@
 <html>
   
   <head>
-    <title> Albert's page </title>
+    <title> Albert Cheu </title>
     <meta name="author" content="Albert F Cheu">
-    <meta name="description" content="My web page">
     <meta charset="utf-8">
-    <link rel="icon" type="image/png" href="icons/s.png">
-    <link rel="stylesheet" type="text/css" href="style.css">
+<!--
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+
+
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<!--    <script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>-->
-    <script src="js/touchPunch.js"></script>
-    <script src="js/changeColor.js"></script>
-    <script src="js/checkInput.js"></script>
-    <script src="js/utilities.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/cyk.js"></script>
-    <script src="js/cnf.js"></script>
-    <script src="js/script.js"></script>
+
+   <script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>-->
+
   </head>
 
   <body>
     <h1>Albert's page</h1>
-
-    <hr>    
-        
-    <div id="tabs">
-      <ul>
-	<li><a href="#tabs-1">Game</a></li>
-	<li><a href="#tabs-2">Rules</a></li>
-	<li><a href="#tabs-3">About</a></li>
-      </ul>
-
-      <div id="tabs-1">
-	<div id="problemPicArea" title="Find the pattern each row obeys">
-	  <img id="problemPic" src="problems/p1.png">
-	</div>
-
-	<div style="float:left;">
-	  <form>
-	    <div id="colorSelection" title="Select the color of the tiles">
-	      <input type="radio" id="any" name="radio">
-	      <label for="any">Any color</label>
-	      <input type="radio" id="red" name="radio">
-	      <label for="red">Red</label>
-	      <input type="radio" id="green" name="radio">
-	      <label for="green">Green</label>
-	      <input type="radio" id="blue" name="radio">
-	      <label for="blue">Blue</label>
-	    </div>
-	  </form>
-	  
-	  <ul id="iconList" title="Drag tiles from here to the rule rows">
-	    <li ><img class="icon" alt="b" src="icons/b.png"></li>
-	    <li ><img class="icon" alt="t" src="icons/t.png"></li>
-	    <li ><img class="icon" alt="c" src="icons/c.png"></li>
-	    <li ><img class="icon" alt="x" src="icons/x.png"></li>
-	    <li ><img class="icon" alt="s" src="icons/s.png"></li>
-	    <li ><img class="icon" alt="f" src="icons/f.png"></li>
-	    <li ><img class="icon" alt="or" src="icons/or.png"></li>
-	    <li ><img class="icon" alt="red" src="icons/red.png"></li>
-	  </ul>
-
-	  <ul id="numList" title="These tiles refer to rule rows">
-	    <li ><img class="icon" alt="t1" src="icons/t1.png"></li>
-	    <li ><img class="icon" alt="t2" src="icons/t2.png"></li>
-	    <li ><img class="icon" alt="t3" src="icons/t3.png"></li>
-	    <li ><img class="icon" alt="t4" src="icons/t4.png"></li>
-	  </ul>
-	</div>
-
-	<table>
-	  <th><button id="submitButton"><b>Submit!</b></button></th>
-	  <tr>
-	    <td>
-	      <ul id="rr0" class="ruleRow" title="Rule row 1"></ul>
-	      <div class="trash" title="Drop to trash, click to clear">
-		<img class="icon" style="margin-top:5px;margin-left:5px;" alt="trash" src="icons/trash.png">
-	      </div>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	      <ul id="rr1" class="ruleRow" title="Rule row 2"></ul>
-	      <div class="trash" title="Drop to trash, click to clear">
-		<img class="icon" style="margin-top:5px;margin-left:5px;" alt="trash" src="icons/trash.png">
-	      </div>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	      <ul id="rr2" class="ruleRow" title="Rule row 3"></ul>
-	      <div class="trash" title="Drop to trash, click to clear">
-		<img class="icon" style="margin-top:5px;margin-left:5px;" alt="trash" src="icons/trash.png">
-	      </div>
-	    </td>
-	  </tr>
-	  <tr>
-	    <td>
-	      <ul id="rr3" class="ruleRow" title="Rule row 4"></ul>
-	      <div class="trash" title="Drop to trash, click to clear">
-		<img class="icon" style="margin-top:5px;margin-left:5px;" alt="trash" src="icons/trash.png">
-	      </div>
-	    </td>
-	  </tr>
-
-	</table>
-
-	<div style="clear:left;">
-	  <div style="width:300px;float:left;">
-	    <label for="whichProblem">Problem Number:</label>
-	    <input class="numDisplay" type="text" id="whichProblem" value="1" readonly>
-	    <label for="scoreDisp">Max Score:</label>
-	    <input class="numDisplay" type="text" id="scoreDisp" value="0" readonly>
-	    <div id="problemSelect"></div>
-
-	  </div>
-
-	</div>
-
-      </div>
-
-      <div id="tabs-2">
-	<p>Welcome to my game!</p>
-	<br>
-	<p>The objective is to find a pattern obeyed by the left-hand image</p>
-	<p>Select which image to view with the slider beneath</p>
-	<br>
-	<p>Each problem-image consists of a grid of symbols. Each row of the grid obeys the mystery pattern.</p>
-	<br>
-	<p>A <em>symbol</em> is colored shape (i.e. a green triangle)</p>
-	<p>There are three <em>color classes</em> (Red, Green, Blue) and six <em>shape sets</em> (Box, Triangle, Circle, X, Star, Face)</p>
-
-	<br>
-	<p>To the right of the problem-image is the interaction region, where you have to drag tiles into the four Rule Rows. Every solution must start at 1.</p>
-
-	<br>
-	<p><em>A tile</em> can be a color class, a shape set, or a symbol. For instance "1: R B box" says that each row of the problem-image consists of a red symbol, a blue symbol, and a box of any color.</p>
-	<br>
-	<p>In addition, there is <em>the OR tile</em>. For instance, "1: G OR X" means that each row of the problem-image is made up of either one green symbol OR one X</p>
-	<br>
-	<p>Finally, a Rule Row can be <em>referenced</em> in other Rows (or itself!). For instance, "1: X 2" means an X is followed by whatever Row 2 says.</p>
-	<br>
-	<p>Each valid solution gets 50 points, minus one point per tile. For instance, if a solution has 8 tiles in total, the final score is 42.</p>
-	<h3>Examples:</h3><br>
-	<table>
-	  <tr>
-	    <td><img src="examples/example1.png"></td>
-	    <td style="margin-bottom:130;"><img src="examples/ans1.png"></td>
-	  </tr>
-	  <tr>
-	    <td><img src="examples/example2.png"></td>
-	    <td style="margin-bottom:130;"><img src="examples/ans2.png"></td>
-	  </tr>
-	  <tr>
-	    <td><img src="examples/example3.png"></td>
-	    <td style="margin-bottom:130;"><img src="examples/ans3.png"></td>
-	  </tr>
-	  <tr>
-	    <td><img src="examples/example4.png"></td>
-	    <td style="margin-bottom:130;"><img src="examples/ans4.png"></td>
-	  </tr>
-	  <tr>
-	    <td><img src="examples/example5.png"></td>
-	    <td style="margin-bottom:130;"><img src="examples/ans5.png"></td>
-	  </tr>
-	</table>
-
-      </div>
-
-      <div id="tabs-3">
-	<p>
-	  I used <a href="http://jqueryui.com/">JQuery UI</a> for the interface.
-	  <br>
-	  <br>
-	  <a href="http://www.libreoffice.org/">Libreoffice Draw</a> was used to create the tiles and problem-images.
-	  <br>
-	  <br>
-	  Finally, I used <a href="http://touchpunch.furf.com/">Touch Punch</a> to enable drag-n-drop on mobile/tablet.
-	  <br>
-	  <br>
-	  I used <a href="http://en.wikipedia.org/wiki/CYK_algorithm">the CYK algorithm</a> for the parsing; I implemented the pseudocode found <a href="http://www.cs.bgu.ac.il/~michaluz/seminar/CKY1.pdf">here</a>. To convert the player input into Chomsky Normal Form, I followed the instructions found <a href="http://www.cs.nyu.edu/courses/fall07/V22.0453-001/cnf.pdf">here</a>.
-	</p>
-      </div>
-
-    </div>
 
   </body>
 

@@ -6,9 +6,9 @@ permalink: /about/
 
 Theoretical Computer Science all[^1] the way; soon-to-be PhD. student at [Northeastern University](http://neu.edu).
 
-Alumni of [New York University](http://nyu.edu), Tandon[^2] [School of Engineering](http://engineering.nyu.edu), 2016.
+[New York University](http://nyu.edu), Tandon[^2] [School of Engineering](http://engineering.nyu.edu), 2016.
 
-Alumni of Stuyvesant High School, 2012.
+Stuyvesant High School, 2012.
 
 ---
 

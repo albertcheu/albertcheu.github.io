@@ -1,25 +1,23 @@
-<!DOCTYPE html>
-<html>
-  
-  <head>
-    <title> Albert Cheu </title>
-    <meta name="author" content="Albert F Cheu">
-    <meta charset="utf-8">
-<!--
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
+---
+layout: default
+---
 
+<div class="home">
 
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <h1 class="page-heading">Posts</h1>
 
-   <script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>-->
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-  </head>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
-  <body>
-    <h1>Albert's page</h1>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
-  </body>
-
-</html>
+</div>

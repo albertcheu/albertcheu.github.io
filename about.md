@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+Theoretical Computer Science all[^1] the way; soon-to-be PhD. student at Northeastern University.
 
-You can find the source code for the Jekyll new theme at:
-{% include icon-github.html username="jglovier" %} /
-[jekyll-new](https://github.com/jglovier/jekyll-new)
+[^1]:Well, most of the way. Remainder filled by genre TV, action movies, story-rich games, and a customized philosophy that is a Frankensteinian blend of Mill, Hofstadter, Quine, and more (but not Moore)
 
-You can find the source code for Jekyll at
-{% include icon-github.html username="jekyll" %} /
-[jekyll](https://github.com/jekyll/jekyll)
+Alumni of New York University, Tandon[^2] School of Engineering, 2016.
+
+[^2]:The school has went through literally half a dozen name changes, most recently "Polytechnic Institute of NYU" and "NYU Polytechnic School of Engineering".
+
+Alumni of Stuyvesant High School, 2012.

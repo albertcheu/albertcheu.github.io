@@ -189,12 +189,6 @@ html,body{
     height:100%;
 
     background-image:
-/*
-linear-gradient(
-      rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.5)
-    ),
-*/
     url('uncharted_back1.jpg');
 
     background-repeat: no-repeat;
@@ -204,7 +198,7 @@ linear-gradient(
     background-origin: content-box;
 
     padding-bottom: 220px;
-    padding-top: 64px;
+    padding-top: 32px;
     
     color: $white-color;    
 }

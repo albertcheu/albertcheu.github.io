@@ -25,3 +25,27 @@ Here are my brief thoughts/criticism of some AAA games:
 ---
 
 I researched van der Waerden games in 2015 (see "Research").
+
+lorem
+
+ipsum 
+
+dolor
+
+the
+
+quick
+
+brown
+
+fox
+
+jumped
+
+over
+
+the
+
+lazy
+
+dog

@@ -5,26 +5,23 @@
     <div class="footer-col-wrapper">
 
       <div class="footer-col footer-col-1">
-        <ul class="contact-list">
-          <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        <p>{{ site.description }}</p>
+            {% include icon-github.html username=site.github_username %}
+<!--
+	<ul class="social-media-list">
+          {% if site.github_username %}
+          <li>
+
+          </li>
+          {% endif %}
         </ul>
+-->
       </div>
 
       <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
-
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col-3">
-        <p>{{ site.description }}
-	  Image from <a href="http://unchartedthegame.com">Uncharted 4: A Thief's End</a>
-	  Hosted by Github Pages via {% include icon-github.html username="jekyll" %} / <a href="https://github.com/jekyll/jekyll">jekyll</a></p>
+        
+	<p>Image from <a href="http://unchartedthegame.com">Uncharted 4: A Thief's End</a></p>
+	<p>Hosted by Github Pages via {% include icon-github.html username="jekyll" %} / <a href="https://github.com/jekyll/jekyll">jekyll</a></p>
       </div>
 
     </div>

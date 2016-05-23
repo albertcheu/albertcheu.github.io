@@ -2,6 +2,8 @@
  * Background image
  * (from https://css-tricks.com/perfect-full-page-background-image/)
  */
+
+/*
 #bg{
     position:fixed;
     top:-50%;
@@ -19,6 +21,28 @@
 	min-width: 50%;
 	min-height: 50%;
     }
+}
+*/
+
+#bg{
+/* Set rules to fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* Set up proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* Set up positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+@media screen and (max-width: 1824px) { /* Specific to this particular image */
+  img.bg {
+    left: 50%;
+    margin-left: -9122px;   /* 50% */
+  }
 }
 
 /**

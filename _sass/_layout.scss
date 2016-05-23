@@ -23,27 +23,29 @@
     }
 }
 */
-
+/*
 #bg{
-/* Set rules to fill background */
+
   min-height: 100%;
   min-width: 1024px;
 	
-  /* Set up proportionate scaling */
+
   width: 100%;
   height: auto;
 	
-  /* Set up positioning */
+
   position: fixed;
   top: 0;
   left: 0;
 }
-@media screen and (max-width: 1824px) { /* Specific to this particular image */
+@media screen and (max-width: 1824px) {
+//Specific to this particular image
   img.bg {
     left: 50%;
-    margin-left: -912px;   /* 50% */
+    margin-left: -912px;   //50%
   }
 }
+*/
 
 /**
  * Site header
@@ -235,20 +237,17 @@ html,body{
     padding-top:$spacing-unit;
     color: $white-color;
 
-/*
-    background-image:
-    url('uncharted_back3.jpg');
+    background-image: url('uncharted_back3.jpg');
 
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     background-position: center center;
-    background-origin: content-box;
+    background-origin: padding-box;
+
     -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-*/
 
 }
 

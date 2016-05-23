@@ -194,9 +194,6 @@ html,body{
     background-size: cover;
     background-position: center center;
     background-origin: content-box;
-
-    padding-bottom: 115px;
-    padding-top: 32px;
     
     color: $white-color;    
 }
@@ -216,7 +213,7 @@ html,body{
 
 .post-meta {
     font-size: $small-font-size;
-    //color: $grey-color;
+    color: $white-color;
 }
 
 .post-link {
@@ -224,6 +221,12 @@ html,body{
     font-size: 24px;
 }
 
+a.post-link:link {
+     color:$white-color;
+}
+a.post-link:visited {
+     color:$grey-color;
+}
 
 
 /**
@@ -250,9 +253,9 @@ html,body{
 .post-content,.home {
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
-  background:rgba(255, 255, 255, 0.75);
+  background:rgba(55, 55, 55, 0.35);
   padding: $spacing-unit $spacing-unit;
-  color: $grey-color-dark;
+  color: $white-color;
   min-height: inherit;
     margin-bottom: $spacing-unit*2;
 

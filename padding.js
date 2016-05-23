@@ -9,21 +9,12 @@ function getFinalSize (elem) {
 
 function toPix(val){ return String(val)+"px"; }
 
+//fix bottom padding to account for footer height
 function adjust(){
-    var whH = getFinalSize($(".site-header")[0]);
-    //headerWidth = whH.width;
-    var headerHeight = whH.height;
-
     var whF = getFinalSize($(".site-footer")[0]);
-    //footerWidth = whF.width;
     var footerHeight = whF.height+15;
 
-    //console.log(headerHeight);
-    //console.log(footerHeight);
-
-    //page-content changes
     $(".page-content").css({
-	//"padding-top":toPix(headerHeight),
 	"padding-bottom":toPix(footerHeight),
     });
 }

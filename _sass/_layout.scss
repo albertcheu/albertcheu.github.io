@@ -1,58 +1,8 @@
-/**
- * Background image
- * (from https://css-tricks.com/perfect-full-page-background-image/)
- */
-
-/*
-#bg{
-    position:fixed;
-    top:-50%;
-    left:-50%;
-    width:200%;
-    height:200%;
-
-    >img{
-	position: absolute; 
-	top: 0; 
-	left: 0; 
-	right: 0; 
-	bottom: 0; 
-	margin: auto; 
-	min-width: 50%;
-	min-height: 50%;
-    }
-}
-*/
-/*
-#bg{
-
-  min-height: 100%;
-  min-width: 1024px;
-	
-
-  width: 100%;
-  height: auto;
-	
-
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-@media screen and (max-width: 1824px) {
-//Specific to this particular image
-  img.bg {
-    left: 50%;
-    margin-left: -912px;   //50%
-  }
-}
-*/
 
 /**
  * Site header
  */
 .site-header {
-    //border-top: 5px solid $grey-color-dark;
-    //border-bottom: 1px solid $grey-color-light;
     min-height: 56px;
 
     background-color: $grey-color-light;
@@ -68,11 +18,12 @@
     letter-spacing: -1px;
     margin-bottom: 0;
     float: left;
-
-    &,
-    &:visited {
-        color: $grey-color-dark;
-    }
+}
+.site-title:link{
+	color:$text-color;
+}
+.site-title:visited{
+	color:$text-color;
 }
 
 .site-nav {
@@ -167,13 +118,11 @@ html,body{
     left: 0;
     right:0;
     background-color: $grey-color-light;
-    color: $grey-color-dark;
     padding-top: $spacing-unit / 2;
 }
 
 .footer-heading {
     font-size: 18px;
-
     margin-bottom: $spacing-unit / 2;
 }
 
@@ -191,7 +140,6 @@ html,body{
 
 .footer-col {
     float: left;
-    //margin-bottom: $spacing-unit / 2;
     padding-left: $spacing-unit / 2;
 }
 
@@ -246,8 +194,8 @@ html,body{
     background-origin: padding-box;
 
     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 
 }
 
@@ -274,14 +222,6 @@ html,body{
     font-size: 24px;
 }
 
-a.post-link:link {
-     color:$white-color;
-}
-a.post-link:visited {
-     color:$white-color;
-}
-
-
 /**
  * Posts
  */
@@ -290,7 +230,6 @@ a.post-link:visited {
 }
 
 .post-header {
-//    margin-top: $spacing-unit;
     margin-bottom: $spacing-unit;
 }
 
@@ -305,14 +244,15 @@ a.post-link:visited {
 }
 
 .post-content,.home {
-		      -webkit-box-decoration-break: clone;
-		        box-decoration-break: clone;
-  background:rgba(55, 55, 55, 0.35);
-  padding: $spacing-unit $spacing-unit;
-  color: $white-color;
-  min-height: inherit;
+		    font-family:$content-font-family;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    background:rgba(55, 55, 55, 0.35);
+    padding: $spacing-unit $spacing-unit;
+    color: $white-color;
+    min-height: inherit;
     margin-bottom: $spacing-unit*2;
-
+    
     h2 {
         font-size: 32px;
 
@@ -337,3 +277,15 @@ a.post-link:visited {
         }
     }
 }
+
+//anchors and footnotes
+.page-content{
+    a:link {
+    	color:$link-color;
+    }
+    a:visited {
+        color:$link-color;
+    }
+}
+
+

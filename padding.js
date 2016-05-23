@@ -23,7 +23,7 @@ function adjust(){
 
     //page-content changes
     $(".page-content").css({
-	//"padding-top":toPix(headerHeight),
+	"padding-top":toPix(headerHeight),
 	"padding-bottom":toPix(footerHeight),
     });
 }

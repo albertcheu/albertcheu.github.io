@@ -194,7 +194,11 @@ html,body{
     background-size: cover;
     background-position: center center;
     background-origin: content-box;
-    
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
     color: $white-color;    
 }
 
@@ -237,7 +241,7 @@ a.post-link:visited {
 }
 
 .post-header {
-    padding-top: $spacing-unit;
+    margin-top: $spacing-unit;
     margin-bottom: $spacing-unit;
 }
 

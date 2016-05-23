@@ -251,8 +251,8 @@ a.post-link:visited {
 }
 
 .post-content,.home {
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+		      -webkit-box-decoration-break: clone;
+		        box-decoration-break: clone;
   background:rgba(55, 55, 55, 0.35);
   padding: $spacing-unit $spacing-unit;
   color: $white-color;

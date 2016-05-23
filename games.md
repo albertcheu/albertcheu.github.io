@@ -20,7 +20,7 @@ Here are my brief thoughts/criticism of some AAA games:
 
 * Fallout 4: Too much pew-pew-pew. Why can't we all get along?
 
-* Uncharted 4: Too much stealth (whenever I can sneak, I do it. So I take forever)
+* Uncharted 4: Too much pew-pew-pew. Why can't we all get along?
 
 ---
 

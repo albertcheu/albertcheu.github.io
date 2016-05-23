@@ -248,7 +248,7 @@ html,body{
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
     background:rgba(55, 55, 55, 0.35);
-    padding: $spacing-unit $spacing-unit;
+    padding:$spacing-unit $spacing-unit;
     color: $white-color;
     min-height: inherit;
     margin-bottom: $spacing-unit*2;
@@ -288,4 +288,13 @@ html,body{
     }
 }
 
+//footnote formatting
+.footnotes{
+    font-size: $footnote-size;
+    padding-top: $spacing-unit;
+}
 
+//add space under horizontal rule
+hr{
+    margin: 0 0 $spacing-unit/2 0;
+}

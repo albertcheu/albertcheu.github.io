@@ -4,9 +4,9 @@ title: Games
 permalink: /games/
 ---
 
-In Spring 2016, I took Andy Nealen's Game Design course. I worked on a team to make Circum, a one-button atmospheric game. Andy ripped our game apart for straying from the One True Minimalist Path, but we put ourselves together and the results are nothing less than spectacular.
+In Spring 2016, I took Andy Nealen's Game Design course. I worked on a team to make Circum, a one-button atmospheric game. Andy ripped our game apart for straying from the One True Minimalist Path, but we pulled ourselves together and the results are nothing less than spectacular.
 
-Final release TBD.
+You can download the (Windows) game [here](http://gamejolt.com/games/circum/153034).
 
 ---
 

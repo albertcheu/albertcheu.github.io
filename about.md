@@ -10,6 +10,8 @@ Theoretical Computer Science all[^1] the way; soon-to-be PhD. student at [Northe
 
 Stuyvesant High School, 2012.
 
+View my [full resume](/AlbertCheuResume.pdf).
+
 ---
 
 This site is made possible by Github Pages and Jekyll.

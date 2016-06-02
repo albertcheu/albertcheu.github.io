@@ -18,4 +18,4 @@ Getting this Jekyll blog up and running was mildly traumatizing.
 
    Again, the simplest solution would be to give a prompt; in this case, a selection of runtimes would be really helpful.
 
-Bizarre machinery like this is one of the many reasons I'm not in industry.
+Bizarre machinery like this is one of the many reasons I'm wary of big software projects.

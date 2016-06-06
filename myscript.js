@@ -18,12 +18,18 @@ function loadSeason(seasonData, seasonNumber){
 
 	var events = ep.events;
 	for(var j = 0; j < numLines; j++){	    
-	    episodeList += "<div class=\"vertical\" style=\"background-color:"+lineColors[j]+";\">";
+	    episodeList += "<div class=\"vertical\" style=\"background-color:"+lineColors[j]+";";
 
-	    if (events[j].detail != "") {
+	    //black stripe needs white border
+	    if (lineColors[j] == "black")
+	    { episodeList += "border: 1px solid white; border-top:none; border-bottom: none;"; }
+
+	    episodeList += "\">";
+
+	    if (events[j] != "") {
 		var boxColor = boxColors[j];
-		if (events[j].boxColor) { boxColor = events[j].boxColor; }
-		episodeList += "<div class=\"detail "+boxColor+"LabelAnchor\"title=\""+events[j].detail+"\"></div>";
+		//if (events[j].boxColor) { boxColor = events[j].boxColor; }
+		episodeList += "<div class=\"detail "+boxColor+"LabelAnchor\"title=\""+events[j]+"\"></div>";
 	    }
 
 	    episodeList += "</div>";
@@ -47,6 +53,9 @@ $(function(){
     });
     $(".whiteLabelAnchor").tooltip({
 	tooltipClass:"whiteLabel"
+    });
+    $(".redLabelAnchor").tooltip({
+	tooltipClass:"redLabel"
     });
 
     $(".detail").tooltip({

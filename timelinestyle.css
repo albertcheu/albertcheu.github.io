@@ -34,6 +34,7 @@ h2 {
 }
 
 .timeline-both-side{
+background:black;
   float: left; 
   width: 96%; 
   margin: 20px 2% 50px; 
@@ -137,6 +138,10 @@ h1,
     font-family: "Michroma";
 }
 
+.season{
+    background:black;
+}
+
 .dummy{
     display:inline-block;
     width:10px;
@@ -146,7 +151,7 @@ h1,
 .vertical{
     display:inline-block;
     width:10px;
-    margin-left:6%;
+    margin-left:4%;
     flex: 0 0 10px;
 }
 
@@ -158,8 +163,8 @@ h1,
 //    margin-left:1px;
     position: absolute; 
     width: 10px; 
-    border: 2px solid #ccc;   
-    background-color:inherit;
+    border: 2px solid black;   
+    background-color:white;
 }
 
 .ui-tooltip {
@@ -177,6 +182,9 @@ h1,
 }
 .whiteLabel{
     border: 6px dashed white;
+}
+.redLabel{
+    border: 6px dashed red;
 }
 
 .arrow {

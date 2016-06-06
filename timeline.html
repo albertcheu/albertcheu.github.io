@@ -4,22 +4,26 @@
   <head>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="timelinestyle.css">
+    <link href='https://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="/myscript.js"></script>
+
+    <script src="/myscript.js"></script>    
+    <script src="/loadS1.js"></script>
   </head>
 
   <body>
 
-    <h1>Person of Interest: A timeline</h1>
+    <h1>PERSON OF INTEREST: A timeline</h1>
 
 
     <div id="seasons">
       <h3>Season 1</h3>
-      <div>
-
+      <div id="s1">
+	<p>Test</p>
+<!--
 	<ul class="timeline-both-side">
-	  <!--      <li class="opposite-side">-->
 	  <li>
 	    <div class="border-line"></div>
 	    <div class="timeline-description">
@@ -27,8 +31,12 @@
 	    </div>
 
 	    <div class="dummy"></div>
-	    <div class="vertical" style="background-color:yellow;"></div>
-	    <div class="vertical" style="background-color:green;"></div>
+	    <div class="vertical" style="background-color:black;">
+	      <div class="detail yellowLabelAnchor" title="foobar"></div>
+	    </div>
+	    <div class="vertical" style="background-color:green;">
+	      <div class="detail whiteLabelAnchor" title="foobar"></div>
+	    </div>
 
 	  </li>	  
 	  <li>
@@ -38,27 +46,27 @@
 	    </div>
 
 	    <div class="dummy"></div>
-	    <div class="vertical" style="background-color:yellow;"></div>
+	    <div class="vertical" style="background-color:black;"></div>
 	    <div class="vertical" style="background-color:green;"></div>
 	  </li>	  
 	</ul>
-
+-->
       </div>
       
       <h3>Season 2</h3>
-      <div>
+      <div id="s2">
       </div>
       
       <h3>Season 3</h3>
-      <div>
+      <div id="s3">
       </div>
 
       <h3>Season 4</h3>
-      <div>
+      <div id="s4">
       </div>
 
       <h3>Season 5</h3>
-      <div>
+      <div id="s5">
       </div>      
 
     </div>

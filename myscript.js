@@ -5,6 +5,11 @@ function loadSeason(seasonData, seasonNumber){
     var lineColors = metadata.lineColors;
     var boxColors = metadata.boxColors;
 
+    var nameList = '<div style="display:inline-block;width:40%"></div>';
+    for (var i = 0; i < numLines; i++){
+	nameList += '<p class="character">' + lineNames[i] + "</p>";
+    }
+
     var episodeList = "<ul class=\"timeline-both-side\">";
     for(var i = 1; i < seasonData.length; i++){
 	episodeList += "<li>";
@@ -17,7 +22,12 @@ function loadSeason(seasonData, seasonNumber){
 	episodeList += "<div class=\"border-line\"></div><div class=\"timeline-description\"><p>"+title+"</p></div><div class=\"dummy\"></div>";
 
 	var events = ep.events;
-	for(var j = 0; j < numLines; j++){	    
+	for(var j = 0; j < numLines; j++){	
+/*
+	    if (i == 1) {
+		episodeList += '<p class="character">'+lineNames[j]+'</p>';
+	    }
+*/    
 	    episodeList += "<div class=\"vertical\" style=\"background-color:"+lineColors[j]+";";
 
 	    //black stripe needs white border
@@ -32,7 +42,8 @@ function loadSeason(seasonData, seasonNumber){
 		episodeList += "<div class=\"detail "+boxColor+"LabelAnchor\"title=\""+events[j]+"\"></div>";
 	    }
 
-	    episodeList += "</div>";
+	    episodeList += '</div>';
+
 	}
 
 	episodeList += "</li>";
@@ -40,7 +51,27 @@ function loadSeason(seasonData, seasonNumber){
 
     episodeList += "</ul>";
     var search = "#s"+seasonNumber.toString();
-    $(search).html(episodeList);
+    $(search).html(nameList+episodeList);
+    //$(search).html(episodeList);
+}
+
+/*Position labels above their lines*/
+function centerLabels(){
+    var labels = $('p.character');
+
+    //get correct space between centers
+    var w = $('.timeline-both-side').width();
+    var space = 0.035*w+10;
+
+    //assuming previous label is centered,
+    //center this one
+
+    for (var i = 1; i < labels.length; i++){
+	var curHalfWidth = $(labels[i]).width() / 2;
+	var prevHalfWidth = $(labels[i-1]).width() / 2;
+	var margin = space-curHalfWidth-prevHalfWidth;
+	$(labels[i]).css('margin-left',margin);
+    }
 }
 
 $(function(){
@@ -57,6 +88,9 @@ $(function(){
     $(".redLabelAnchor").tooltip({
 	tooltipClass:"redLabel"
     });
+
+    $(window).load(centerLabels);
+    $(window).resize(centerLabels);
 
     $(".detail").tooltip({
 	position: {

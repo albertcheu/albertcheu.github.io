@@ -37,7 +37,9 @@ h2 {
 background:black;
   float: left; 
   width: 96%; 
-  margin: 20px 2% 50px; 
+//  margin: 20px 2% 50px; 
+//  margin-top:2%;
+  margin-bottom:2%;
   position: relative; 
   box-sizing: border-box;
 }
@@ -148,6 +150,14 @@ h1,
     margin-left:8%;
 }
 
+.character{
+    display:inline-block;
+    font: normal 11px "Nunito", Verdana, Sans-Serif;
+    color: white;
+    margin-top:-11px;
+//    margin-left:3.5%;
+}
+
 .vertical{
     display:inline-block;
     width:10px;
@@ -174,7 +184,7 @@ h1,
     box-shadow: none;
     padding: 10px 20px;
     color:white;
-    font: normal 14px "Verdana", Sans-Serif;
+    font: normal 14px "Nunito", Verdana, Sans-Serif;
 }
 
 .yellowLabel{

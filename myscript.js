@@ -23,23 +23,29 @@ function loadSeason(seasonData, seasonNumber){
 
 	var events = ep.events;
 	for(var j = 0; j < numLines; j++){	
-/*
-	    if (i == 1) {
-		episodeList += '<p class="character">'+lineNames[j]+'</p>';
-	    }
-*/    
+
 	    episodeList += "<div class=\"vertical\" style=\"background-color:"+lineColors[j]+";";
 
 	    //black stripe needs white border
-	    if (lineColors[j] == "black")
-	    { episodeList += "border: 1px solid white; border-top:none; border-bottom: none;"; }
+	    if (lineColors[j] == "black") {
+		episodeList += "border: 1px solid white;";
+		if (i > 1) { episodeList += "border-top:none;"; }
+		if (i < seasonData.length-1) { episodeList += "border-bottom: none;"; }
+	    }
+
+	    //first row needs round top
+	    if (i == 1) {
+		episodeList += "border-top-left-radius:5px;border-top-right-radius:5px;"
+	    }
+	    //last row needs round bottom
+	    if (i == seasonData.length-1) {
+		episodeList += "border-bottom-left-radius:5px;border-bottom-right-radius:5px;"
+	    }
 
 	    episodeList += "\">";
 
 	    if (events[j] != "") {
-		var boxColor = boxColors[j];
-		//if (events[j].boxColor) { boxColor = events[j].boxColor; }
-		episodeList += "<div class=\"detail "+boxColor+"LabelAnchor\"title=\""+events[j]+"\"></div>";
+		episodeList += "<div class=\"detail "+boxColors[j]+"LabelAnchor\"title=\""+events[j]+"\"></div>";
 	    }
 
 	    episodeList += '</div>';

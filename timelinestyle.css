@@ -155,7 +155,6 @@ h1,
     font: normal 11px "Nunito", Verdana, Sans-Serif;
     color: white;
     margin-top:-11px;
-//    margin-left:3.5%;
 }
 
 .vertical{
@@ -170,7 +169,7 @@ h1,
     content: ""; 
     height: 10px; 
     top:50%;
-//    margin-left:1px;
+    margin-top:-5px;
     position: absolute; 
     width: 10px; 
     border: 2px solid black;   
@@ -195,42 +194,4 @@ h1,
 }
 .redLabel{
     border: 6px dashed red;
-}
-
-.arrow {
-    width: 70px;
-    height: 16px;
-    overflow: hidden;
-    position: absolute;
-    left: 50%;
-    margin-left: -35px;
-    bottom: -16px;
-}
-
-.arrow.top {
-    top: -16px;
-    bottom: auto;
-}
-
-.arrow.left {
-    left: 20%;
-}
-
-.arrow:after {
-//    background-color: inherit;
-
-    content: "";
-    position: absolute;
-    left: 20px;
-    top: -20px;
-    width: 25px;
-    height: 25px;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-}
-
-.arrow.top:after {
-    bottom: -20px;
-    top: auto;
 }

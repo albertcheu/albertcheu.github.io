@@ -45,7 +45,9 @@ function loadSeason(seasonData, seasonNumber){
 	    episodeList += "\">";
 
 	    if (events[j] != "") {
-		episodeList += "<div class=\"detail "+boxColors[j]+"LabelAnchor\"title=\""+events[j]+"\"></div>";
+		episodeList += '<div class="detail '+boxColors[j]+'LabelAnchor"title="'+events[j]+'"';
+		if (lineColors[j] == "black") { episodeList += 'style="height:8px;width:8px;border-radius:4px;border:hidden"'; }
+		episodeList += '></div>';
 	    }
 
 	    episodeList += '</div>';

@@ -112,15 +112,31 @@ background:black;
 }
 
 .timeline-both-side li .timeline-description{
-  border-radius: 2px; 
-  background-color: #f1f1f1; 
+  border-radius: 4px; 
+  background-color:black;
+  
   border: 1px solid #ccc; 
   float: left; 
-  font-size: 14px; 
-  padding: 10px; 
+  color:white;
+  font: normal 14px "Nunito", Verdana, Sans-Serif;
+  text-transform:uppercase;
+  padding-top: 4px; 
+  padding-bottom: 6px; 
   position: relative; 
   width: 30%;
   margin-bottom: 10px;
+  
+}
+
+.timeline-both-side li .timeline-description p{
+    margin-left:6px;
+}
+
+.episodeStripe{
+    //background-color:white;
+    background-color: #f1f1f1;
+    color:black;
+    font-size:12px;
 }
 
 .timeline-both-side li.opposite-side .timeline-description{
@@ -136,7 +152,7 @@ h1{
 }
 
 h1,
-.timeline-description{
+.ui-accordion-header{
     font-family: "Michroma";
 }
 
@@ -174,6 +190,7 @@ h1,
     width: 10px; 
     border: 2px solid black;   
     background-color:white;
+    cursor:pointer;
 }
 
 .ui-tooltip {

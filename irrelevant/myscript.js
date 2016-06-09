@@ -19,7 +19,7 @@ function loadSeason(seasonData, seasonNumber){
 	var title = ep.title;
 	var desc = ep.desc;
 
-	episodeList += "<div class=\"border-line\"></div><div class=\"timeline-description\"><p>"+title+"</p></div><div class=\"dummy\"></div>";
+	episodeList += '<div class="border-line"></div><div class="timeline-description"><p>'+title+'</p><div class="episodeStripe"><p>episode '+i.toString()+'/'+(seasonData.length-1).toString()+'</p></div></div><div class="dummy"></div>';
 
 	var events = ep.events;
 	for(var j = 0; j < numLines; j++){	

@@ -112,31 +112,38 @@ background:black;
 }
 
 .timeline-both-side li .timeline-description{
-  border-radius: 4px; 
+  border: 2px solid white;
+  border-radius: 5px; 
+
   background-color:black;
-  
-  border: 1px solid #ccc; 
-  float: left; 
   color:white;
   font: normal 14px "Nunito", Verdana, Sans-Serif;
-  text-transform:uppercase;
+  text-transform:uppercase;  
+
+  width: 30%;
+  float: left; 
+
   padding-top: 4px; 
   padding-bottom: 6px; 
   position: relative; 
-  width: 30%;
+
   margin-bottom: 10px;
   
 }
 
 .timeline-both-side li .timeline-description p{
     margin-left:6px;
+    margin-right:6px;
 }
 
 .episodeStripe{
-    //background-color:white;
-    background-color: #f1f1f1;
+    background-color:white;
     color:black;
     font-size:12px;
+}
+.episodeDescription{
+    font-size:11px;
+    text-transform:none;
 }
 
 .timeline-both-side li.opposite-side .timeline-description{
@@ -180,6 +187,20 @@ h1,
     flex: 0 0 10px;
 }
 
+.whiteBorder{
+    border: 1px solid white;
+}
+
+.roundTop{
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+.roundBottom{
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5px;
+}
+
 .detail{
     border-radius: 50%; 
     content: ""; 
@@ -201,14 +222,4 @@ h1,
     padding: 10px 20px;
     color:white;
     font: normal 14px "Nunito", Verdana, Sans-Serif;
-}
-
-.yellowLabel{
-    border: 6px dashed yellow;
-}
-.whiteLabel{
-    border: 6px dashed white;
-}
-.redLabel{
-    border: 6px dashed red;
 }

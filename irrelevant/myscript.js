@@ -1,66 +1,116 @@
+
+//Make the timeline for a season
 function loadSeason(seasonData, seasonNumber){
+    //first element will have metadata
     var metadata = seasonData[0];
     var numLines = metadata.numLines;
     var lineNames = metadata.lineNames;
     var lineColors = metadata.lineColors;
     var boxColors = metadata.boxColors;
 
+    //Label the timelines by the characters they correspond to
+    //(position names over the lines: need left offset below)
     var nameList = '<div style="display:inline-block;width:40%"></div>';
     for (var i = 0; i < numLines; i++){
 	nameList += '<p class="character">' + lineNames[i] + "</p>";
     }
 
+    //construct the timeline
     var episodeList = "<ul class=\"timeline-both-side\">";
+
+    //One row for every episode in the season
     for(var i = 1; i < seasonData.length; i++){
 	episodeList += "<li>";
 
 	var ep = seasonData[i];
-	//title, description, (array of strings)
-	var title = ep.title;
-	var desc = ep.desc;
 
-	episodeList += '<div class="border-line"></div><div class="timeline-description"><p>'+title+'</p><div class="episodeStripe"><p>episode '+i.toString()+'/'+(seasonData.length-1).toString()+'</p></div></div><div class="dummy"></div>';
+	//the horizontal line that connects description to main vertical line
+	episodeList += '<div class="border-line"></div>';
 
+	//begin the episode's description
+	episodeList += `<div class="timeline-description"><p>${ep.title} (${i.toString()}/${(seasonData.length-1).toString()})</p>`;
+
+	//inside, put the numbers...
+	
+	for (var j = 0; j < ep.numbers.length; j++) {
+	    episodeList += '<div class="episodeStripe"><p>';
+	    if (ep.numbers[j][0] != '*') {
+		episodeList += `Subject: ${ep.numbers[j]}`;
+		episodeList += '</p></div>';
+	    }
+	    else {
+		var nameLength = ep.numbers[j].length;
+		episodeList += `Alias: ${ep.numbers[j].substr(1,nameLength)}`;
+		episodeList += '</p></div>';
+	    }
+	}
+
+	//and description
+	var desc = ep.desc;	
+	episodeList += `<p class="episodeDescription">${desc}</p>`;
+
+	//close the episode's description
+	episodeList += '</div>';
+	
+	//put distance between description and timelines
+	episodeList += '<div class="dummy"></div>';
+
+	//now, the actual timelines
 	var events = ep.events;
 	for(var j = 0; j < numLines; j++){	
 
-	    episodeList += "<div class=\"vertical\" style=\"background-color:"+lineColors[j]+";";
+	    //begin the timeline segment
+	    episodeList += '<div ';
 
-	    //black stripe needs white border
+	    //open inline style
+	    episodeList += 'style="background-color:'+lineColors[j]+';';
+	    //no white top/bottom border for black stripe (usually)
 	    if (lineColors[j] == "black") {
-		episodeList += "border: 1px solid white;";
-		if (i > 1) { episodeList += "border-top:none;"; }
-		if (i < seasonData.length-1) { episodeList += "border-bottom: none;"; }
+		if (i > 1) { episodeList += 'border-top:none;'; }
+		if (i < seasonData.length-1)
+		{ episodeList += 'border-bottom:none;'; }
 	    }
+	    //close inline style
+	    episodeList += '"';
 
+	    //open general style
+	    episodeList += 'class="vertical ';
 	    //first row needs round top
-	    if (i == 1) {
-		episodeList += "border-top-left-radius:5px;border-top-right-radius:5px;"
-	    }
+	    if (i == 1) { episodeList += 'roundTop '; }
 	    //last row needs round bottom
-	    if (i == seasonData.length-1) {
-		episodeList += "border-bottom-left-radius:5px;border-bottom-right-radius:5px;"
-	    }
+	    if (i == seasonData.length-1) { episodeList += 'roundBottom '; }
+	    //black stripe needs white border
+	    if (lineColors[j] == 'black') { episodeList += 'whiteBorder '; }
+	    //close general style (and div definition)
+	    episodeList += '">';
 
-	    episodeList += "\">";
-
+	    //if something happened to this character
 	    if (events[j] != "") {
-		episodeList += '<div class="detail '+boxColors[j]+'LabelAnchor"title="'+events[j]+'"';
-		if (lineColors[j] == "black") { episodeList += 'style="height:8px;width:8px;border-radius:4px;border:hidden"'; }
+		//<color>LabelAnchor will make the tooltip have <color> border
+		episodeList += `<div class="detail ${boxColors[j]}LabelAnchor" title="${events[j]}"`;
+
+		//override normal circle color when background is black
+		if (lineColors[j] == "black") {
+		    episodeList += 'style="height:8px;width:8px;border-radius:4px;border:hidden"';
+		}
 		episodeList += '></div>';
 	    }
 
+	    //close the timeline segment
 	    episodeList += '</div>';
 
 	}
 
+	//close the row
 	episodeList += "</li>";
     }
 
+    //close the timeline
     episodeList += "</ul>";
+
+    //insert the html
     var search = "#s"+seasonNumber.toString();
     $(search).html(nameList+episodeList);
-    //$(search).html(episodeList);
 }
 
 /*Position labels above their lines*/
@@ -69,11 +119,11 @@ function centerLabels(){
 
     //get correct space between centers
     var w = $('.timeline-both-side').width();
+    //timelines are 3.5% apart and have 10px width
     var space = 0.035*w+10;
 
     //assuming previous label is centered,
     //center this one
-
     for (var i = 1; i < labels.length; i++){
 	var curHalfWidth = $(labels[i]).width() / 2;
 	var prevHalfWidth = $(labels[i-1]).width() / 2;
@@ -83,23 +133,28 @@ function centerLabels(){
 }
 
 $(function(){
+    //load season data (function from different script)
     loadS1();
 
-    $(".check").button();
-    
-    $(".yellowLabelAnchor").tooltip({
-	tooltipClass:"yellowLabel"
-    });
-    $(".whiteLabelAnchor").tooltip({
-	tooltipClass:"whiteLabel"
-    });
-    $(".redLabelAnchor").tooltip({
-	tooltipClass:"redLabel"
-    });
+    //$('.vertical'){
 
+    var boxColors = ['yellow','white','red','royalBlue'];
+    for (var i = 0; i < boxColors.length; i++){
+	//use jQuery to set class of the tooltip
+	$('.'+boxColors[i]+'LabelAnchor').tooltip({
+	    tooltipClass:boxColors[i]+'Label'
+	});
+
+	//then apply tooltip's border color
+	var style = $('<style>.'+boxColors[i]+'Label { border: 6px dashed '+boxColors[i]+'; }</style>');
+	$('html > head').append(style);
+    }
+
+    //center the timeline labels on creation/resize
     $(window).load(centerLabels);
     $(window).resize(centerLabels);
 
+    //make the tooltip nice
     $(".detail").tooltip({
 	position: {
             my: "center bottom-20",
@@ -110,7 +165,6 @@ $(function(){
 		$( this ).css( position );
 
 		$( "<div>" )
-//		    .addClass( "arrow" )
 		    .addClass( feedback.vertical )
 		    .addClass( feedback.horizontal )
 		    .appendTo( this );
@@ -119,8 +173,9 @@ $(function(){
 	}
     });
 
-
+    //enable the accordion functionality
     $("#seasons").accordion({
 	heightStyle:"content"
     });
+
 });

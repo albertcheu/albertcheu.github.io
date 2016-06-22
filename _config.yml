@@ -16,3 +16,7 @@ github_username:  albertcheu
 
 # Build settings
 markdown: kramdown
+
+# configure kramdown
+kramdown:
+  parse_block_html: true

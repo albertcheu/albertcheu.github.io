@@ -227,6 +227,11 @@ html,body{
  */
 .post{
     min-height:inherit;
+    .post-content > p {
+    text-indent: 3%;
+    text-align:justify;
+    text-justify:inter-word;
+}
 }
 
 .post-header {
@@ -252,7 +257,7 @@ html,body{
     color: $white-color;
     min-height: inherit;
     margin-bottom: $spacing-unit*2;
-    
+
     h2 {
         font-size: 32px;
 

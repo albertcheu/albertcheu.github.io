@@ -10,7 +10,7 @@ function loadSeason(seasonData, seasonNumber){
 
     //Label the timelines by the characters they correspond to
     //(position names over the lines: need left offset below)
-    var nameList = '<div style="display:inline-block;width:40%"></div>';
+    var nameList = '<div style="display:inline-block;width:36.3%"></div>';
     for (var i = 0; i < numLines; i++){
 	nameList += '<p class="character">' + lineNames[i] + "</p>";
     }
@@ -113,28 +113,41 @@ function loadSeason(seasonData, seasonNumber){
     $(search).html(nameList+episodeList);
 }
 
-/*Position labels above their lines*/
-function centerLabels(){
-    var labels = $('p.character');
+/* Position labels above their lines */
+function centerLabels(windowLoad){
+    if (windowLoad) {
+	var w = $('.timeline-both-side').width();
+	console.log("width: "+w.toString());
+	
+	//get correct space between centers
+	//timelines are 3.5% apart and have 10px width
+	space = 0.035*w+10;
+    }
 
-    //get correct space between centers
-    var w = $('.timeline-both-side').width();
-    //timelines are 3.5% apart and have 10px width
-    var space = 0.035*w+10;
+    for (var season = 1; season < 3; season++){
+	console.log("space: "+space.toString());
+	var labels = $('#s'+season.toString()+' p.character');
+	console.log(labels.length);
 
-    //assuming previous label is centered,
-    //center this one
-    for (var i = 1; i < labels.length; i++){
-	var curHalfWidth = $(labels[i]).width() / 2;
-	var prevHalfWidth = $(labels[i-1]).width() / 2;
-	var margin = space-curHalfWidth-prevHalfWidth;
-	$(labels[i]).css('margin-left',margin);
+	//assuming previous label is centered,
+	//center this one
+
+	for (var i = 1; i < labels.length; i++){
+	    var curHalfWidth = $(labels[i]).width() / 2;
+	    console.log(curHalfWidth);
+	    var prevHalfWidth = $(labels[i-1]).width() / 2;
+	    console.log(prevHalfWidth);
+	    var margin = space-curHalfWidth-prevHalfWidth;
+	    console.log(margin);
+	    $(labels[i]).css('margin-left',margin);
+	}
     }
 }
 
 $(function(){
     //load season data (function from different script)
     loadS1();
+    loadS2();
 
     //$('.vertical'){
 
@@ -151,8 +164,9 @@ $(function(){
     }
 
     //center the timeline labels on creation/resize
-    $(window).load(centerLabels);
-    $(window).resize(centerLabels);
+    space = 0;
+    //$(window).load(centerLabels(true));
+    $(window).resize(centerLabels(true));
 
     //make the tooltip nice
     $(".detail").tooltip({
@@ -177,5 +191,9 @@ $(function(){
     $("#seasons").accordion({
 	heightStyle:"content"
     });
+
+    $( "#seasons" ).on( "accordionactivate", function( event, ui ) {
+	centerLabels(false);
+    } );
 
 });

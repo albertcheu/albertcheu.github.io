@@ -39,10 +39,10 @@ if __name__ == "__main__":
 
     f = open("loadS%d.js"%season,"w")
     f.write("""
-    function loadS1(){
-    loadSeason(%s,1);
+    function loadS%d(){
+    loadSeason(%s,%d);
     }
-    """ % json.dumps(seasonData))
+    """ % (season,json.dumps(seasonData),season))
     f.close()
 
     pass

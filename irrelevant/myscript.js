@@ -115,31 +115,66 @@ function loadSeason(seasonData, seasonNumber){
     return numLines;
 }
 
-function obtainSpace(w,numLines){
-    //constant for now
-    return 3.5;
+function obtainSpace(w,numLines,season){
+    /*
+      Binary search the largest percent-spacing between time lines
+      such that the rightmost line is within the div
+     */
+    console.log("Computing spacing parameter");
+    console.log(w);
+    console.log(numLines);
+
+    //position of the leftmost line
+    var leftmost = $('#s'+season.toString()+' div.dummy')[0];
+    var o = $(leftmost).offset();
+    var leftEdge = o.left+10;
+
+    //assume 10px works and 100px doesn't
+    var lower = 10;
+    var upper = 100;
+
+    //main loop
+    while(lower + 1 <= upper){
+	var mid = (lower + upper) / 2;
+	//use current percentage to get pixel spacing
+	//is rightmost still inside the window?
+	var delta = numLines*(10 + mid);
+	var rightEdge = leftEdge + delta;
+
+	var containerPadding = 10;
+	if (rightEdge+containerPadding < w) { lower = mid; }
+	else { upper = mid; }
+    }
+
+    return lower;
+
 }
 
 function adjustLines(){
-    w = $('.timeline-both-side').width();
+    var new_w = $('.timeline-both-side').width();
+    if (new_w >= 256) { w = new_w; }
 
-    for (var season = 1; season < 3; season++){
-	/* Change the spacing of the lines */
-	var lines = $('#s'+season.toString()+' .roundTop');
-	var numLines = lines.length;
-	var space = obtainSpace(w,numLines);
-		    
-	/* Position labels above their lines */
-	var labels = $('#s'+season.toString()+' .character');
+    //get active season
+    var seasonInt = $("#seasons").accordion( "option", "active" );
+    var season = (seasonInt + 1).toString();
+    console.log(season);
 
-	for(var i = 0; i < lines.length; i++){
-	    var o = $(lines[i]).offset();
-	    o.top -= 20;
-	    o.left -= $(labels[i]).width()/2 - 5;
-	    $(labels[i]).offset(o);
-	}
+    /* Change the spacing of the lines */
+    var tops = $('#s'+season+' .roundTop');
+    var numLines = tops.length;
+    var space = obtainSpace(w,numLines,season);
+    $('#s'+season+' div.vertical').css('margin-left',space.toString()+'px');
 
+    /* Position labels above their lines */
+    var labels = $('#s'+season+' .character');
+    
+    for(var i = 0; i < numLines; i++){
+	var o = $(tops[i]).offset();
+	o.top -= 20;
+	o.left -= $(labels[i]).width()/2 - 5;
+	$(labels[i]).offset(o);
     }
+
 }
 
 $(function(){

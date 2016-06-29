@@ -117,53 +117,35 @@ function loadSeason(seasonData, seasonNumber){
 
 function obtainSpace(w,numLines){
     //constant for now
-    return 0.035*w+10;
+    return 3.5;
 }
 
-/* Position labels above their lines */
-function centerLabels_core(spacing){
+function adjustLines(){
+    w = $('.timeline-both-side').width();
 
     for (var season = 1; season < 3; season++){
-	var space = spacing[season-1];
-	console.log("space: "+space.toString());
-	var labels = $('#s'+season.toString()+' p.character');
-	console.log(labels.length);
+	/* Change the spacing of the lines */
+	var lines = $('#s'+season.toString()+' .roundTop');
+	var numLines = lines.length;
+	var space = obtainSpace(w,numLines);
+		    
+	/* Position labels above their lines */
+	var labels = $('#s'+season.toString()+' .character');
 
-	//assuming previous label is centered,
-	//center this one
-	for (var i = 1; i < labels.length; i++){
-	    var curHalfWidth = $(labels[i]).width() / 2;
-	    console.log(curHalfWidth);
-
-	    var prevHalfWidth = $(labels[i-1]).width() / 2;
-	    console.log(prevHalfWidth);
-
-	    var margin = space-curHalfWidth-prevHalfWidth;
-	    console.log(margin);
-
-	    $(labels[i]).css('margin-left',margin);
+	for(var i = 0; i < lines.length; i++){
+	    var o = $(lines[i]).offset();
+	    o.top -= 20;
+	    o.left -= $(labels[i]).width()/2 - 5;
+	    $(labels[i]).offset(o);
 	}
+
     }
-}
-
-function centerLabels(seasonSize){
-    var new_w = $('.timeline-both-side').width();
-    if (new_w >= 256) { w = new_w; }
-
-    console.log('width: '+w.toString());
-    var spacing = [0,0,0,0,0];
-    for(var i = 0; i < 5; i++) {
-	spacing[i] = obtainSpace(w,seasonSize[i]);
-    }
-
-    centerLabels_core(spacing);
 }
 
 $(function(){
     //load season data (function from different script)
-    var seasonSize = [0,0,0,0,0];
-    seasonSize[0] = loadS1();
-    seasonSize[1] = loadS2();
+    loadS1();
+    loadS2();
 
     var boxColors = ['yellow','white','red','royalBlue'];
     for (var i = 0; i < boxColors.length; i++){
@@ -177,13 +159,13 @@ $(function(){
 	$('html > head').append(style);
     }
 
-    //center the timeline labels on creation/resize
+    //adjust the spacing of lines & labels upon creation/resize
     w = 1024;
     $(window).load(function(){
-	centerLabels(seasonSize);
+	adjustLines();
     });
     $(window).resize(function(){
-	centerLabels(seasonSize);
+	adjustLines();
     });
 
     //make the tooltip nice
@@ -207,12 +189,13 @@ $(function(){
 
     //enable the accordion functionality
     $("#seasons").accordion({
-	heightStyle:"content"
+	heightStyle:"content",
+	collapsible:true
     });
 
 
     $( "#seasons" ).on( "accordionactivate", function( event, ui ) {
-	centerLabels(seasonSize);
+	adjustLines();
     } );
 
 });

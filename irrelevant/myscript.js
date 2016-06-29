@@ -10,7 +10,7 @@ function loadSeason(seasonData, seasonNumber){
 
     //Label the timelines by the characters they correspond to
     //(position names over the lines: need left offset below)
-    var nameList = '<div style="display:inline-block;width:36.3%"></div>';
+    var nameList = '<div style="display:inline-block;width:36.05%"></div>';
     for (var i = 0; i < numLines; i++){
 	nameList += '<p class="character">' + lineNames[i] + "</p>";
     }
@@ -111,45 +111,59 @@ function loadSeason(seasonData, seasonNumber){
     //insert the html
     var search = "#s"+seasonNumber.toString();
     $(search).html(nameList+episodeList);
+
+    return numLines;
+}
+
+function obtainSpace(w,numLines){
+    //constant for now
+    return 0.035*w+10;
 }
 
 /* Position labels above their lines */
-function centerLabels(windowLoad){
-    if (windowLoad) {
-	var w = $('.timeline-both-side').width();
-	console.log("width: "+w.toString());
-	
-	//get correct space between centers
-	//timelines are 3.5% apart and have 10px width
-	space = 0.035*w+10;
-    }
+function centerLabels_core(spacing){
 
     for (var season = 1; season < 3; season++){
+	var space = spacing[season-1];
 	console.log("space: "+space.toString());
 	var labels = $('#s'+season.toString()+' p.character');
 	console.log(labels.length);
 
 	//assuming previous label is centered,
 	//center this one
-
 	for (var i = 1; i < labels.length; i++){
 	    var curHalfWidth = $(labels[i]).width() / 2;
 	    console.log(curHalfWidth);
+
 	    var prevHalfWidth = $(labels[i-1]).width() / 2;
 	    console.log(prevHalfWidth);
+
 	    var margin = space-curHalfWidth-prevHalfWidth;
 	    console.log(margin);
+
 	    $(labels[i]).css('margin-left',margin);
 	}
     }
 }
 
+function centerLabels(seasonSize){
+    var new_w = $('.timeline-both-side').width();
+    if (new_w >= 256) { w = new_w; }
+
+    console.log('width: '+w.toString());
+    var spacing = [0,0,0,0,0];
+    for(var i = 0; i < 5; i++) {
+	spacing[i] = obtainSpace(w,seasonSize[i]);
+    }
+
+    centerLabels_core(spacing);
+}
+
 $(function(){
     //load season data (function from different script)
-    loadS1();
-    loadS2();
-
-    //$('.vertical'){
+    var seasonSize = [0,0,0,0,0];
+    seasonSize[0] = loadS1();
+    seasonSize[1] = loadS2();
 
     var boxColors = ['yellow','white','red','royalBlue'];
     for (var i = 0; i < boxColors.length; i++){
@@ -164,9 +178,13 @@ $(function(){
     }
 
     //center the timeline labels on creation/resize
-    space = 0;
-    //$(window).load(centerLabels(true));
-    $(window).resize(centerLabels(true));
+    w = 1024;
+    $(window).load(function(){
+	centerLabels(seasonSize);
+    });
+    $(window).resize(function(){
+	centerLabels(seasonSize);
+    });
 
     //make the tooltip nice
     $(".detail").tooltip({
@@ -192,8 +210,9 @@ $(function(){
 	heightStyle:"content"
     });
 
+
     $( "#seasons" ).on( "accordionactivate", function( event, ui ) {
-	centerLabels(false);
+	centerLabels(seasonSize);
     } );
 
 });

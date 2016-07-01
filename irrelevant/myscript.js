@@ -120,20 +120,20 @@ function obtainSpace(w,numLines,season){
       Binary search the largest percent-spacing between time lines
       such that the rightmost line is within the div
      */
-    console.log("Computing spacing parameter");
-    console.log(w);
-    console.log(numLines);
+    //console.log("Computing spacing parameter");
+    //console.log(w);
+    //console.log(numLines);
 
     //position of the leftmost line
     var leftmost = $('#s'+season.toString()+' div.dummy')[0];
     var o = $(leftmost).offset();
     var leftEdge = o.left+10;
 
-    //assume 10px works and 100px doesn't
+    //assume 10px works and w/numLines doesn't
     var lower = 10;
-    var upper = 100;
+    var upper = w/numLines;
 
-    //main loop
+    //binary search (i don't feel like doing the algebra)
     while(lower + 1 <= upper){
 	var mid = (lower + upper) / 2;
 	//use current percentage to get pixel spacing
@@ -151,13 +151,14 @@ function obtainSpace(w,numLines,season){
 }
 
 function adjustLines(){
-    var new_w = $('.timeline-both-side').width();
-    if (new_w >= 256) { w = new_w; }
-
     //get active season
     var seasonInt = $("#seasons").accordion( "option", "active" );
     var season = (seasonInt + 1).toString();
-    console.log(season);
+    //console.log(season);
+
+    //The title fills the width of the screen so use that as our benchmark
+    var new_w = $('h1').width()-20;
+    if (new_w >= 1024) { w = new_w; }
 
     /* Change the spacing of the lines */
     var tops = $('#s'+season+' .roundTop');
@@ -194,8 +195,10 @@ $(function(){
 	$('html > head').append(style);
     }
 
-    //adjust the spacing of lines & labels upon creation/resize
+    //default width of presentation area
     w = 1024;
+
+    //adjust the spacing of lines & labels upon creation/resize
     $(window).load(function(){
 	adjustLines();
     });
@@ -224,6 +227,7 @@ $(function(){
 
     //enable the accordion functionality
     $("#seasons").accordion({
+	active:false,
 	heightStyle:"content",
 	collapsible:true
     });

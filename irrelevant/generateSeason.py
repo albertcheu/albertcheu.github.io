@@ -32,7 +32,7 @@ if __name__ == "__main__":
         lineData = list(lines[i].strip().split('\t'))
         episode['events'] = lineData[1:numLines+1]
         episode['title'] = lineData[numLines+1]
-        episode['desc'] = lineData[numLines+2]
+        episode['desc'] = lineData[numLines+2].replace('"','\"')
         episode['numbers'] = lineData[numLines+3:]
         seasonData.append(episode)
         pass

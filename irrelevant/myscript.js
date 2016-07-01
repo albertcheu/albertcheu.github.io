@@ -86,6 +86,9 @@ function loadSeason(seasonData, seasonNumber){
 
 	    //if something happened to this character
 	    if (events[j] != "") {
+		events[j]=events[j].replace(/"/g,'&quot;');
+		//console.log(events[j]);
+
 		//<color>LabelAnchor will make the tooltip have <color> border
 		episodeList += `<div class="detail ${boxColors[j]}LabelAnchor" title="${events[j]}"`;
 

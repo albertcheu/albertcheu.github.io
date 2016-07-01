@@ -160,7 +160,7 @@ function adjustLines(){
     //console.log(season);
 
     //The title fills the width of the screen so use that as our benchmark
-    var new_w = $('h1').width()-20;
+    var new_w = $('h1').width()-40;
     if (new_w >= 1024) { w = new_w; }
 
     /* Change the spacing of the lines */

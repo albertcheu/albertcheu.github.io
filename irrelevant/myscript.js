@@ -87,10 +87,16 @@ function loadSeason(seasonData, seasonNumber){
 	    //if something happened to this character
 	    if (events[j] != "") {
 		events[j]=events[j].replace(/"/g,'&quot;');
-		//console.log(events[j]);
-
-		//<color>LabelAnchor will make the tooltip have <color> border
-		episodeList += `<div class="detail ${boxColors[j]}LabelAnchor" title="${events[j]}"`;
+		var bc = boxColors[j];
+		var eventText = events[j];
+		var eventArray = eventText.split('|');
+		if (eventArray.length == 2) {
+		    eventText = eventArray[0];
+		    bc = eventArray[1];
+		}
+		
+		//<bc>LabelAnchor will make the tooltip have <bc> border
+		episodeList += `<div class="detail ${bc}LabelAnchor" title="${eventText}"`;
 
 		//override normal circle color when background is black
 		if (lineColors[j] == "black") {
@@ -212,8 +218,8 @@ $(function(){
     //make the tooltip nice
     $(".detail").tooltip({
 	position: {
-            my: "center bottom-20",
-            at: "center top",
+	    my: "right center",
+	    at: "left-20 center",
             using: function( position, feedback ) {
 		var ocolor = $(this).css("outline-color");
 

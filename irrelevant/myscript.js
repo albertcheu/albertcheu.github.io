@@ -1,6 +1,7 @@
 
 //Make the timeline for a season
 function loadSeason(seasonData, seasonNumber){
+    
     //first element will have metadata
     var metadata = seasonData[0];
     var numLines = metadata.numLines;
@@ -119,6 +120,7 @@ function loadSeason(seasonData, seasonNumber){
 
     //insert the html
     var search = "#s"+seasonNumber.toString();
+
     $(search).html(nameList+episodeList);
 
     return numLines;
@@ -191,6 +193,7 @@ $(function(){
     //load season data (function from different script)
     loadS1();
     loadS2();
+    loadS3();
 
     var boxColors = ['yellow','white','red','royalBlue'];
     for (var i = 0; i < boxColors.length; i++){

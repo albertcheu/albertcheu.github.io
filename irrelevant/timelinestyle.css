@@ -146,6 +146,7 @@ background:black;
     font-size:12px;
 }
 .episodeDescription{
+    margin-top: 4px;
     font-size:11px;
     text-transform:none;
 }

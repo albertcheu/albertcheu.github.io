@@ -206,10 +206,11 @@ html,body{
 .post-list {
     margin-left: 0;
     list-style: none;
+    margin-bottom: $spacing-unit;
+}
 
-    > li {
-        margin-bottom: $spacing-unit;
-    }
+.post-list-item{
+	
 }
 
 .post-meta {
@@ -220,6 +221,7 @@ html,body{
 .post-link {
     display: block;
     font-size: 24px;
+    margin-bottom: $spacing-unit;
 }
 
 /**
@@ -281,6 +283,53 @@ html,body{
             font-size: 18px;
         }
     }
+
+}
+
+//the navigation "bar"
+.nav{
+    text-align:center;
+}
+#newer, select, #older {
+    display:inline-block;
+}
+
+.select-style{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);      
+    overflow:hidden;
+    padding: 0;
+
+    border: 1px solid #ccc;
+    width: 120px;
+    border-radius: 3px;
+
+    background-color: $grey-color-light;
+    background: $grey-color-light url("http://www.scottgood.com/jsg/blog.nsf/images/arrowdown.gif") no-repeat 90% 50%;
+}
+
+select {
+    padding-left:50px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+}
+
+.select-style select:focus {
+    outline: none;
+}
+
+#newer {
+    float:left;
+}
+#older {
+    float:right;
 }
 
 //anchors and footnotes

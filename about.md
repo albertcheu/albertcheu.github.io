@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Theoretical Computer Science all[^1] the way; soon-to-be PhD. student at [Northeastern University](http://neu.edu).
+Theoretical Computer Science all the way[^1]; soon-to-be PhD. student at [Northeastern University](http://neu.edu).
 
 [New York University](http://nyu.edu), Tandon[^2] [School of Engineering](http://engineering.nyu.edu), 2016.
 
@@ -25,6 +25,8 @@ I have also made use of:
 * [This StackOverflow post](http://stackoverflow.com/questions/2643305/centering-a-background-image-using-css) and many others
 
 * [Adrn's response on this StackOverflow post](http://stackoverflow.com/questions/7961589/positioning-background-image-adding-padding) to make background images fill padded space
+
+* [This codepen example](https://codepen.io/gnclmorais/pen/cHkqt) for the post navigator.
 
 * Python documentation for a neat script to generate new posts
 

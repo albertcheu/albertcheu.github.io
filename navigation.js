@@ -1,6 +1,7 @@
 //show most recent post, LIMIT per 'page'
-var LIMIT = 2;
+var LIMIT = 10;
 
+var oldPageNumber = 0;
 var pageNumber = 0;
 var posts;
 var pl;
@@ -14,9 +15,11 @@ $(document).ready(function(){
 	//handle data hiding
 	changePage();
 
+	$('select').append('<option selected disabled>Select page</option>');
+
 	//initialize a selector to allow viewing of different 'pages'
 	for (var i = 0; i < Math.ceil(posts.length / LIMIT); i++) {
-	    $('select').append(`<option value="${i}">${i}</option>`);
+	    $('select').append(`<option value="${i}">${i+1}</option>`);
 	}
     }
 
@@ -32,19 +35,20 @@ $(document).ready(function(){
 
 	//get the chosen page number
 	var selectedOption = $( "select option:selected" )[0];
+	oldPageNumber = pageNumber;
 	pageNumber = parseInt($(selectedOption).attr('value'));
 
 	changePage();
     });
 
     $('#newer').click(function(){
-	pageNumber--;
+	oldPageNumber = pageNumber--;
 	$('select').val(pageNumber);
 	changePage()
     });
 
     $('#older').click(function(){
-	pageNumber++;
+	oldPageNumber = pageNumber++;
 	$('select').val(pageNumber);
 	changePage()
     });
@@ -52,6 +56,7 @@ $(document).ready(function(){
 });
 
 function changePage(){
+
     for (var i = 0; i < pl; i++){
 	if (i < pageNumber*LIMIT || i >= (pageNumber+1)*LIMIT) {
 	    $(posts[i]).css('display','none');

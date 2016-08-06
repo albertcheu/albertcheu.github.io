@@ -334,6 +334,11 @@ select {
     float:right;
 }
 
+blockquote {
+color: $grey-color-light;
+
+}
+
 //anchors and footnotes
 .page-content{
     a:link {

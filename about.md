@@ -4,13 +4,13 @@ title: About
 permalink: /about/
 ---
 
-Theoretical Computer Science all the way[^1]; soon-to-be PhD. student at [Northeastern University](http://neu.edu).
+Theoretical Computer Science all the way[^1]; PhD. student at [Northeastern University](http://neu.edu).
 
 [New York University](http://nyu.edu), Tandon[^2] [School of Engineering](http://engineering.nyu.edu), 2016.
 
 Stuyvesant High School, 2012.
 
-View my [full resume](/AlbertCheuResume.pdf).
+View my [resume](/AlbertCheuResume.pdf).
 
 ---
 

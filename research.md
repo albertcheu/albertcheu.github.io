@@ -4,6 +4,8 @@ title: Research
 permalink: /research/
 ---
 
-I will be working at Northeastern University's College of Computer and Information Science in the Fall.
+I am a PhD. student at Northeastern University. They took a picture of me for my profile on their website, so I could link to that in the future.
 
-In the meantime, I'll post a writeup of the work I did in Summer 2015 with Lucianna Kiffer under the supervision of Bill Gasarch & Clyde Kruskal.
+My advisors are Jon Ullman and Ravi Sundaram. Pretty chill guys.
+
+I am currently in the problem-hunting phase of grad school: primarily reading papers and pondering variants of their problems. The core model I'm looking at is searching for "treasure" on an infinite line (in one or two directions) using multiple agents.

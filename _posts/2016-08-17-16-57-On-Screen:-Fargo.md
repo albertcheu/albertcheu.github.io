@@ -9,8 +9,6 @@ There are many reasons to like FX's series but I enjoyed three aspects the most.
 
 ### Humor
 
-![](http://24.media.tumblr.com/366123c308fa985f2211b2d33ab7a448/tumblr_n4gwedgMpN1ri43r5o3_500.gif)
-
 ![](http://24.media.tumblr.com/792e16c988359078d46a337ed8c18d35/tumblr_n4gwedgMpN1ri43r5o2_500.gif)
 
 ![](https://67.media.tumblr.com/8cb395ba544b54c0fda01db50e4027a9/tumblr_nzm4ewUu0Y1tu4c7to1_400.gif)

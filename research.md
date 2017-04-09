@@ -8,4 +8,4 @@ I am a PhD. student at Northeastern University. They took a picture of me for my
 
 My advisors are Jon Ullman and Ravi Sundaram. Pretty chill guys.
 
-I am currently in the problem-hunting phase of grad school: primarily reading papers and pondering variants of their problems. The core model I'm looking at is searching for "treasure" in a discrete space with noise; in more technical terms, best arm identification in the multi-arm bandit setting with bounded or unbounded number of arms.
+I designed an algorithm that can be seen as an experimental procedure to determine which drugs are cost-effective, where drugs have unknown effectiveness rate. The broader field in which the problem resides is called the "multi-armed bandit setting."

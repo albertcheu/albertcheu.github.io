@@ -34,6 +34,6 @@ I have also made use of:
 
 ---
 
-[^1]:Well, most of the way. Remainder filled by genre TV, action movies, story-rich games, and a customized philosophy that is a Frankensteinian blend of Mill, Hofstadter, Quine, and more (but not More)
+[^1]:Well, most of the way. Remainder filled by genre TV, action movies, and story-rich games.
 
 [^2]:The school has went through literally half a dozen name changes, most recently "Polytechnic Institute of NYU" and "NYU Polytechnic School of Engineering".

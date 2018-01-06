@@ -32,6 +32,14 @@ Here are my brief thoughts/criticism of AAA games I have played:
 
 * Dishonored 2: The only quibble I have with this game is that maps are hard to get to in the menu. Everything else is great.
 
+* Prey: A great game with overly-long loading times
+
+* Witcher 3: This game is huge and story-rich, but the combat leaves a bit to be desired
+
+* Horizon: Zero Dawn: Excellent
+
+* Ocarina of Time (3DS): A good game bogged down by an odd control scheme
+
 ---
 
 I researched van der Waerden games in 2015.

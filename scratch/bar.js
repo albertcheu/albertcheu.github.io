@@ -17,7 +17,7 @@ function barchart(){
 
     container.selectAll("*").remove();
     
-    d3.csv("https://albertcheu.github.io/scratch/sahd.csv",toNumber,
+    d3.csv("sahd.csv",toNumber,
 	   function(error,data){
 
 	       //plot only the first few rows to avoid skinny bars

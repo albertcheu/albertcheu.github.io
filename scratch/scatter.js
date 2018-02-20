@@ -19,7 +19,7 @@ function scatterplot(){
 
     container.selectAll("*").remove();
   
-    d3.csv("https://albertcheu.github.io/scratch/sahd.csv",toNumber,
+    d3.csv("sahd.csv",toNumber,
 	   function(error,data){
 
 	       fitY.domain([d3.min(data,function(d) { return d.obesity; }),

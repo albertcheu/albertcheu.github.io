@@ -1,0 +1,14 @@
+
+svg rect{
+    fill: steelblue;
+}
+svg text{
+    fill: white;
+    font: 10px sans-serif;
+    text-anchor: middle;
+}
+
+svg circle{
+    fill: steelblue;
+
+}

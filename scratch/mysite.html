@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+
+    <meta charset="utf-8">
+    <title>My site</title>
+
+    <link rel="stylesheet" href="mysite.css">
+    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <script src="bar.js"></script>
+    <script src="scatter.js"></script>
+
+  </head>
+  
+  <body>
+    <p> Select which type of data you want to see
+      
+      <form>
+	<input type="radio" name="chart" value="male" onclick="scatterplot()">Scatter: adiposity vs obesity<br>
+	<input type="radio" name="chart" value="female" onclick="barchart()">Bar: ages<br>
+      </form>
+
+  </body>
+
+  <svg></svg>
+  
+</html>

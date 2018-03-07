@@ -10,13 +10,6 @@ function scatterplot(){
     //hide bar chart
     d3.select(".barchart").style("opacity",0)//remove()
 
-    //if we made a scatterplot already, show it and quit
-    var sp = d3.select(".scatterplot");
-    if (! sp.empty()) {
-	sp.style("opacity",1);
-	return;
-    }
-
     var margin = {top: 20, right: 30, bottom: 30, left: 40},
 	width = 960 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
@@ -24,9 +17,17 @@ function scatterplot(){
     var fitY = d3.scaleLinear().range([height-2,0]);
     var fitX = d3.scaleLinear().range([0,width-2])
 
+    //if we made a scatterplot already, show it and quit
+    var sp = d3.select(".scatterplot");
+    if (! sp.empty()) {
+	sp.style("opacity",1);
+	return;
+    }
+    
+    //setsize(width,height)
+    setsize(width+margin.left+margin.right,height+margin.top+margin.bottom)
+    
     var container = d3.select("svg")
-	.attr("height",height)
-    	.attr("width",width)
 	.append("g").attr("class","scatterplot")
     
     d3.csv("https://albertcheu.github.io/scratch/sahd.csv",toNumber,

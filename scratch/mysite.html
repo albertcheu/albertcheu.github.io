@@ -12,19 +12,21 @@
 
     <script src="bar.js"></script>
     <script src="scatter.js"></script>
+    <script src="map.js"></script>
+    <script src="shared.js"></script>
 
   </head>
   
-  <body>
-    <p> Select which type of data you want to see
+  <body onload="worldmap()">
+
+    <!-- <p> Select which type of data you want to see -->
       
-      <form>
-	<input type="radio" name="chart" value="male" onclick="scatterplot()">Scatter: adiposity vs obesity<br>
-	<input type="radio" name="chart" value="female" onclick="barchart()">Bar: ages<br>
-      </form>
-
+    <!--   <form> -->
+    <!-- 	<input type="radio" name="chart" value="male" onclick="scatterplot()">Scatter: adiposity vs obesity<br> -->
+    <!-- 	<input type="radio" name="chart" value="female" onclick="barchart()">Bar: ages<br> -->
+    <!--   </form> -->
+    <svg ></svg>
+    
   </body>
-
-  <svg></svg>
   
 </html>

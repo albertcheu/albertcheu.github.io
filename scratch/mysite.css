@@ -16,13 +16,13 @@ svg circle{
   font: 10px sans-serif;
 }
 
-/* .axis path, */
-/* .axis line { */
-/*   fill: none; */
-/*   stroke: #000; */
-/*   shape-rendering: crispEdges; */
-/* } */
-
-/* .x.axis path { */
-/*   display: none; */
-/* } */
+.mesh {
+  fill: none;
+  stroke: #fff;
+//  stroke-linecap: round;
+//  stroke-linejoin: round;
+}
+.country {
+  fill: #ccc;
+  cursor: pointer;
+}

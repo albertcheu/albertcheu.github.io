@@ -7,14 +7,6 @@ var svg, active, width, height, container, path;
 
 function worldmap(){
 
-    // var svg = d3.select("svg");
-    // var active = d3.select(null);
-    // var width = 960, height = 500;
-    // //all child objects will be inside this group
-    // var container = svg.append("g")
-    // //.attr("transform","translate(" + margin.left + "," + margin.top + ")")
-    // 	.attr("class","worldmap");
-
     svg = d3.select("svg");
     active = d3.select(null);
     width = 960, height = 500;
@@ -23,51 +15,20 @@ function worldmap(){
     
     //all child objects will be inside this group
     container = svg.append("g")
-    //.attr("transform","translate(" + margin.left + "," + margin.top + ")")
 	.attr("class","worldmap");
-
     
     var projection = d3.geoMercator().translate([width / 2, 3*height / 5]);
     path = d3.geoPath()
 	.projection(projection);
 
-    // var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    //     width = 960 - margin.left - margin.right,
-    //     height = 500 - margin.top - margin.bottom;
-    //setsize(width+margin.left+margin.right,height+margin.top+margin.bottom)
-
     setsize(width,height);
+
     d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
 	    //d3.json("https://bl.ocks.org/mbostock/raw/4090846/world-50m.json",
 	    function(error, mapData) {
 		
 		var geojsonData = topojson.feature(mapData,mapData.objects.countries).features;
-
-		//USA (iso 840) is at index 226: remove coordinates east of 165E
-		//console.log(geojsonData[226]);
-		//console.log(geojsonData[226].geometry.coordinates[0])
-
-		//France (iso 250) is at index 72
-		//separate South America (French Guiana/Martinique/Guadeloupe) and Africa (Reunion/Mayotte)
-		var allFrance = geojsonData[72].geometry.coordinates;
-
-		//arc groups
-		for (var i = 0; i < allFrance.length; i++){
-		    var firstPoint = allFrance[i][0][0];
-
-		    //stored as x,y coordinates (long,lat)
-		    
-		    //territories in SA (far west)
-		    if (firstPoint[0] < -30) {
-			allFrance[i] = [];
-		    }
-
-		    //Reunion & Mayotte (far south)
-		    if (firstPoint[1] < -10) {
-			allFrance[i] = [];
-		    }
-		}
-		//geojsonData[72].geometry.coordinates = allFrance;
+		fixMap(geojsonData);
 		
 		container.selectAll("path").data(geojsonData)
 		    .enter().append("path")
@@ -122,4 +83,47 @@ function zoomed() {
 // also stop propagation so we don’t click-to-zoom.
 function stopped() {
     if (d3.event.defaultPrevented) d3.event.stopPropagation();
+}
+
+//America and france have far-flung territories, but they mess up zooming and have no data
+//So we make each disjoint island/land mass into its own "country" with its own ISO id
+function fixMap(geojsonData){
+    
+    //spare ids start from 900
+    var spareID = 900;
+    
+    //France (iso 250) is at index 72
+    //France consists of Metro (European) France and Overseas France
+    var allFrance = geojsonData[72].geometry.coordinates;
+    for (var i = 0; i < allFrance.length; i++){
+	//an x,y coordinate pair (long,lat)
+	var firstPoint = allFrance[i][0][0];
+	
+	//F. Guiana (254), Martinique (474), Guadeloupe (312) (far west)
+	if (firstPoint[0] < -30 ||
+	    //Reunion(638) & Mayotte(175) (far south)
+	    firstPoint[1] < -10) {
+	    geojsonData.push({type:"Feature",id:spareID,
+			      geometry:{type:"Polygon",coordinates:allFrance[i]}});
+	    allFrance[i] = [];
+	    spareID++;
+	}
+
+    }
+
+    //USA (iso 840) is at index 226
+    //separate Aleutian islands & Guam
+    var allAmerica = geojsonData[226].geometry.coordinates;
+    for (var i = 0; i < allAmerica.length; i++){
+	var firstPoint = allAmerica[i][0][0];
+	if (firstPoint[0] < -170 || firstPoint[0] > 0) {
+	    geojsonData.push({type:"Feature",id:spareID,
+			      geometry:{type:"Polygon",coordinates:allAmerica[i]}});
+	    allAmerica[i] = [];
+	    spareID++;
+	}
+    }
+
+    //console.log(spareID);
+
 }

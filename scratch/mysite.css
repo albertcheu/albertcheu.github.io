@@ -17,12 +17,16 @@ svg circle{
 }
 
 .mesh {
-  fill: none;
+    fill: none;
   stroke: #fff;
 //  stroke-linecap: round;
 //  stroke-linejoin: round;
 }
 .country {
-  fill: #ccc;
+//    stroke:black;
+    fill: #ccc;
   cursor: pointer;
+}
+.active {
+  fill: orange;
 }

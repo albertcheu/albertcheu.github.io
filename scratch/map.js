@@ -47,8 +47,27 @@ function worldmap(){
 		//console.log(geojsonData[226]);
 		//console.log(geojsonData[226].geometry.coordinates[0])
 
-		//France (iso 250) is at index 72: separate European and South American parts (French Guiana)
-		console.log(geojsonData[72].geometry.coordinates)
+		//France (iso 250) is at index 72
+		//separate South America (French Guiana/Martinique/Guadeloupe) and Africa (Reunion/Mayotte)
+		var allFrance = geojsonData[72].geometry.coordinates;
+
+		//arc groups
+		for (var i = 0; i < allFrance.length; i++){
+		    var firstPoint = allFrance[i][0][0];
+
+		    //stored as x,y coordinates (long,lat)
+		    
+		    //territories in SA (far west)
+		    if (firstPoint[0] < -30) {
+			allFrance[i] = [];
+		    }
+
+		    //Reunion & Mayotte (far south)
+		    if (firstPoint[1] < -10) {
+			allFrance[i] = [];
+		    }
+		}
+		//geojsonData[72].geometry.coordinates = allFrance;
 		
 		container.selectAll("path").data(geojsonData)
 		    .enter().append("path")

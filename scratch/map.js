@@ -1,41 +1,69 @@
 
-var zoom = d3.zoom()
-    .scaleExtent([1, 8])
-    .on("zoom", zoomed);
+var minZoom = 1;
+var maxZoom = 8;
 
-var svg, active, width, height, container, path;
+var zoom = d3.zoom()
+    .scaleExtent([minZoom, maxZoom])
+    .on("zoom", zoomed);
+var identity = d3.zoomIdentity;
+
+var svg, active, map, path;
+var width=960;
+var height=500;
+
+//$(document).ready(function(){
+
+//});
 
 function worldmap(){
-
+    var ispSelector = d3.select("#ispSelector")
+    for (var i = 0; i < 10; i++){
+    	ispSelector.append("option").attr("value",i).html("abcdefghijklmnop "+i);
+    }
+    
+    $("#ispSelector").select2({placeholder:"Select ISPs and carriers"});
+    //d3.select(".select2-selection .select2-selection__rendered .select2-search__field")
+//	.attr("width",0.9*d3.select(".leftpanel").node().getBoundingClientRect().width);
+    
     svg = d3.select("svg");
     active = d3.select(null);
-    width = 960, height = 500;
 
+    width = 0.9*d3.select(".rightpanel").node().getBoundingClientRect().width;
+    var scalingFactor = width / 960;
+    height *= scalingFactor;
+    console.log(scalingFactor);
+
+    setsize(width,height);
+    
     svg.append("rect").attr("width",width).attr("height",height).on("click",reset);
     
+    
     //all child objects will be inside this group
-    container = svg.append("g")
+    map = svg.append("g")
 	.attr("class","worldmap");
     
-    var projection = d3.geoMercator().translate([width / 2, 3*height / 5]);
+    var projection = d3.geoMercator()
+	//.translate([width / 2, 3*height / 5]);
     path = d3.geoPath()
 	.projection(projection);
 
-    setsize(width,height);
-
+    identity = d3.zoomIdentity
+	.translate(0, height / 6)
+	.scale(scalingFactor);
+    svg.call( zoom.transform, identity);
+    
     d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
-	    //d3.json("https://bl.ocks.org/mbostock/raw/4090846/world-50m.json",
 	    function(error, mapData) {
 		
 		var geojsonData = topojson.feature(mapData,mapData.objects.countries).features;
 		fixMap(geojsonData);
 		
-		container.selectAll("path").data(geojsonData)
+		map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
 		    .attr('d', path)
 		    .attr('class','country').on("click",clicked);
 		
-		container.append("path")
+		map.append("path")
 		    .datum(topojson.mesh(mapData,mapData.objects.countries,
 					 function(a, b) { return a !== b; }))
 		    .attr("class", "mesh")
@@ -45,7 +73,12 @@ function worldmap(){
 }
 
 function clicked(d) {
-    if (active.node() === this) return reset();
+    //if I clicked the selected country, reset view
+    if (active.node() === this) {
+	return reset();
+    }
+    
+    //otherwise deselect and change the active variable
     active.classed("active", false);
     active = d3.select(this).classed("active", true);
 
@@ -54,7 +87,7 @@ function clicked(d) {
 	dy = bounds[1][1] - bounds[0][1],
 	x = (bounds[0][0] + bounds[1][0]) / 2,
 	y = (bounds[0][1] + bounds[1][1]) / 2,
-	scale = Math.max(1, Math.min(8, 0.9 / Math.max(dx / width, dy / height))),
+	scale = Math.max(minZoom, Math.min(maxZoom, 0.9 / Math.max(dx / width, dy / height))),
 	//scale = 8,
 	translate = [width / 2 - scale * x, height / 2 - scale * y];
 
@@ -62,21 +95,22 @@ function clicked(d) {
     
     svg.transition()
 	.duration(750)
-	.call( zoom.transform, d3.zoomIdentity.translate(translate[0],translate[1]).scale(scale) ); // updated for d3 v4
+	.call( zoom.transform,
+	       d3.zoomIdentity.translate(translate[0],translate[1])
+	       .scale(scale) ); // updated for d3 v4
 }
 
 function reset() {
     active.classed("active", false);
-    active = d3.select(null);
-    
+    active = d3.select(null);    
     svg.transition()
       .duration(750)
-      .call( zoom.transform, d3.zoomIdentity ); // updated for d3 v4
+      .call( zoom.transform, identity ); // updated for d3 v4
 }
 
 function zoomed() {
-    container.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-    container.attr("transform", d3.event.transform); // updated for d3 v4
+    map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    map.attr("transform", d3.event.transform); // updated for d3 v4
 }
 
 // If the drag behavior prevents the default click,

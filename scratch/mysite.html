@@ -11,9 +11,15 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
 
+    <script
+       src="https://code.jquery.com/jquery-3.3.1.min.js"
+       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+       crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>    
+
+
     <script src="shared.js"></script>
-    <script src="bar.js"></script>
-    <script src="scatter.js"></script>
     <script src="map.js"></script>
 
   </head>
@@ -26,7 +32,18 @@
     <!-- 	<input type="radio" name="chart" value="male" onclick="scatterplot()">Scatter: adiposity vs obesity<br> -->
     <!-- 	<input type="radio" name="chart" value="female" onclick="barchart()">Bar: ages<br> -->
     <!--   </form> -->
-    <svg ></svg>
+
+    <div class="float leftpanel">
+      <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
+	
+      </select>
+    </div>
+    
+    <div style="text-algin:center;" class="float rightpanel">
+      <svg  ></svg>
+    </div>
+    
+
     
   </body>
   

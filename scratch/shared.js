@@ -1,10 +1,6 @@
-function setsize(width,height){
+function setsize(selection,width,height){
     
-    var container = d3.select("svg")
-	if (container.attr("height") != height){
-        container.attr("height",height);
-    }
-    if (container.attr("width") != width){
-    	container.attr("width",width);
-    }
+    var container = d3.select(selection)
+    container.attr("height",height);
+    container.attr("width",width);    
 }

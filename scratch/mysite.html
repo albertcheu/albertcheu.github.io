@@ -26,13 +26,12 @@
   
   <body onload="worldmap()">
 
-    <!-- <p> Select which type of data you want to see -->
-      
-    <!--   <form> -->
-    <!-- 	<input type="radio" name="chart" value="male" onclick="scatterplot()">Scatter: adiposity vs obesity<br> -->
-    <!-- 	<input type="radio" name="chart" value="female" onclick="barchart()">Bar: ages<br> -->
-    <!--   </form> -->
-
+    <div class="float extrapanel">
+      <p> To make Hira happy,
+	<br>
+      <p> Here is an extra div
+    </div>
+    
     <div class="float leftpanel">
       <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
 	
@@ -40,7 +39,7 @@
     </div>
     
     <div style="text-algin:center;" class="float rightpanel">
-      <svg  ></svg>
+      <svg id="map" ></svg>
     </div>
     
 

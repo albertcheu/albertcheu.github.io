@@ -24,8 +24,11 @@ svg circle{
   border: solid green 1px
 }
 
+.extrapanel{
+    width:10%;
+}
 .leftpanel{
-    width:40%;
+    width:30%;
 }
 .rightpanel{
     width:60%;

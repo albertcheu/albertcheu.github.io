@@ -6,8 +6,10 @@ var zoom = d3.zoom()
     .scaleExtent([minZoom, maxZoom])
     .on("zoom", zoomed);
 var identity = d3.zoomIdentity;
+var URL_BASE = "http://ec2-18-222-4-123.us-east-2.compute.amazonaws.com/";
+//var URL_BASE = "http://ec2-18-222-4-123.us-east-2.compute.amazonaws.com";
 
-var svg, map, active, path;
+var svg, map, active, path, barssvg, divmargin, divHeight, divWidth, divxScale, divyScale, divxAxis, divyAxis;
 
 //dimensions of the map
 var width=960;
@@ -22,9 +24,9 @@ function worldmap(){
     width = 0.9*d3.select(".rightpanel").node().getBoundingClientRect().width;
     var scalingFactor = width / 960;
     height *= scalingFactor;
-    //console.log(scalingFactor);
-
+    console.log("Map dimensions: "+width+","+height);
     setsize("#map",width,height);
+
 
     //the ocean
     var ocean = svg.append("rect").attr("id","ocean");
@@ -67,18 +69,8 @@ function worldmap(){
 	    }
 	   );
 
-    //populate the isp selector
-    var ispSelector = d3.select("#ispSelector")
-    for (var i = 0; i < 10; i++){
-    	ispSelector.append("option").attr("value",i).html("ISP number "+i);
-    }
     
-    //make sure it is wide enough
-    $("#ispSelector").select2({placeholder:"Select ISPs and carriers"});
-    d3.select(".select2").attr("style","width:100%;");
-    d3.select(".select2-selection__rendered").attr("style","width:100%;");
-    d3.select(".select2-search__field").attr("style","width:100%;");
-
+    
 }
 
 //the callback for clicking on a country

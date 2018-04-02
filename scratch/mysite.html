@@ -21,27 +21,38 @@
 
     <script src="shared.js"></script>
     <script src="map.js"></script>
-
+    <script src="ispGraph.js"></script>
+    <script src="timeline.js"></script>
+    
   </head>
   
-  <body onload="worldmap()">
-
+  <body onload="worldmap(); ispGraph(); timeline()">
+    
     <div class="float extrapanel">
-      <p> To make Hira happy,
+      <p> To reserve space,
 	<br>
-      <p> Here is an extra div
+      <p> here is an extra div
     </div>
     
     <div class="float leftpanel">
       <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
-	
       </select>
+	<svg id="ispGraph"  >
+	     
+   	</svg>
     </div>
-    
-    <div style="text-algin:center;" class="float rightpanel">
+
+    <div style="text-algin:center;" class="rightpanel">
       <svg id="map" ></svg>
     </div>
+
+    <br>
     
+    <div class="float" id="chunkL">
+    </div>
+    <div class="float" id="chunkR">
+      <svg id="timeline"></svg>
+    </div>
 
     
   </body>

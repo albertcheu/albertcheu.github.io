@@ -2,7 +2,7 @@ svg {
     display:block;
     margin:auto
 }
-svg rect{
+svg #ocean{
     fill: steelblue;
 }
 svg text{
@@ -10,17 +10,29 @@ svg text{
     font: 10px sans-serif;
     text-anchor: middle;
 }
-svg circle{
-    fill: steelblue;
 
+#chunkL{
+    width:40%;
+}
+#chunkR{
+    width:60%;
+}
+
+#ispGraph {
+   /* border-style: solid; */
+   /* border-width: 2px; */
+   background: white;
+   float:left; 
+   clear: left;
+   /* height: 490px; */
+   /* width: 520px; */
+   margin: 2px;
 }
 
 .float {
   float: left;
-
   box-sizing: border-box;
-
-  background: lightgreen;
+  background: white;
   border: solid green 1px
 }
 
@@ -31,6 +43,8 @@ svg circle{
     width:30%;
 }
 .rightpanel{
+    float: left;
+    background: green;
     width:60%;
 }
 

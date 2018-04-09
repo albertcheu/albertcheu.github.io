@@ -18,8 +18,8 @@
 }
 
 .animated{
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s;
+    -webkit-animation-duration: 2.6s;
+    animation-duration: 2.6s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -51,7 +51,10 @@
     animation-name: fadeOut;
     pointer-events: none;
 }
-
+#back {
+    width:10%;
+    height:10%;
+}
 
 svg {
     display:block;
@@ -61,8 +64,8 @@ svg {
     fill: steelblue;
 }
 svg text{
-    fill: white;
-    font: 10px sans-serif;
+/*    fill: white;*/
+    font: 12px sans-serif;
     text-anchor: middle;
 }
 
@@ -115,15 +118,10 @@ svg text{
 //  stroke-linejoin: round;
 }
 
-.country {
+.clickable{
     fill: #ccc;
     cursor: pointer;
 }
-.state {
-    fill: #ccc;
-    cursor: pointer;
-}
-
 
 .active {
   fill: orange;

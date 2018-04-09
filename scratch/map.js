@@ -43,7 +43,6 @@ function initMaps(){
 
     worldMap();
 
-    //inAmerica = true;
     usMap();
 }
 
@@ -51,7 +50,7 @@ function worldMap(){
     
     //all child objects will be inside this group
     world.map = svg.append("g")
-	.attr("class","worldmap");
+	.attr("class","worldmap animated");     
     
     var projection = d3.geoMercator();
     world.path = d3.geoPath().projection(projection);
@@ -73,7 +72,7 @@ function worldMap(){
 		world.map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
 		    .attr('d', world.path)
-		    .attr('class','country animated fadeIn')
+		    .attr('class','clickable animated fadeIn')
 		    .on("click",clickedCountry);
 
 		//the following is necessary for good-looking borders
@@ -90,7 +89,19 @@ function usMap(){
     
     //all child objects will be inside this group
     us.map = svg.append("g")
-	.attr("class","usmap");
+	.style("opacity","0")
+	.attr("class","usmap animated");
+    
+    var backButton = us.map.append("rect")
+    	.attr("id","back")
+	.attr("class","clickable")
+    	.attr("x",0)
+    	.attr("y",0)
+	.on("click", function(){
+	    swapMap(us,world);
+	});
+    us.map.append("text").text("Back")
+	.attr("x",20).attr("y",20);
     
     var projection = d3.geoAlbersUsa();
     us.path = d3.geoPath().projection(projection);
@@ -109,22 +120,44 @@ function usMap(){
 		us.map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
 		    .attr('d', us.path)
-		    .attr('class','state animated')
-		    .style('opacity','0')
+		    .attr('class','clickable')
 		    .style('pointer-events','none')
-		    //.on("click",clickedState);
+		    .on("click",clickedState);
 
 		//the following is necessary for good-looking borders
 		us.map.append("path")
 		    .datum(topojson.mesh(usmapData,usmapData.objects.states,
 					 function(a, b) { return a !== b; }))
-		    .attr("class", "mesh animated")
-		    .style('opacity','0')
-		    .style('pointer-events','none')
-		    .attr("d", us.path);
-		
+		    .attr('class','mesh')
+		    .attr("d", us.path);		
 	    }
 	   );    
+}
+
+//switch between the american and world views
+function swapMap(from, to){
+    inAmerica = !inAmerica;
+    
+    from.map
+	.classed("fadeIn",false)
+	.classed("fadeOut",true);
+
+    //clear out previous selections
+    if (to.active) { to.active.classed("active", false); }
+    to.active = d3.select(null);
+
+    //reset to default THEN shift to us-centric view
+    to.map.call( zoom.transform, d3.zoomIdentity);
+    to.map.call( zoom.transform, to.identity);
+    
+    to.map
+	.classed("fadeIn",true)
+	.classed("fadeOut",false);        
+
+    var val = "none";
+    if (to === us) { val = "auto"; }
+    us.map.selectAll("path")
+	.style("pointer-events",val);
 }
 
 //the callback for clicking on a country
@@ -140,35 +173,46 @@ function clickedCountry(d) {
     world.active.classed("active", false);
     world.active = d3.select(this).classed("active", true);
 
-
-    inAmerica = (d.id == usID);
-    if (inAmerica) {
+    if (d.id == usID) {
 	console.log("You clicked on USA");
-	us.map.call( zoom.transform, d3.zoomIdentity);
-	us.map.call( zoom.transform, us.identity);
-	
-	world.map.selectAll("path")
-	    .classed("fadeIn",false)
-	    .classed("fadeOut",true);
-	us.map.selectAll("path")
-	    .classed("fadeIn",true)
-	    .classed("fadeOut",false);
+	swapMap(world,us);
 	return;
     }
-
     
     //pan & zoom variables
     var bounds = world.path.bounds(d);
     //console.log("x min: "+bounds[0][0]);
     //console.log("y min: "+bounds[0][1]);
+    
     //weird bug fix for nz
     if (d.id==554){ bounds[0][0] *= 100; }
+    
     //fiji crosses the boundaries of the map
     //which leads to bounds[0][0] == -0.5; let's fix that
     else if (d.id==242) { bounds[0][0] = bounds[1][0]-30;}
-    //console.log("x min: "+bounds[0][0]);
-    //console.log("y min: "+bounds[0][1]);
+
+    zoomToBox(bounds,world);
+}
+
+function clickedState(d){
+    //console.log("You clicked on the state with ISO code "+d.id);
     
+    //if I clicked an already selected state, reset view
+    if (us.active.node() === this) {
+	return reset(us);
+    }
+    
+    //otherwise deselect and change the active variable
+    us.active.classed("active", false);
+    us.active = d3.select(this).classed("active", true);
+
+    //pan & zoom variables
+    var bounds = us.path.bounds(d);
+
+    zoomToBox(bounds,us);
+}
+
+function zoomToBox(bounds,whichMap){
     var dx = bounds[1][0] - bounds[0][0],
 	dy = bounds[1][1] - bounds[0][1],
 	x = (bounds[0][0] + bounds[1][0]) / 2,
@@ -177,7 +221,7 @@ function clickedCountry(d) {
 	translate = [width / 2 - scale * x, height / 2 - scale * y];
 
     //actually pan & zoom
-    world.map.transition()
+    whichMap.map.transition()
 	.duration(750)
 	.call( zoom.transform,
 	       d3.zoomIdentity.translate(translate[0],translate[1])
@@ -191,7 +235,8 @@ function reset() {
     if (inAmerica) { whichMap = us; }
     
     whichMap.active.classed("active", false);
-    whichMap.active = d3.select(null);    
+    whichMap.active = d3.select(null);
+
     whichMap.map.transition()
       .duration(750)
       .call( zoom.transform, whichMap.identity ); // updated for d3 v4

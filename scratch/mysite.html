@@ -26,7 +26,7 @@
     
   </head>
   
-  <body onload="worldmap(); ispGraph(); timeline()">
+  <body onload="initMaps(); ispGraph(); timeline()">
 
     <div class="title">
       <h1>NetVis</h1>
@@ -59,7 +59,9 @@
 	  </div>
 
 	  <div style="text-algin:center;" class="rightpanel">
-	    <svg id="map" ></svg>
+	    <svg id="map" >
+	      <rect id="ocean" onclick="reset();"></rect>
+	    </svg>
 	  </div>
 
 	  <br>

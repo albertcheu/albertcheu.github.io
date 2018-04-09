@@ -114,11 +114,17 @@ svg text{
 //  stroke-linecap: round;
 //  stroke-linejoin: round;
 }
+
 .country {
-//    stroke:black;
     fill: #ccc;
-  cursor: pointer;
+    cursor: pointer;
 }
+.state {
+    fill: #ccc;
+    cursor: pointer;
+}
+
+
 .active {
   fill: orange;
 }

@@ -15,34 +15,38 @@ var svg;
 //proportions of the svg
 var width=960;
 var height=500;
+var scalingFactor;
 
 //the world map: the <g> element, the active country, the (Mercator) projection
-var world = {map:null, active:null, path:null};
+var world = {map:null, active:d3.select(null), path:null};
 
 //similarly for the us map
-var us = {map:null, active:null, path:null};
+var us = {map:null, active:d3.select(null), path:null};
 var usID = 840;
 var inAmerica = false;
 
 //what are those??
 //var divmargin, divHeight, divWidth, divxScale, divyScale, divxAxis, divyAxis;
 
-function worldmap(){
+function initMaps(){
     //populate the map svg
     svg = d3.select("#map");
-    world.active = d3.select(null);
 
     //svg has to fit inside the right div
     width = 0.9*d3.select(".rightpanel").node().getBoundingClientRect().width;
-    var scalingFactor = width / 960;
+    scalingFactor = width / 960;
     height *= scalingFactor;
     console.log("Map dimensions: "+width+","+height);
     setsize("#map",width,height);
 
-    //the ocean
-    var ocean = svg.append("rect").attr("id","ocean");
-    ocean.on("click",reset);
+    //the ocean fills the svg
     setsize("#ocean",width,height);
+
+    worldMap();
+    usMap();
+}
+
+function worldMap(){
     
     //all child objects will be inside this group
     world.map = svg.append("g")
@@ -55,7 +59,7 @@ function worldmap(){
     identity = d3.zoomIdentity
 	.translate(0, height / 6)
 	.scale(scalingFactor);
-    svg.call( zoom.transform, identity);
+    world.map.call( zoom.transform, identity);
 
     //draw the countries
     d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
@@ -69,7 +73,6 @@ function worldmap(){
 		    .enter().append("path")
 		    .attr('d', world.path)
 		    .attr('class','country animated fadeIn')
-		    //.attr('class','visible country')
 		    .on("click",clickedCountry);
 
 		//the following is necessary for good-looking borders
@@ -77,11 +80,50 @@ function worldmap(){
 		    .datum(topojson.mesh(worldmapData,worldmapData.objects.countries,
 					 function(a, b) { return a !== b; }))
 		    .attr("class", "mesh animated fadeIn")
-		    //.attr('class','visible mesh')
 		    .attr("d", world.path);
 	    }
-	   );
+	   );    
+}
+
+function usMap(){
     
+    //all child objects will be inside this group
+    us.map = svg.append("g")
+	.attr("class","usmap");
+    
+    var projection = d3.geoAlbersUsa();
+    us.path = d3.geoPath().projection(projection);
+
+    //account for the resizing
+    identity = d3.zoomIdentity
+	.translate(0, height / 6)
+	.scale(scalingFactor);
+    us.map.call( zoom.transform, identity);
+
+    //draw the states
+    d3.json('http://albertcheu.github.io/scratch/bostock_us_topo.json',
+	    function(error, usmapData) {
+		
+		var geojsonData = topojson.feature(usmapData,usmapData.objects.states).features;
+		//fixMap(geojsonData);
+		console.log(geojsonData.length);
+		
+		// //state = "path" element
+		// us.map.selectAll("path").data(geojsonData)
+		//     .enter().append("path")
+		//     .attr('d', us.path)
+		//     .attr('class','state animated fadeIn')
+		//     //.on("click",clickedState);
+
+		// //the following is necessary for good-looking borders
+		// us.map.append("path")
+		//     .datum(topojson.mesh(usmapData,usmapData.objects.states,
+		// 			 function(a, b) { return a !== b; }))
+		//     .attr("class", "mesh animated fadeIn")
+		//     .attr("d", us.path);
+		
+	    }
+	   );    
 }
 
 //the callback for clicking on a country
@@ -90,9 +132,9 @@ function clickedCountry(d) {
     
     //if I clicked the selected country, reset view
     if (world.active.node() === this) {
-	return reset();
+	return reset(world);
     }
-
+    
     inAmerica = (d.id == usID);
     if (inAmerica) {
 	console.log("You clicked on USA");
@@ -125,7 +167,7 @@ function clickedCountry(d) {
 	translate = [width / 2 - scale * x, height / 2 - scale * y];
 
     //actually pan & zoom
-    svg.transition()
+    world.map.transition()
 	.duration(750)
 	.call( zoom.transform,
 	       d3.zoomIdentity.translate(translate[0],translate[1])
@@ -134,17 +176,23 @@ function clickedCountry(d) {
 
 //for when you click on a selected country or the ocean
 function reset() {
-    world.active.classed("active", false);
-    world.active = d3.select(null);    
-    svg.transition()
+    var whichMap = world;
+    if (inAmerica) { whichMap = us; }
+    
+    whichMap.active.classed("active", false);
+    whichMap.active = d3.select(null);    
+    whichMap.map.transition()
       .duration(750)
       .call( zoom.transform, identity ); // updated for d3 v4
 }
 
 //something from Bostock that is necessary for zooming
 function zoomed() {
-    world.map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
-    world.map.attr("transform", d3.event.transform); // updated for d3 v4
+    var whichMap = world;
+    if (inAmerica) { whichMap = us; }
+    
+    whichMap.map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    whichMap.map.attr("transform", d3.event.transform); // updated for d3 v4
 }
 
 // If the drag behavior prevents the default click,

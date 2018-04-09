@@ -57,7 +57,7 @@ svg {
     display:block;
     margin:auto
 }
-svg #ocean{
+#ocean{
     fill: steelblue;
 }
 svg text{

@@ -7,7 +7,6 @@ var maxZoom = 8;
 var zoom = d3.zoom()
     .scaleExtent([minZoom, maxZoom])
     .on("zoom", zoomed);
-var identity = d3.zoomIdentity;
 
 //the svg that will hold both world and us maps
 var svg;
@@ -18,10 +17,10 @@ var height=500;
 var scalingFactor;
 
 //the world map: the <g> element, the active country, the (Mercator) projection
-var world = {map:null, active:d3.select(null), path:null};
+var world = { map:null, identity: d3.zoomIdentity, active:d3.select(null), path:null};
 
 //similarly for the us map
-var us = {map:null, active:d3.select(null), path:null};
+var us = { map:null, identity: d3.zoomIdentity, active:d3.select(null), path:null};
 var usID = 840;
 var inAmerica = false;
 
@@ -43,6 +42,8 @@ function initMaps(){
     setsize("#ocean",width,height);
 
     worldMap();
+
+    //inAmerica = true;
     usMap();
 }
 
@@ -56,10 +57,10 @@ function worldMap(){
     world.path = d3.geoPath().projection(projection);
 
     //account for the resizing
-    identity = d3.zoomIdentity
-	.translate(0, height / 6)
-	.scale(scalingFactor);
-    world.map.call( zoom.transform, identity);
+    world.identity = d3.zoomIdentity
+    	.translate(0, height / 6)
+    	.scale(scalingFactor);
+    world.map.call( zoom.transform, world.identity);
 
     //draw the countries
     d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
@@ -95,32 +96,32 @@ function usMap(){
     us.path = d3.geoPath().projection(projection);
 
     //account for the resizing
-    identity = d3.zoomIdentity
-	.translate(0, height / 6)
-	.scale(scalingFactor);
-    us.map.call( zoom.transform, identity);
+    us.identity = d3.zoomIdentity
+    	.scale(scalingFactor);
 
     //draw the states
     d3.json('http://albertcheu.github.io/scratch/bostock_us_topo.json',
 	    function(error, usmapData) {
 		
 		var geojsonData = topojson.feature(usmapData,usmapData.objects.states).features;
-		//fixMap(geojsonData);
-		console.log(geojsonData.length);
 		
-		// //state = "path" element
-		// us.map.selectAll("path").data(geojsonData)
-		//     .enter().append("path")
-		//     .attr('d', us.path)
-		//     .attr('class','state animated fadeIn')
-		//     //.on("click",clickedState);
+		//state = "path" element
+		us.map.selectAll("path").data(geojsonData)
+		    .enter().append("path")
+		    .attr('d', us.path)
+		    .attr('class','state animated')
+		    .style('opacity','0')
+		    .style('pointer-events','none')
+		    //.on("click",clickedState);
 
-		// //the following is necessary for good-looking borders
-		// us.map.append("path")
-		//     .datum(topojson.mesh(usmapData,usmapData.objects.states,
-		// 			 function(a, b) { return a !== b; }))
-		//     .attr("class", "mesh animated fadeIn")
-		//     .attr("d", us.path);
+		//the following is necessary for good-looking borders
+		us.map.append("path")
+		    .datum(topojson.mesh(usmapData,usmapData.objects.states,
+					 function(a, b) { return a !== b; }))
+		    .attr("class", "mesh animated")
+		    .style('opacity','0')
+		    .style('pointer-events','none')
+		    .attr("d", us.path);
 		
 	    }
 	   );    
@@ -134,19 +135,28 @@ function clickedCountry(d) {
     if (world.active.node() === this) {
 	return reset(world);
     }
-    
-    inAmerica = (d.id == usID);
-    if (inAmerica) {
-	console.log("You clicked on USA");
-	world.map.selectAll("path")
-	    .classed("fadeIn",false)
-	    .classed("fadeOut",true);	
-    }
-    
+        
     //otherwise deselect and change the active variable
     world.active.classed("active", false);
     world.active = d3.select(this).classed("active", true);
 
+
+    inAmerica = (d.id == usID);
+    if (inAmerica) {
+	console.log("You clicked on USA");
+	us.map.call( zoom.transform, d3.zoomIdentity);
+	us.map.call( zoom.transform, us.identity);
+	
+	world.map.selectAll("path")
+	    .classed("fadeIn",false)
+	    .classed("fadeOut",true);
+	us.map.selectAll("path")
+	    .classed("fadeIn",true)
+	    .classed("fadeOut",false);
+	return;
+    }
+
+    
     //pan & zoom variables
     var bounds = world.path.bounds(d);
     //console.log("x min: "+bounds[0][0]);
@@ -172,6 +182,7 @@ function clickedCountry(d) {
 	.call( zoom.transform,
 	       d3.zoomIdentity.translate(translate[0],translate[1])
 	       .scale(scale) ); // updated for d3 v4
+
 }
 
 //for when you click on a selected country or the ocean
@@ -183,7 +194,7 @@ function reset() {
     whichMap.active = d3.select(null);    
     whichMap.map.transition()
       .duration(750)
-      .call( zoom.transform, identity ); // updated for d3 v4
+      .call( zoom.transform, whichMap.identity ); // updated for d3 v4
 }
 
 //something from Bostock that is necessary for zooming

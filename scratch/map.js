@@ -62,12 +62,15 @@ function worldMap(){
     world.map.call( zoom.transform, world.identity);
 
     //draw the countries
-    d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
+    //d3.json('http://albertcheu.github.io/scratch/bostock_topo.json',
+    d3.json('http://albertcheu.github.io/scratch/worldMap.json',
 	    function(error, worldmapData) {
-		
-		var geojsonData = topojson.feature(worldmapData,worldmapData.objects.countries).features;
-		fixMap(geojsonData);
+		//console.log(worldmapData.objects.countries.geometries[0])
 
+		var pre = topojson.feature(worldmapData,worldmapData.objects.countries);
+		var geojsonData = pre.features;
+		fixMap(geojsonData);
+		
 		//country = "path" element
 		world.map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
@@ -91,7 +94,8 @@ function usMap(){
     us.map = svg.append("g")
 	.style("opacity","0")
 	.attr("class","usmap animated");
-    
+
+    //handy back button
     var backButton = us.map.append("rect")
     	.attr("id","back")
 	.attr("class","clickable")
@@ -154,6 +158,7 @@ function swapMap(from, to){
 	.classed("fadeIn",true)
 	.classed("fadeOut",false);        
 
+    //toggle interactivity of the us map
     var val = "none";
     if (to === us) { val = "auto"; }
     us.map.selectAll("path")
@@ -162,7 +167,7 @@ function swapMap(from, to){
 
 //the callback for clicking on a country
 function clickedCountry(d) {
-    //console.log("You clicked on the country with ISO code "+d.id);
+    //console.log("You clicked on the country with 2-letter code "+d.properties.code2);
     
     //if I clicked the selected country, reset view
     if (world.active.node() === this) {
@@ -257,17 +262,25 @@ function stopped() {
     if (d3.event.defaultPrevented) d3.event.stopPropagation();
 }
 
-//America and france have far-flung territories, but they mess up zooming and have no data
-//So we make each disjoint island/land mass into its own "country" with its own ISO id
+
 function fixMap(geojsonData){
+    //promote code2 and name
+    for (var i = 0; i < geojsonData.length; i++){
+	geojsonData[i].code2 = geojsonData[i].properties.code2;
+	geojsonData[i].name = geojsonData[i].properties.name;
+    }
+    
+    //France has far-flung territories, but they mess up zooming and have no data
+    //So we make each disjoint island/land mass into its own "country"
+    //TO DO: give each colony in overseas its correct iso id and code2
     
     //spare ids start from 900
     var spareID = 900;
-
     
     //France (iso 250) is at index 72
     //France consists of Metro (European) France and Overseas France
     var allFrance = geojsonData[72].geometry.coordinates;
+    
     for (var i = 0; i < allFrance.length; i++){
 	//an x,y coordinate pair (long,lat)
 	var firstPoint = allFrance[i][0][0];
@@ -283,18 +296,19 @@ function fixMap(geojsonData){
 	}
 
     }
+    //console.log(spareID);
 
     //USA (iso 840) is at index 226
     //separate Aleutian islands & Guam
-    var allAmerica = geojsonData[226].geometry.coordinates;
-    for (var i = 0; i < allAmerica.length; i++){
-	var firstPoint = allAmerica[i][0][0];
-	if (firstPoint[0] < -170 || firstPoint[0] > 0) {
-	    geojsonData.push({type:"Feature",id:spareID,
-			      geometry:{type:"Polygon",coordinates:allAmerica[i]}});
-	    allAmerica[i] = [];
-	    spareID++;
-	}
-    }
+    // var allAmerica = geojsonData[226].geometry.coordinates;
+    // for (var i = 0; i < allAmerica.length; i++){
+    // 	var firstPoint = allAmerica[i][0][0];
+    // 	if (firstPoint[0] < -170 || firstPoint[0] > 0) {
+    // 	    geojsonData.push({type:"Feature",id:spareID,
+    // 			      geometry:{type:"Polygon",coordinates:allAmerica[i]}});
+    // 	    allAmerica[i] = [];
+    // 	    spareID++;
+    // 	}
+    // }
 
 }

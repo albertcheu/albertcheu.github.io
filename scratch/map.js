@@ -21,7 +21,8 @@ var world = { map:null, identity: d3.zoomIdentity, active:d3.select(null), path:
 
 //similarly for the us map
 var us = { map:null, identity: d3.zoomIdentity, active:d3.select(null), path:null};
-var usID = 840;
+
+//indicator variable for which map is currently visible
 var inAmerica = false;
 
 //what are those??
@@ -69,6 +70,7 @@ function worldMap(){
 
 		var pre = topojson.feature(worldmapData,worldmapData.objects.countries);
 		var geojsonData = pre.features;
+		promoteInfo(geojsonData);
 		fixMap(geojsonData);
 		
 		//country = "path" element
@@ -115,10 +117,12 @@ function usMap(){
     	.scale(scalingFactor);
 
     //draw the states
-    d3.json('http://albertcheu.github.io/scratch/bostock_us_topo.json',
+    //d3.json('http://albertcheu.github.io/scratch/bostock_us_topo.json',
+    d3.json('http://albertcheu.github.io/scratch/usMap.json',
 	    function(error, usmapData) {
 		
 		var geojsonData = topojson.feature(usmapData,usmapData.objects.states).features;
+		promoteInfo(geojsonData);
 		
 		//state = "path" element
 		us.map.selectAll("path").data(geojsonData)
@@ -167,7 +171,7 @@ function swapMap(from, to){
 
 //the callback for clicking on a country
 function clickedCountry(d) {
-    //console.log("You clicked on the country with 2-letter code "+d.properties.code2);
+    //console.log("You clicked on "+d.name);
     
     //if I clicked the selected country, reset view
     if (world.active.node() === this) {
@@ -178,8 +182,7 @@ function clickedCountry(d) {
     world.active.classed("active", false);
     world.active = d3.select(this).classed("active", true);
 
-    if (d.id == usID) {
-	console.log("You clicked on USA");
+    if (d.code2 == 'US') {
 	swapMap(world,us);
 	return;
     }
@@ -190,17 +193,17 @@ function clickedCountry(d) {
     //console.log("y min: "+bounds[0][1]);
     
     //weird bug fix for nz
-    if (d.id==554){ bounds[0][0] *= 100; }
+    if (d.code2=='NZ'){ bounds[0][0] *= 100; }
     
     //fiji crosses the boundaries of the map
     //which leads to bounds[0][0] == -0.5; let's fix that
-    else if (d.id==242) { bounds[0][0] = bounds[1][0]-30;}
+    else if (d.code2=='FJ') { bounds[0][0] = bounds[1][0]-30;}
 
     zoomToBox(bounds,world);
 }
 
 function clickedState(d){
-    //console.log("You clicked on the state with ISO code "+d.id);
+    //console.log("You clicked on "+d.name);
     
     //if I clicked an already selected state, reset view
     if (us.active.node() === this) {
@@ -263,13 +266,16 @@ function stopped() {
 }
 
 
-function fixMap(geojsonData){
+function promoteInfo(geojsonData){
     //promote code2 and name
     for (var i = 0; i < geojsonData.length; i++){
 	geojsonData[i].code2 = geojsonData[i].properties.code2;
 	geojsonData[i].name = geojsonData[i].properties.name;
     }
     
+}
+
+function fixMap(geojsonData){
     //France has far-flung territories, but they mess up zooming and have no data
     //So we make each disjoint island/land mass into its own "country"
     //TO DO: give each colony in overseas its correct iso id and code2

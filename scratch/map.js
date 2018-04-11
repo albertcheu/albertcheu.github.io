@@ -33,7 +33,7 @@ function initMaps(){
     svg = d3.select("#map");
 
     //svg has to fit inside the right div
-    width = 0.9*d3.select(".rightpanel").node().getBoundingClientRect().width;
+    width = d3.select(".rightpanel").node().getBoundingClientRect().width;
     scalingFactor = width / 960;
     height *= scalingFactor;
     console.log("Map dimensions: "+width+","+height);
@@ -81,11 +81,11 @@ function worldMap(){
 		    .on("click",clickedCountry);
 
 		//the following is necessary for good-looking borders
-		world.map.append("path")
-		    .datum(topojson.mesh(worldmapData,worldmapData.objects.countries,
-					 function(a, b) { return a !== b; }))
-		    .attr("class", "mesh animated fadeIn")
-		    .attr("d", world.path);
+		// world.map.append("path")
+		//     .datum(topojson.mesh(worldmapData,worldmapData.objects.countries,
+		// 			 function(a, b) { return a !== b; }))
+		//     .attr("class", "mesh animated fadeIn")
+		//     .attr("d", world.path);
 	    }
 	   );    
 }
@@ -133,11 +133,11 @@ function usMap(){
 		    .on("click",clickedState);
 
 		//the following is necessary for good-looking borders
-		us.map.append("path")
-		    .datum(topojson.mesh(usmapData,usmapData.objects.states,
-					 function(a, b) { return a !== b; }))
-		    .attr('class','mesh')
-		    .attr("d", us.path);		
+		// us.map.append("path")
+		//     .datum(topojson.mesh(usmapData,usmapData.objects.states,
+		// 			 function(a, b) { return a !== b; }))
+		//     .attr('class','mesh')
+		//     .attr("d", us.path);		
 	    }
 	   );    
 }
@@ -172,6 +172,7 @@ function swapMap(from, to){
 //the callback for clicking on a country
 function clickedCountry(d) {
     //console.log("You clicked on "+d.name);
+    //console.log(d3.selectAll(".mesh").length);
     
     //if I clicked the selected country, reset view
     if (world.active.node() === this) {
@@ -255,7 +256,8 @@ function zoomed() {
     var whichMap = world;
     if (inAmerica) { whichMap = us; }
     
-    whichMap.map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    //whichMap.map.style("stroke-width", 1.5 / d3.event.transform.k + "px");
+    whichMap.map.style("stroke-width", 0.75 / d3.event.transform.k + "px");
     whichMap.map.attr("transform", d3.event.transform); // updated for d3 v4
 }
 

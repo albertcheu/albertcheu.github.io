@@ -61,19 +61,13 @@ svg {
     margin:auto
 }
 #ocean{
-    fill: steelblue;
+//    fill: steelblue;
+fill:white;
 }
 svg text{
 /*    fill: white;*/
     font: 12px sans-serif;
     text-anchor: middle;
-}
-
-#chunkL{
-    width:40%;
-}
-#chunkR{
-    width:60%;
 }
 
 #ispGraph {
@@ -87,25 +81,47 @@ svg text{
    margin: 2px;
 }
 
+div.tooltip {	
+    position: absolute;			
+    /* text-align: center;			 */
+    /* width: 60px;					 */
+    /* height: 28px;					 */
+    padding-left: 8px;
+    padding-right: 8px;
+    font: 12px sans-serif;		
+    background: lightsteelblue;
+    opacity: 50%;
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;
+}
+ol{
+    padding-left:0;
+    list-style-position:inside;
+}
+
 .float {
   float: left;
   box-sizing: border-box;
-  background: white;
-  border: solid green 1px
+//  background: white;
+//  border: green 1px
 }
 
 .extrapanel{
-    width:10%;
+    width:4%;
 }
 .leftpanel{
     width:30%;
 }
 .rightpanel{
     float: left;
-    background: green;
-    width:60%;
+//    background: green;
+    width:66%;
 }
-
+#timelineDiv{
+    float:left;
+    width:100%;
+}
 .tick text {
     fill:black;
   font: 10px sans-serif;
@@ -113,16 +129,24 @@ svg text{
 
 .mesh {
     fill: none;
-  stroke: #fff;
+    stroke: #fff;
+    //stroke: lightgray;
+    stroke-width: 0.5;
+    
 //  stroke-linecap: round;
 //  stroke-linejoin: round;
 }
 
 .clickable{
+    stroke:white;
+    stroke-width:0.5;
     fill: #ccc;
+    //fill: #29B84E;
     cursor: pointer;
 }
 
 .active {
-  fill: orange;
+    fill: orange;
+    //stroke:black;
+    //stroke-width:1;
 }

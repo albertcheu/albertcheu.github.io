@@ -23,10 +23,14 @@
     <script src="map.js"></script>
     <script src="ispGraph.js"></script>
     <script src="timeline.js"></script>
+    <script src="tooltip.js"></script>
+
+    <script src="intro.js"></script>
+    <link rel="stylesheet" href="introjs.css">
     
   </head>
   
-  <body onload="initMaps(); ispGraph(); timeline()">
+  <body onload="initMaps(); ispGraph(); timeline(); tooltip(); //introJs().start();">
 
     <div class="title">
       <h1>NetVis</h1>
@@ -45,12 +49,10 @@
 
 	<div class=" animated fadeIn">
 	  <div class="float extrapanel">
-	    <p> To reserve space,
-	      <br>
-	    <p> here is an extra div
+	    <img id="hoverhelp" src="help.png">
 	  </div>
 	  
-	  <div class="float leftpanel">
+	  <div class="float leftpanel" data-step="3" data-intro="Three">
 	    <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
 	    </select>
 	    <svg id="ispGraph"  >
@@ -58,7 +60,7 @@
    	    </svg>
 	  </div>
 
-	  <div style="text-algin:center;" class="rightpanel">
+	  <div style="text-algin:center;" class="rightpanel" data-step="2" data-intro="Two">
 	    <svg id="map" >
 	      <rect id="ocean" onclick="reset();"></rect>
 	    </svg>
@@ -66,14 +68,21 @@
 
 	  <br>
 	  
-	  <div class="float" id="chunkL">
-	  </div>
-	  <div class="float" id="chunkR">
+	  <!-- <div class="float" id="chunkL"> -->
+	  <!-- </div> -->
+	  <div class="float" id="timelineDiv" data-step="1" data-intro="One">
 	    <svg id="timeline"></svg>
 	  </div>
 	</div>
     </div>
-    
+    <div class="tooltip" style="opacity:0">
+      <p> Please select</p>
+      <ol>
+	<li>A timeframe</li>
+	<li>A country</li>
+	<li>ISPs</li>
+      </ol>
+    </div>    
   </body>
   
 </html>

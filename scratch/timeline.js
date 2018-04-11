@@ -2,7 +2,7 @@ function timeline(){
     
     var data = ['2018-01-19 20:36:2', '2018-01-20 20:36:2', '2018-01-21 20:36:2', '2018-01-22 20:36:2', '2018-01-23 20:36:2', '2018-01-24 20:36:2', '2018-01-25 20:36:2']
 
-    var width = d3.select("#chunkR").node().getBoundingClientRect().width;
+    var width = d3.select("#timelineDiv").node().getBoundingClientRect().width;
     
     var margin = {top: 200, right: 40, bottom: 200, left: 40},
 	height = 500 - margin.top - margin.bottom;

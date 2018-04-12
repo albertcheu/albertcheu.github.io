@@ -5,6 +5,22 @@
 .title,p{
     font-family:verdana;
 }
+
+
+.area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+
+.zoom {
+  fill: white;
+}
+
+
+.zoomT {
+  fill: white;
+}
+
 .title{
     background-color:#fafafa;
     overflow:auto;
@@ -76,7 +92,7 @@ svg text{
    background: white;
    float:left; 
    clear: left;
-   /* height: 490px; */
+   height: 480px;
    /* width: 520px; */
    margin: 2px;
 }
@@ -150,3 +166,44 @@ ol{
     //stroke:black;
     //stroke-width:1;
 }
+
+
+
+#ispGraph .legend {
+  fill: white;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+/*#ispGraph text {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: start;
+  font-size: 12px;
+}*/
+
+
+#ispGraph .label text {
+  fill: black;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+.label {
+  fill: black;
+  font: 14px sans-serif;
+  text-anchor: end;
+}
+
+.bar:hover {
+  fill: green;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+

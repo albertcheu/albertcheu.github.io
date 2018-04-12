@@ -22,15 +22,14 @@
     <script src="shared.js"></script>
     <script src="map.js"></script>
     <script src="ispGraph.js"></script>
-    <script src="timeline.js"></script>
+    <script src="timeline2.js"></script>
     <script src="tooltip.js"></script>
-
     <script src="intro.js"></script>
     <link rel="stylesheet" href="introjs.css">
     
   </head>
   
-  <body onload="initMaps(); ispGraph(); timeline(); tooltip(); //introJs().start();">
+  <body onload="initMaps(); ispGraph(); timeline2(); tooltip();">
 
     <div class="title">
       <h1>NetVis</h1>
@@ -70,9 +69,14 @@
 	  
 	  <!-- <div class="float" id="chunkL"> -->
 	  <!-- </div> -->
-	  <div class="float" id="timelineDiv" data-step="1" data-intro="One">
-	    <svg id="timeline"></svg>
-	  </div>
+	<div class="float" id="timelineDiv" data-step="1" data-intro="One" >
+      	<svg id="timeline" width="1200" height="200">
+
+          <polygon id="polygon" points="" />
+
+        </svg>
+
+	</div>
 	</div>
     </div>
     <div class="tooltip" style="opacity:0">

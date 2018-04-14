@@ -29,7 +29,7 @@
     
   </head>
   
-  <body onload="initMaps(); ispGraph(); timeline2(); tooltip();">
+  <body onload="initMaps(); ispGraph(); timeline2();">
 
     <div class="title">
       <h1>NetVis</h1>
@@ -38,18 +38,17 @@
 
     <div class="content">
       
-      <p> Net neutrality is the practice of providing a uniform level of access to web content; it is violated when an internet service provider (ISP) gives high speed to one application and low speed to another. In the United States, the Open Internet Order once protected net neutrality, but the Order's elimination by the FCC in late 2017 has left the future in question.
+      <p data-step="4" data-intro="Four"> Net neutrality is the practice of providing a uniform level of access to web content; it is violated when an internet service provider (ISP) gives high speed to one application and low speed to another. In the United States, the Open Internet Order once protected net neutrality, but the Order's elimination by the FCC in late 2017 has left the future in question.
 
-      <p> At Northeastern University, a team of researchers made <a href="dd.meddle.mobi">a mobile app</a> to detect and record "differentiation"&mdash;the technical term for an instance of unfair speed&mdash;and this site presents a summary of the data.
+      <p> At Northeastern University, a team of researchers made <a href="https://dd.meddle.mobi">a mobile app</a> to detect and record "differentiation"&mdash;the technical term for an instance of unfair speed&mdash;and this site presents a summary of the data.
 
       <p>The data was gathered from the usage of seven apps: Amazon, NBCSports, Netflix, Skype, Spotify, Vimeo, and Youtube. Although a plurality of the tests were conducted in the United States, many countries are represented.
 	
 	<br>
 
 	<div class=" animated fadeIn">
-	  <div class="float extrapanel">
-	    <img id="hoverhelp" src="help.png">
-	  </div>
+	  <button onclick="introJs().start();"> Guided Tour </button>
+	  <br>
 	  
 	  <div class="float leftpanel" data-step="3" data-intro="Three">
 	    <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
@@ -60,6 +59,14 @@
 	  </div>
 
 	  <div style="text-algin:center;" class="rightpanel" data-step="2" data-intro="Two">
+	    <div id="mapStrip" style="padding-left:10px;padding-right:10px;">
+	      <button disabled="true" id="backButton">Return to world map</button>
+	      <select id="countrySelector">
+		<option value="default" disabled selected>Select a country in the map or this dropdown</option>
+	      </select>
+	    </div>
+	    <br>
+	    
 	    <svg id="map" >
 	      <rect id="ocean" onclick="reset();"></rect>
 	    </svg>
@@ -69,8 +76,8 @@
 	  
 	  <!-- <div class="float" id="chunkL"> -->
 	  <!-- </div> -->
-	<div class="float" id="timelineDiv" data-step="1" data-intro="One" >
-      	<svg id="timeline" width="1200" height="200">
+	<div class="float" id="timelineDiv"  >
+      	<svg id="timeline" width="1200" height="200" data-step="1" data-intro="One">
 
           <polygon id="polygon" points="" />
 
@@ -79,13 +86,8 @@
 	</div>
 	</div>
     </div>
-    <div class="tooltip" style="opacity:0">
-      <p> Please select</p>
-      <ol>
-	<li>A timeframe</li>
-	<li>A country</li>
-	<li>ISPs</li>
-      </ol>
+    <div id="countryTooltip" style="opacity:0">
+      <p>Country name</p>
     </div>    
   </body>
   

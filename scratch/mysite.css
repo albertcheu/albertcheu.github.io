@@ -1,4 +1,5 @@
 .content{
+    font-family:sans-serif;
     padding-left:5%;
     padding-right:5%;
 }
@@ -6,6 +7,12 @@
     font-family:verdana;
 }
 
+button{
+    cursor:pointer;
+}
+.introjs-helperLayer{
+    opacity:0.3;
+}
 
 .area {
   fill: steelblue;
@@ -51,7 +58,6 @@
 .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
-    pointer-events: auto;
 }
 
 @keyframes fadeOut{
@@ -65,7 +71,6 @@
 .fadeOut {
     -webkit-animation-name: fadeOut;
     animation-name: fadeOut;
-    pointer-events: none;
 }
 #back {
     width:10%;
@@ -80,6 +85,20 @@ svg {
 //    fill: steelblue;
 fill:white;
 }
+
+/* #countrySelector .select2{ */
+/*     width:70%; */
+/* } */
+
+/* #countrySelector .select2-selection__rendered{ */
+/*     width:70%; */
+/* } */
+
+/* #countrySelector .select2-search__field{ */
+/*     width:70%; */
+/* } */
+
+
 svg text{
 /*    fill: white;*/
     font: 12px sans-serif;
@@ -97,7 +116,7 @@ svg text{
    margin: 2px;
 }
 
-div.tooltip {	
+#countryTooltip {	
     position: absolute;			
     /* text-align: center;			 */
     /* width: 60px;					 */
@@ -123,21 +142,23 @@ ol{
 //  border: green 1px
 }
 
-.extrapanel{
-    width:4%;
-}
+
 .leftpanel{
     width:30%;
 }
 .rightpanel{
+    margin-left:1%;
+    margin-right:1%;
     float: left;
 //    background: green;
-    width:66%;
+    width:68%;
 }
+
 #timelineDiv{
     float:left;
     width:100%;
 }
+
 .tick text {
     fill:black;
   font: 10px sans-serif;
@@ -155,16 +176,18 @@ ol{
 
 .clickable{
     stroke:white;
-    stroke-width:0.5;
+    stroke-width:0.05;
     fill: #ccc;
     //fill: #29B84E;
     cursor: pointer;
 }
-
+.overseasfrance{
+    fill: green;
+}
 .active {
     fill: orange;
     //stroke:black;
-    //stroke-width:1;
+    stroke-width:0;
 }
 
 

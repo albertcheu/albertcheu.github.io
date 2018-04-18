@@ -259,7 +259,7 @@ To get a better sense of the extent of this differentiation practiced by ISPs, a
       <h3>Design Process</h3>
       <p>The tasks being primarily filters, we first set about designing the most clear way of enabling them. As geography plays a role in the filtering, a map is the most natural choice. Due the large number of tests in the United States, we also decided to have a US map to see breakdown by state. The most intuitive way to filter by time is through a brush; our design also has a focus view that is evocative of a funnel. The dropdown for ISP was also natural, as we had to allow users to select multiple discrete objects.</p>
 
-      <p>Because the core task is comparison between quantitative values, the lengths in a bar chart are both effective and expressive. We chose red to indicate differentiation as it pops-out, esp. in contrast to black.</p>
+      <p>Because the core task is comparison between quantitative values, the lengths in a bar chart are both effective and expressive. We chose <span style="color:red">red</span> to indicate <span style="color:red;">differentiation</span> as it pops-out, esp. in contrast to black.</p>
 
       <p>
 
@@ -293,7 +293,7 @@ To get a better sense of the extent of this differentiation practiced by ISPs, a
 <li> A Timeline that shows the distribution of the number of user tests available by means of an embedded curve. Its basic task is to select a timeframe that can be used to filter the differentiation seen on the world map and for individual ISPs on a bargraph.</li>
 <li> A Bar-Graph for Multiple ISPs, that shows the number of positive and negative differentiation tests for a given region in a given timeframe. </li>
 </ol>
-<p>Finally, as mentioned before, we chose the color red as our design choice to highlight differentiation both in the donut arcs (in the map) and the bars representing negative tests (in the bargraph).</p>
+<p>Finally, as mentioned before, we chose the color <span style="color:red;">red</span> as our design choice to highlight <span style="color:red">differentiation</span> both in the donut arcs (in the map) and the bars representing negative tests (in the bargraph).</p>
 
 
 
@@ -338,7 +338,7 @@ To get a better sense of the extent of this differentiation practiced by ISPs, a
 	      </select>
 	    </div>
 
-	    <br>
+	    <!-- <br> -->
 
 	    <p id="colorbarTitle" style="text-align:center">Number of tests (saturation log scale)</p>
 	    <svg id="colorbar">
@@ -354,7 +354,7 @@ To get a better sense of the extent of this differentiation practiced by ISPs, a
 	    <br>
 
 	    <div class="float" id="timelineDiv"  >
-      	      <svg id="timeline" width="700" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests. The changes will affect the map.">
+      	      <svg id="timeline" width="700" height="160" data-step="2" data-intro="Here, select a timeframe to filter the tests. The changes will affect the map.">
 
 		<polygon id="polygon" points="" />
 
@@ -368,14 +368,14 @@ To get a better sense of the extent of this differentiation practiced by ISPs, a
 
 
 
-	  <div class="float" id="timelineDiv"  >
-      	    <svg id="timeline" width="600" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests">
+	  <!-- <div class="float" id="timelineDiv"  > -->
+      	  <!--   <svg id="timeline" width="600" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests"> -->
 
-              <polygon id="polygon" points="" />
+          <!--     <polygon id="polygon" points="" /> -->
 
-            </svg>
+          <!--   </svg> -->
 
-	  </div>
+	  <!-- </div> -->
 
 
 	</div>

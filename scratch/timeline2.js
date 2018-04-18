@@ -67,11 +67,11 @@ async function initializeTimeline() {
     marginPercentage = {
 	top: 0,
 	right: 4,
-	bottom: 55,
+	bottom: 75,
 	left: 6
     },
     marginPercentage2 = {
-	top: 65,
+	top: 35,
 	right: 4,
 	bottom: 10,
 	left: 6
@@ -193,7 +193,7 @@ async function initializeTimeline() {
 	.style("opacity", 0)
 	.attr("class", "zoomT")
 	.attr("width", t.width)
-	.attr("height", t.height)
+	.attr("height", t.height/ 10)
 	.attr("transform", "translate(" + t.margin.left + "," + t.margin.top + ")")
 	.call(t.zoomT);
 

@@ -17,19 +17,23 @@
        crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
+    <script type="text/javascript" src="country_data.json"></script>
+    <script type="text/javascript" src="state_data.json"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>    
     <script src="shared.js"></script>
     <script src="map.js"></script>
     <script src="ispGraph.js"></script>
     <script src="timeline2.js"></script>
     <script src="tooltip.js"></script>
     <script src="intro.js"></script>
+    <script src="colorbar.js"></script>
     <link rel="stylesheet" href="introjs.css">
     
   </head>
   
-  <body onload="initMaps(); ispGraph(); timeline2();">
+  <body onload="init();">
 
     <div class="title">
       <h1>NetVis</h1>
@@ -37,58 +41,139 @@
     </div>
 
     <div class="content">
+
+      <h2> Motivation </h2>
       
-      <p data-step="4" data-intro="Four"> Net neutrality is the practice of providing a uniform level of access to web content; it is violated when an internet service provider (ISP) gives high speed to one application and low speed to another. In the United States, the Open Internet Order once protected net neutrality, but the Order's elimination by the FCC in late 2017 has left the future in question.
+      <p>Net neutrality is the practice of providing a uniform level of access to web content; it is violated when an internet service provider (ISP) gives high speed to one application and low speed to another. Researchers call such violations "differentiation." In the United States, the Open Internet Order once protected net neutrality, but the Order's elimination by the FCC in late 2017 has left the future in question.</p>
 
-      <p> At Northeastern University, a team of researchers made <a href="https://dd.meddle.mobi">a mobile app</a> to detect and record "differentiation"&mdash;the technical term for an instance of unfair speed&mdash;and this site presents a summary of the data.
+      <p>From a market perspective, consumers could make informed decisions if the scale of differentiation was public knowledge. And from a societal perspective, citizens and lawmakers could use the data to strengthen their arguments about net neutrality.</p>
+      
+      <h2> Data </h2>
+      
+      <p> To achieve this goal, a team at Northeastern University created <a href="https://dd.meddle.mobi">Wehe, a mobile app</a> that tests if a user is experiencing differentiation. This site provides a visual tool to explore several months worth of Wehe tests.
 
-      <p>The data was gathered from the usage of seven apps: Amazon, NBCSports, Netflix, Skype, Spotify, Vimeo, and Youtube. Although a plurality of the tests were conducted in the United States, many countries are represented.
-	
-	<br>
+      <p>The data contains tests of Amazon, NBCSports, Netflix, Skype, Spotify, Vimeo, and Youtube usage. Although a plurality of the tests were conducted in the United States, many countries are represented.</p>
 
-	<div class=" animated fadeIn">
-	  <button onclick="introJs().start();"> Guided Tour </button>
+      <h2> Task Analysis</h2>
+      <p>We interviewed one of Wehe's developers to pin down the necessary tasks. We discovered that the desired functionalities were progressive refinements of a comparison query. For a particular country in a specified window of time, one ought to be able to compare the number of positive and negative results for a selection of ISPs.</p>
+      
+      <h2>Design Process</h2>
+      <p>The tasks being primarily filters, we first set about designing the most clear way of enabling them. As geography plays a role in the filtering, a map is the most natural choice. Due the large number of tests in the United States, we also decided to have a US map to see breakdown by state. The most intuitive way to filter by time is through a brush; our design also has a focus view that is evocative of a funnel. The dropdown for ISP was also natural, as we had to allow users to select multiple discrete objects.</p>
+
+      <p>Because the core task is comparison between quantitative values, the lengths in a bar chart are both effective and expressive. We chose red to indicate differentiation as it pops-out, esp. in contrast to black.</p>
+
+      <h2> Final Visualization</h2>
+      <p>
+	The bulk of NetVis is made with the Javascript library D3. The <a href="https://select2.org">select2</a> jQuery package enables multi-select. Map data is drawn from json files hosted <a href="https://bl.ocks.org/mbostock/raw/4090846/world-50m.json">here</a> and <a href="https://bl.ocks.org/mbostock/raw/4090846/us.json">here</a>. The <a href="https://sweetalert.js.org/">SweetAlert</a> package is used to show alerts as popups, in case an ISP and country aren't selected.
+      </p>
+      
+      <p> Click on the tour button to familiarize yourself with the interface</p>
+    </div>
+    <div class="content">
+      <br>
+
+	<div class="slowAnimated fadeIn">
+	  <button id="tour" onclick="introJs().start();"> Guided Tour </button>
 	  <br>
 	  
-	  <div class="float leftpanel" data-step="3" data-intro="Three">
-	    <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple">
+	  <div class="float leftpanel panel">
+	    <h3>Breakdown by Provider</h3>
+	    <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple" data-step="3" data-intro="Finally, select one or more ISPs.">
 	    </select>
-	    <svg id="ispGraph"  >
-	      
-   	    </svg>
+	    <svg id="ispGraph"  data-step="4" data-intro="We use your filters--place, time, and ISP--to create a bar chart.">
+	    </svg>
+		
+	 <div id="greyISP">
+		<p id="grey_content" style="color:black;">No Data Available!</p>
+	    </div>
+
+	   
+
+	  <button id="submit" onclick="make_graph()"> Refresh </button>
 	  </div>
 
-	  <div style="text-algin:center;" class="rightpanel" data-step="2" data-intro="Two">
-	    <div id="mapStrip" style="padding-left:10px;padding-right:10px;">
+	  <div style="text-algin:center;" class="rightpanel panel">
+	    <h3 style="padding-left:2.5%;">Global Overview</h3>
+
+	    <div id="mapStrip" style="padding-left:2.5%;">
+	      
 	      <button disabled="true" id="backButton">Return to world map</button>
 	      <select id="countrySelector">
 		<option value="default" disabled selected>Select a country in the map or this dropdown</option>
 	      </select>
 	    </div>
+	    
+	    <br>
+
+	    <p id="colorbarTitle" style="text-align:center">Number of tests (saturation log scale)</p>
+	    <svg id="colorbar">
+	    </svg>
+
+
 	    <br>
 	    
-	    <svg id="map" >
+	    <svg id="map" data-step="1" data-intro="Hover over a country to see a summary of our tests in that country. Click to enable detailed filters.">
 	      <rect id="ocean" onclick="reset();"></rect>
 	    </svg>
+	    
+	    <br>
+	    
+	    <div class="float" id="timelineDiv"  >
+      	      <svg id="timeline" width="700" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests. The changes will affect the map.">
+		
+		<polygon id="polygon" points="" />
+		
+              </svg>
+	      
+	    </div>
 	  </div>
 
 	  <br>
-	  
-	  <!-- <div class="float" id="chunkL"> -->
-	  <!-- </div> -->
-	<div class="float" id="timelineDiv"  >
-      	<svg id="timeline" width="1200" height="200" data-step="1" data-intro="One">
 
-          <polygon id="polygon" points="" />
 
-        </svg>
 
-	</div>
+
+	  <div class="float" id="timelineDiv"  >
+      	    <svg id="timeline" width="600" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests">
+	      
+              <polygon id="polygon" points="" />
+	      
+            </svg>
+	    
+	  </div>
+
+	
 	</div>
     </div>
-    <div id="countryTooltip" style="opacity:0">
-      <p>Country name</p>
-    </div>    
+    <div class="content">
+	<br>	    
+	<h2>Data Analysis</h2>
+
+	<p>Missing values were abundant: 0,0 latitude and longitude and empty ISP names required processing. Noisy data like multiple ways of spelling a single ISP was also a problem.</p>
+
+	<p>As stated previously, many of the tests were conducted in the US, which forced us to apply log-scaling to the choropleth. We also noted a peak in the number of tests in late January, due to media coverage of the Wehe project.</p>
+	
+	<h2>Conclusion</h2>
+	<p>NetVis achieves the core requirement of a detailed ISP comparison as well as a time- and place-based overview. Further work will add a city-level filtering.</p>
+	<br>
+	
+	<div id="regionTooltip" style="opacity:0">
+	  <div style="background-color:white;">
+	    <p id="regionName">Country name</p>
+	  </div>
+	  <br>
+	  <svg id="regionArc">
+	    <path id="arcDiff" class="arc"></path>
+	    <path id="arcNoDiff" class="arc"></path>
+	    <circle id="donutHole" class="donutHole" r="24"></circle>
+	    <text id="numTestsInRegion"></text>
+	  </svg>
+	</div>
+    </div>
+
+    <!-- <div id="panelblocker" style="display:block;background-color:black;opacity:0.5;"> -->
+    <!-- </div> -->
+    
   </body>
   
 </html>

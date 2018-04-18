@@ -1,0 +1,206 @@
+{
+  "Mississippi": {
+    "index_start": 0,
+    "index_end": 25
+  },
+  "Oklahoma": {
+    "index_start": 78,
+    "index_end": 110
+  },
+  "Wyoming": {
+    "index_start": 416,
+    "index_end": 425
+  },
+  "Minnesota": {
+    "index_start": 128,
+    "index_end": 165
+  },
+  "Illinois": {
+    "index_start": 166,
+    "index_end": 211
+  },
+  "Georgia": {
+    "index_start": 962,
+    "index_end": 1001
+  },
+  "Arkansas": {
+    "index_start": 212,
+    "index_end": 239
+  },
+  "New Mexico": {
+    "index_start": 240,
+    "index_end": 263
+  },
+  "Ohio": {
+    "index_start": 1255,
+    "index_end": 1295
+  },
+  "Indiana": {
+    "index_start": 264,
+    "index_end": 302
+  },
+  "Maryland": {
+    "index_start": 303,
+    "index_end": 339
+  },
+  "Louisiana": {
+    "index_start": 340,
+    "index_end": 368
+  },
+  "Texas": {
+    "index_start": 369,
+    "index_end": 415
+  },
+  "Arizona": {
+    "index_start": 426,
+    "index_end": 466
+  },
+  "Iowa": {
+    "index_start": 26,
+    "index_end": 59
+  },
+  "Michigan": {
+    "index_start": 506,
+    "index_end": 548
+  },
+  "Kansas": {
+    "index_start": 549,
+    "index_end": 581
+  },
+  "Utah": {
+    "index_start": 582,
+    "index_end": 620
+  },
+  "Virginia": {
+    "index_start": 621,
+    "index_end": 661
+  },
+  "Oregon": {
+    "index_start": 662,
+    "index_end": 698
+  },
+  "Connecticut": {
+    "index_start": 699,
+    "index_end": 725
+  },
+  "New York": {
+    "index_start": 1533,
+    "index_end": 1578
+  },
+  "California": {
+    "index_start": 765,
+    "index_end": 811
+  },
+  "Idaho": {
+    "index_start": 812,
+    "index_end": 832
+  },
+  "West Virginia": {
+    "index_start": 833,
+    "index_end": 850
+  },
+  "South Carolina": {
+    "index_start": 851,
+    "index_end": 879
+  },
+  "New Hampshire": {
+    "index_start": 880,
+    "index_end": 902
+  },
+  "Massachusetts": {
+    "index_start": 903,
+    "index_end": 946
+  },
+  "Vermont": {
+    "index_start": 947,
+    "index_end": 961
+  },
+  "Delaware": {
+    "index_start": 111,
+    "index_end": 127
+  },
+  "North Dakota": {
+    "index_start": 1002,
+    "index_end": 1017
+  },
+  "Pennsylvania": {
+    "index_start": 1018,
+    "index_end": 1059
+  },
+  "Florida": {
+    "index_start": 1060,
+    "index_end": 1105
+  },
+  "Hawaii": {
+    "index_start": 1106,
+    "index_end": 1130
+  },
+  "Kentucky": {
+    "index_start": 1131,
+    "index_end": 1161
+  },
+  "Alaska": {
+    "index_start": 1162,
+    "index_end": 1188
+  },
+  "Nebraska": {
+    "index_start": 1189,
+    "index_end": 1214
+  },
+  "Missouri": {
+    "index_start": 1215,
+    "index_end": 1254
+  },
+  "Wisconsin": {
+    "index_start": 467,
+    "index_end": 505
+  },
+  "Alabama": {
+    "index_start": 1296,
+    "index_end": 1324
+  },
+  "Rhode Island": {
+    "index_start": 1325,
+    "index_end": 1344
+  },
+  "South Dakota": {
+    "index_start": 60,
+    "index_end": 77
+  },
+  "Colorado": {
+    "index_start": 1371,
+    "index_end": 1411
+  },
+  "\"Washington": {
+    "index_start": 1345,
+    "index_end": 1370
+  },
+  "New Jersey": {
+    "index_start": 1412,
+    "index_end": 1454
+  },
+  "Washington": {
+    "index_start": 1455,
+    "index_end": 1494
+  },
+  "North Carolina": {
+    "index_start": 1495,
+    "index_end": 1532
+  },
+  "Tennessee": {
+    "index_start": 726,
+    "index_end": 764
+  },
+  "Montana": {
+    "index_start": 1579,
+    "index_end": 1599
+  },
+  "Nevada": {
+    "index_start": 1600,
+    "index_end": 1637
+  },
+  "Maine": {
+    "index_start": 1638,
+    "index_end": 1661
+  }
+}

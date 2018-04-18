@@ -1,0 +1,450 @@
+{
+  "LV": {
+    "index_start": 764,
+    "index_end": 768
+  },
+  "BE": {
+    "index_start": 0,
+    "index_end": 9
+  },
+  "BG": {
+    "index_start": 10,
+    "index_end": 14
+  },
+  "BM": {
+    "index_start": 15,
+    "index_end": 16
+  },
+  "BO": {
+    "index_start": 17,
+    "index_end": 17
+  },
+  "BH": {
+    "index_start": 18,
+    "index_end": 21
+  },
+  "JO": {
+    "index_start": 22,
+    "index_end": 23
+  },
+  "BR": {
+    "index_start": 24,
+    "index_end": 67
+  },
+  "BZ": {
+    "index_start": 68,
+    "index_end": 68
+  },
+  "RU": {
+    "index_start": 69,
+    "index_end": 73
+  },
+  "RS": {
+    "index_start": 74,
+    "index_end": 76
+  },
+  "RE": {
+    "index_start": 77,
+    "index_end": 77
+  },
+  "RO": {
+    "index_start": 78,
+    "index_end": 88
+  },
+  "GT": {
+    "index_start": 89,
+    "index_end": 94
+  },
+  "GR": {
+    "index_start": 95,
+    "index_end": 98
+  },
+  "GP": {
+    "index_start": 99,
+    "index_end": 102
+  },
+  "JP": {
+    "index_start": 103,
+    "index_end": 108
+  },
+  "GG": {
+    "index_start": 109,
+    "index_end": 109
+  },
+  "GE": {
+    "index_start": 110,
+    "index_end": 110
+  },
+  "GD": {
+    "index_start": 111,
+    "index_end": 114
+  },
+  "GB": {
+    "index_start": 115,
+    "index_end": 149
+  },
+  "GL": {
+    "index_start": 150,
+    "index_end": 150
+  },
+  "OM": {
+    "index_start": 151,
+    "index_end": 151
+  },
+  "HR": {
+    "index_start": 153,
+    "index_end": 158
+  },
+  "HU": {
+    "index_start": 159,
+    "index_end": 166
+  },
+  "HK": {
+    "index_start": 167,
+    "index_end": 171
+  },
+  "HN": {
+    "index_start": 172,
+    "index_end": 174
+  },
+  "PR": {
+    "index_start": 175,
+    "index_end": 190
+  },
+  "PS": {
+    "index_start": 191,
+    "index_end": 191
+  },
+  "PT": {
+    "index_start": 192,
+    "index_end": 217
+  },
+  "PY": {
+    "index_start": 218,
+    "index_end": 220
+  },
+  "PA": {
+    "index_start": 221,
+    "index_end": 224
+  },
+  "UY": {
+    "index_start": 225,
+    "index_end": 231
+  },
+  "PE": {
+    "index_start": 232,
+    "index_end": 235
+  },
+  "PK": {
+    "index_start": 236,
+    "index_end": 237
+  },
+  "PH": {
+    "index_start": 238,
+    "index_end": 248
+  },
+  "PL": {
+    "index_start": 249,
+    "index_end": 262
+  },
+  "EE": {
+    "index_start": 263,
+    "index_end": 266
+  },
+  "EG": {
+    "index_start": 267,
+    "index_end": 271
+  },
+  "ZA": {
+    "index_start": 272,
+    "index_end": 279
+  },
+  "EC": {
+    "index_start": 280,
+    "index_end": 280
+  },
+  "IT": {
+    "index_start": 807,
+    "index_end": 823
+  },
+  "ES": {
+    "index_start": 283,
+    "index_end": 304
+  },
+  "MD": {
+    "index_start": 305,
+    "index_end": 306
+  },
+  "MA": {
+    "index_start": 307,
+    "index_end": 309
+  },
+  "US": {
+    "index_start": 310,
+    "index_end": 356
+  },
+  "MU": {
+    "index_start": 357,
+    "index_end": 357
+  },
+  "MT": {
+    "index_start": 358,
+    "index_end": 359
+  },
+  "MW": {
+    "index_start": 360,
+    "index_end": 360
+  },
+  "MV": {
+    "index_start": 361,
+    "index_end": 362
+  },
+  "MQ": {
+    "index_start": 363,
+    "index_end": 364
+  },
+  "IM": {
+    "index_start": 849,
+    "index_end": 849
+  },
+  "MY": {
+    "index_start": 387,
+    "index_end": 395
+  },
+  "MX": {
+    "index_start": 396,
+    "index_end": 413
+  },
+  "AT": {
+    "index_start": 850,
+    "index_end": 864
+  },
+  "FR": {
+    "index_start": 449,
+    "index_end": 482
+  },
+  "FI": {
+    "index_start": 483,
+    "index_end": 493
+  },
+  "FJ": {
+    "index_start": 494,
+    "index_end": 494
+  },
+  "NI": {
+    "index_start": 495,
+    "index_end": 495
+  },
+  "NL": {
+    "index_start": 496,
+    "index_end": 517
+  },
+  "NO": {
+    "index_start": 518,
+    "index_end": 538
+  },
+  "NC": {
+    "index_start": 539,
+    "index_end": 539
+  },
+  "NZ": {
+    "index_start": 540,
+    "index_end": 550
+  },
+  "NP": {
+    "index_start": 551,
+    "index_end": 553
+  },
+  "CH": {
+    "index_start": 554,
+    "index_end": 573
+  },
+  "CO": {
+    "index_start": 574,
+    "index_end": 577
+  },
+  "CL": {
+    "index_start": 578,
+    "index_end": 584
+  },
+  "CA": {
+    "index_start": 585,
+    "index_end": 623
+  },
+  "CZ": {
+    "index_start": 624,
+    "index_end": 629
+  },
+  "CY": {
+    "index_start": 630,
+    "index_end": 631
+  },
+  "CR": {
+    "index_start": 632,
+    "index_end": 636
+  },
+  "SX": {
+    "index_start": 637,
+    "index_end": 637
+  },
+  "KE": {
+    "index_start": 638,
+    "index_end": 638
+  },
+  "KH": {
+    "index_start": 639,
+    "index_end": 639
+  },
+  "SV": {
+    "index_start": 640,
+    "index_end": 641
+  },
+  "KR": {
+    "index_start": 642,
+    "index_end": 646
+  },
+  "SI": {
+    "index_start": 647,
+    "index_end": 652
+  },
+  "KW": {
+    "index_start": 653,
+    "index_end": 655
+  },
+  "KZ": {
+    "index_start": 656,
+    "index_end": 657
+  },
+  "SA": {
+    "index_start": 658,
+    "index_end": 672
+  },
+  "SG": {
+    "index_start": 673,
+    "index_end": 681
+  },
+  "SE": {
+    "index_start": 682,
+    "index_end": 699
+  },
+  "DO": {
+    "index_start": 700,
+    "index_end": 707
+  },
+  "DK": {
+    "index_start": 708,
+    "index_end": 721
+  },
+  "DE": {
+    "index_start": 722,
+    "index_end": 741
+  },
+  "DZ": {
+    "index_start": 742,
+    "index_end": 746
+  },
+  "MK": {
+    "index_start": 747,
+    "index_end": 748
+  },
+  "LB": {
+    "index_start": 749,
+    "index_end": 750
+  },
+  "TW": {
+    "index_start": 751,
+    "index_end": 751
+  },
+  "TT": {
+    "index_start": 752,
+    "index_end": 755
+  },
+  "TR": {
+    "index_start": 756,
+    "index_end": 762
+  },
+  "LK": {
+    "index_start": 763,
+    "index_end": 763
+  },
+  "TN": {
+    "index_start": 152,
+    "index_end": 152
+  },
+  "LT": {
+    "index_start": 769,
+    "index_end": 771
+  },
+  "LU": {
+    "index_start": 772,
+    "index_end": 776
+  },
+  "TH": {
+    "index_start": 777,
+    "index_end": 780
+  },
+  "AE": {
+    "index_start": 781,
+    "index_end": 799
+  },
+  "AG": {
+    "index_start": 800,
+    "index_end": 800
+  },
+  "VG": {
+    "index_start": 801,
+    "index_end": 801
+  },
+  "VI": {
+    "index_start": 802,
+    "index_end": 803
+  },
+  "IS": {
+    "index_start": 804,
+    "index_end": 806
+  },
+  "AL": {
+    "index_start": 281,
+    "index_end": 282
+  },
+  "VN": {
+    "index_start": 824,
+    "index_end": 833
+  },
+  "AR": {
+    "index_start": 834,
+    "index_end": 848
+  },
+  "AU": {
+    "index_start": 365,
+    "index_end": 386
+  },
+  "IL": {
+    "index_start": 414,
+    "index_end": 448
+  },
+  "AW": {
+    "index_start": 865,
+    "index_end": 866
+  },
+  "IN": {
+    "index_start": 867,
+    "index_end": 887
+  },
+  "IE": {
+    "index_start": 888,
+    "index_end": 905
+  },
+  "ID": {
+    "index_start": 906,
+    "index_end": 916
+  },
+  "UA": {
+    "index_start": 917,
+    "index_end": 917
+  },
+  "QA": {
+    "index_start": 918,
+    "index_end": 918
+  }
+}

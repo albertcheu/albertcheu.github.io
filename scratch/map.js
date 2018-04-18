@@ -26,13 +26,20 @@ var world = { map:null,
 	      activeName:"",
 	      //the (Mercator) projection
 	      path:null,
+	      //arcData.activeCode = list of yes/no counts to be drawn in the tooltip
+	      arcData:{'US':[0,0]},
+	      maxTests:0,
 	    };
 
 //similarly for the us map
-var us = { map:null, identity: d3.zoomIdentity, active:d3.select(null), activeCode:"", activeName:"", path:null};
+var us = { map:null, identity: d3.zoomIdentity, active:d3.select(null), activeCode:"", activeName:"",
+	   path:null, arcData:{'Maine':[0,0]},maxTests:0};
 
 //indicator variable for which map is currently visible
 var inAmerica = false;
+var inputISP = [];
+
+var unSelected;
 
 function initMaps(){
     d3.select("#countrySelector")
@@ -42,15 +49,19 @@ function initMaps(){
 	    //console.log(code2.length);
 	    clickedCountry(d3.select("#cc"+code2).data()[0]);
 	});
-     
-    //return-to-world button, dropdown for region (country or state)
+        
+    //return to the world
     d3.select("#backButton").on("click",function(){
 	
 	swapMap(us,world);
 	reset();
-	
+
+	//make the back button unclickable
 	//I don't know why this raw dom javascript is required but d3/jquery selection doesnt work
 	document.getElementById("backButton").disabled = true;
+	$('#backButton').css('cursor','auto');
+
+	//re-enable the dropdown for country
 	document.getElementById("countrySelector").disabled = false;
     });
     
@@ -60,7 +71,7 @@ function initMaps(){
     //m.svg.call(m.zoom);
 
     //svg has to fit inside the right div
-    m.width = d3.select(".rightpanel").node().getBoundingClientRect().width;
+    m.width = 0.95*d3.select(".rightpanel").node().getBoundingClientRect().width;
     m.scalingFactor = m.width / 960;
     m.height *= m.scalingFactor;
     console.log("Map dimensions: "+m.width+","+m.height);
@@ -104,13 +115,14 @@ function worldMap(){
 		world.map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
 		    .attr('d', world.path)
-		    .attr('class','region clickable animated fadeIn')
+		    .attr('class','country region clickable animated fadeIn')
 		//.style('stroke-width',0.5)
-		    .classed('overseasfrance',function(d){
-			if (d.code2.startsWith('ZZ')) { return true; }
-			return false;
-		    })
+		    // .classed('overseasfrance',function(d){
+		    // 	if (d.code2.startsWith('ZZ')) { return true; }
+		    // 	return false;
+		    // })
 		    .attr('id',function(d){return "cc"+d.code2;})
+		    .attr('name',function(d){return d.name;})
 		    .on("click",clickedCountry)
 		
 		    .on("mouseover", function(d) {
@@ -161,8 +173,8 @@ function usMap(){
 		us.map.selectAll("path").data(geojsonData)
 		    .enter().append("path")
 		    .attr('d', us.path)
-		    .attr('class','region clickable')
-		    .attr('id',function(d){return "sc-"+d.code2;})
+		    .attr('class','state region clickable')
+		    .attr('id',function(d){return "state"+(d.name.replace(/ /g,''));})
 		    .style('pointer-events','none')
 		    .on("click",clickedState)
 		    .on("mouseover", function(d) {
@@ -191,6 +203,15 @@ function usMap(){
 //switch between the american and world views
 function swapMap(from, to){
     inAmerica = !inAmerica;
+
+    if (inAmerica) {
+	d3.select("#maxTests").text(us.maxTests);
+	d3.select("#colorbarTitle").html("Number of tests");
+    }
+    else {
+	d3.select("#maxTests").text(world.maxTests);
+	d3.select("#colorbarTitle").html("Number of tests (saturation log scale");
+    }
     
     from.map
 	.classed("fadeIn",false)
@@ -213,13 +234,16 @@ function swapMap(from, to){
 
 //the callback for clicking on a country
 function clickedCountry(d) {
+    make_grey();
     console.log("You clicked on "+d.code2);
     //console.log(d3.selectAll(".mesh").length);
     
     //if I clicked the selected country, reset view
     if (world.activeCode === d.code2) {
+	updateTimeline('ZZ','world');
 	return reset();
     }
+    updateTimeline(d.code2,'country');
         
     //otherwise deselect and change the active variable
     world.active.classed("active", false);
@@ -236,6 +260,7 @@ function clickedCountry(d) {
     if (d.code2 == 'US') {
 	//activate the back button & deactivate the country selector
 	document.getElementById("backButton").disabled = false;
+	$('#backButton').css('cursor','pointer');
 	document.getElementById("countrySelector").disabled = true;
 	
 	swapMap(world,us);
@@ -259,15 +284,17 @@ function clickedCountry(d) {
 
 function clickedState(d){
     //console.log("You clicked on "+d.name);
-    
+    make_grey();
     //if I clicked an already selected state, reset view
     if (us.activeCode === d.code2) {
+	updateTimeline('US','country');
 	return reset();
     }
+    updateTimeline(d.name,'state');
     
     //otherwise deselect and change the active variable
     us.active.classed("active", false);
-    us.active = d3.select("#sc-"+d.code2);
+    us.active = d3.select("#state"+(d.name.replace(/ /g,'')));
     us.active.classed("active", true);
     us.activeName = d.name;
     us.activeCode = d.code2;
@@ -297,9 +324,17 @@ function zoomToBox(bounds,whichMap){
 
 //for when you click on a selected country or the ocean
 function reset() {
+    make_grey();
+    
     var whichMap = world;
-    if (inAmerica) { whichMap = us; }
-    else { $("#countrySelector").val("default"); }
+    if (inAmerica) {
+	updateTimeline('US','country');
+	whichMap = us;
+    }
+    else {
+	updateTimeline('ZZ','world');
+	$("#countrySelector").val("default");
+    }
     
     whichMap.active.classed("active", false);
     whichMap.active = d3.select(null);
@@ -369,45 +404,141 @@ function fixMap(geojsonData){
     //France has far-flung territories, but they mess up zooming!
     //So we make each disjoint island/land mass into its own country
 
-    //TO DO: give each colony in overseas its correct name and iso code2
-        
     //France is at index 72
     //France consists of Metro (European) France and Overseas France
     var allFrance = geojsonData[72].geometry.coordinates;
     var overseas = 0;
-    var overseasNames = ['Reunion','Mayotte','French Guiana','?','?','?','?'];
-    var overseasCodes = ['RE','YT','GF','XA','XB','XC','XD'];
+    var overseasNames = ['Reunion','Mayotte','French Guiana','Martinique','Guadeloupe'];
+    var overseasCodes = ['RE','YT','GF','MQ','GP'];
     
     for (var i = 0; i < allFrance.length; i++){
 	//an x,y coordinate pair (long,lat)
 	var firstPoint = allFrance[i][0][0];
 	
-	//F. Guiana (254), Martinique (474), Guadeloupe (312) (far west)
+	//F. Guiana, Martinique, Guadeloupe (far west)
 	if (firstPoint[0] < -30 ||
-	    //Reunion(638) & Mayotte(175) (far south)
+	    //Reunion & Mayotte (far south)
 	    firstPoint[1] < -10) {
-	    geojsonData.push({type:"Feature",
-			      properties:{code2:overseasCodes[overseas],
-					  name:overseasNames[overseas]},
-			      geometry:{type:"Polygon",coordinates:allFrance[i]}});
+
+	    var poly = allFrance[i];
+	    if (overseas < 5) {
+		geojsonData.push({type:"Feature",
+				  properties:{code2:overseasCodes[overseas],
+					      name:overseasNames[overseas]},
+				  geometry:{type:"Polygon",coordinates:poly}});
+	    }
+	    
+	    //guadeloupe is the set consisting of the final three shapes; merge them	    
+	    else {
+		for (var j = 0; j < poly.length; j++){
+		    geojsonData[geojsonData.length-1].geometry.coordinates.push(poly[j]);  
+		}
+	    }
+	    
 	    allFrance[i] = [];
 	    overseas++;
 	}
 
     }
-    //console.log(spareID);
 
-    //USA (iso 840) is at index 226
-    //separate Aleutian islands & Guam
-    // var allAmerica = geojsonData[226].geometry.coordinates;
-    // for (var i = 0; i < allAmerica.length; i++){
-    // 	var firstPoint = allAmerica[i][0][0];
-    // 	if (firstPoint[0] < -170 || firstPoint[0] > 0) {
-    // 	    geojsonData.push({type:"Feature",id:spareID,
-    // 			      geometry:{type:"Polygon",coordinates:allAmerica[i]}});
-    // 	    allAmerica[i] = [];
-    // 	    spareID++;
-    // 	}
-    // }
+}
 
+//call this function when the timeframe is changed
+function updateArcData(){    
+    updateArcDataHelper(world,countryPrefix, 'country');
+    updateArcDataHelper(us,statePrefix, 'state');
+
+    if (inAmerica) {
+	d3.select("#maxTests").text(us.maxTests);
+    }
+    else {
+	d3.select("#maxTests").text(world.maxTests);
+    }
+}
+
+function updateArcDataHelper(whichMap,prefices,className){
+    //empty what was present
+    whichMap.arcData = {};
+    
+    var start = timeframe.start;
+    var end = timeframe.end;
+    //console.log(start);
+
+    //
+    var maxTests = 0;
+    var testMap = {};
+    
+    //for each country in countryPrefix / state in statePrefix
+    for (var region in prefices) {
+	var data = prefices[region];
+	
+	////binary search for the data in the range
+	var searcher = d3.bisector(function(d) { return d[0]; }).left;
+	var startIndex = searcher(data,start);
+	searcher = d3.bisector(function(d) { return d[0]; }).right;
+	var endIndex = searcher(data,end);
+
+	if (startIndex >= data.length || endIndex < 0) {
+	    testMap[region] = 0;
+	    whichMap.arcData[region] = [0, 0];
+	    continue;
+	}
+	
+	if (startIndex < 0) { startIndex = 0; }
+	if (endIndex == data.length) { endIndex = data.length-1; }
+
+	//console.log(startIndex+','+endIndex);
+
+	var numPosStart = 0, numNegStart = 0;
+	if (startIndex > 0) {
+	    numPosStart = data[startIndex-1][1];
+	    numNegStart = data[startIndex-1][2];
+	}
+	
+	var numPosEnd = data[endIndex][1];
+	var numNegEnd = data[endIndex][2];
+	
+	//take the difference
+	var numPos = numPosEnd - numPosStart;
+	var numNeg = numNegEnd - numNegStart;
+
+	//console.log(country+','+numPos+','+numNeg);
+	
+	//update arcData
+	whichMap.arcData[region] = [numPos, numNeg];
+
+	var numTests = numPos + numNeg;
+	var posRatio = numPos / numTests;
+	if (className == 'country') {
+	    numTests = Math.log2(numTests);
+	}
+	
+	testMap[region] = [numTests, posRatio];
+	if (maxTests < numTests) { maxTests = numTests; }
+	
+    }
+    
+    whichMap.maxTests = (className=="state")?maxTests:Math.floor(Math.pow(2,maxTests));
+
+    d3.selectAll("."+className)
+	.classed('fadeIn',false)
+	.style('opacity',function(d) {
+	    var r = d.code2;
+	    if (className == 'state') { r = d.name; }
+	    
+	    if (! testMap.hasOwnProperty(r)) { testMap[r] = [0,0]; }
+
+	    return testMap[r][0] / maxTests;
+	})
+	// .style('fill',function(d){
+	//     var r = d.code2;
+	//     if (className == 'state') { r = d.name; }
+
+	//     if (testMap[r][0] == 0) { return 'none'; }
+	    
+	//     var begin = new Color({r:0,g:0,b:0});
+	//     var end = new Color({r:255,g:0,b:0});
+	//     return LinearColorInterpolator.findColorBetween(begin,end,testMap[r][1] * 100).asRgbCss();
+	// })
+    ;
 }

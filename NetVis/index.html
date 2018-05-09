@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+
+    <meta charset="utf-8">
+    <title>NetVis</title>
+
+    <link rel="stylesheet" href="mysite.css">
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+
+    <script
+       src="https://code.jquery.com/jquery-3.3.1.min.js"
+       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+       crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script type="text/javascript" src="country_data.json"></script>
+    <script type="text/javascript" src="state_data.json"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+    <script src="shared.js"></script>
+    <script src="map.js"></script>
+    <script src="ispGraph.js"></script>
+    <script src="timeline2.js"></script>
+    <script src="tooltip.js"></script>
+    <script src="intro.js"></script>
+    <script src="colorbar.js"></script>
+    <link rel="stylesheet" href="introjs.css">
+
+  </head>
+
+  <body onload="init();">
+
+    <div class="title">
+      <h1>NetVis</h1>
+      <p>created by Albert Cheu, Hira Javaid, and Supraja Krishnan </p>
+
+    </div>
+
+    <div class="content">
+
+      <h3> Motivation </h3>
+
+      <p>
+        Net neutrality is the practice of providing a uniform level of access to all data regardless of the user or the web application being accessed. It may be violated when an internet service provider (ISP) provides faster high-speed access to data for content-providers that pay more. These violations are termed as “differentiation” by researchers, and can end up in a vastly more discriminatory internet than what we have now. In the United States, the Open Internet Order once protected net neutrality, but the Order's elimination by the FCC in late 2017 has left the future in question.
+      </p>
+      <p>
+
+	To get a better sense of the extent of this differentiation practiced by ISPs, a team at Northeastern University created <a href="https://dd.meddle.mobi">Wehe, a mobile app</a>, that tests if a user is experiencing differentiation. This site provides a visual tool to explore several months worth of Wehe tests that include 7 major mobile apps as well as a large variety of ISPs around the world.
+
+      </p>
+
+
+      <p>From a market perspective, consumers could make informed decisions if the scale of differentiation was public knowledge. And from a societal perspective, citizens and lawmakers could use the data to strengthen their arguments about net neutrality.</p>
+
+
+      <h3> Final Visualization</h3>
+      <p>
+	The bulk of NetVis is made with the Javascript library D3. The <a href="https://select2.org">select2</a> jQuery package enables multi-select. Map data is drawn from json files hosted <a href="https://bl.ocks.org/mbostock/raw/4090846/world-50m.json">here</a> and <a href="https://bl.ocks.org/mbostock/raw/4090846/us.json">here</a>. The <a href="https://sweetalert.js.org/">SweetAlert</a> package is used to show alerts as popups, in case an ISP and country aren't selected.
+      </p>
+
+      <p>
+	The color <span style="color:red">red</span> indicates <span style="color:red;">differentiation</span> both in the donut arcs (in the map) and the bars representing negative tests (in the bargraph).
+      </p>
+
+      <p> Click on the tour button to familiarize yourself with the interface. You may also <a href="https://drive.google.com/open?id=14QhUItNT2nCAH2R4iyIoHSteqwsdNnKr">click here</a> to watch a demo video.</p>
+      
+    </div>
+    <div class="content">
+      <br>
+
+      <div class="slowAnimated fadeIn">
+	<button id="tour" onclick="introJs().start();"> Guided Tour </button>
+	<br>
+
+	<div class="float leftpanel panel">
+	  <h3>Breakdown by Provider</h3>
+	  <select id="ispSelector" name="ispSelector" width="100%" multiple="multiple" data-step="3" data-intro="Finally, select one or more ISPs.">
+	  </select>
+	  <svg id="ispGraph"  data-step="4" data-intro="We use your filters--place, time, and ISP--to create a bar chart.">
+	  </svg>
+
+	  <div id="greyISP">
+	    <p id="grey_content" style="color:black;">No Data Available!</p>
+	  </div>
+
+
+
+	  <button id="submit" onclick="make_graph()"> Refresh </button>
+	</div>
+
+	<div style="text-algin:center;" class="rightpanel panel">
+	  <h3 style="padding-left:2.5%;">Global Overview</h3>
+
+	  <div id="mapStrip" style="padding-left:2.5%;">
+
+	    <button disabled="true" id="backButton">Return to world map</button>
+	    <select id="countrySelector">
+	      <option value="default" disabled selected>Select a country in the map or this dropdown</option>
+	    </select>
+	  </div>
+
+	  <!-- <br> -->
+
+	  <p id="colorbarTitle" style="text-align:center">Number of tests (saturation log scale)</p>
+	  <svg id="colorbar">
+	  </svg>
+
+
+	  <br>
+
+	  <svg id="map" data-step="1" data-intro="Hover over a country to see a summary of our tests in that country. Click to enable detailed filters.">
+	    <rect id="ocean" onclick="reset();"></rect>
+	  </svg>
+
+	  <br>
+
+	  <div class="float" id="timelineDiv"  >
+      	    <svg id="timeline" width="700" height="160" data-step="2" data-intro="Here, select a timeframe to filter the tests. The changes will affect the map.">
+
+	      <polygon id="polygon" points="" />
+
+            </svg>
+
+	  </div>
+	</div>
+
+	<br>
+
+	<!-- <div class="float" id="timelineDiv"  > -->
+      	<!--   <svg id="timeline" width="600" height="200" data-step="2" data-intro="Here, select a timeframe to filter the tests"> -->
+
+        <!--     <polygon id="polygon" points="" /> -->
+
+        <!--   </svg> -->
+
+	<!-- </div> -->
+
+
+      </div>
+    </div>
+    
+    <div class="content">
+      <h3> Data </h3>
+
+      <p>
+	After the initial steps of data extraction from the database, and data cleaning, we were able to get an effective dataset with 81319 rows and the following data attributes:
+
+
+      </p>
+
+
+      <table style="width:100%; border-collapse:collapse" class="contentTable">
+
+	<tr>
+	  <td style="font-weight:bold">Data Attribute</td>
+
+          <td style="font-weight:bold">Data Attribute Type</td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+	  <td></td>
+	  <td></td>
+	</tr>
+	<tr>
+          <td>Time</td>
+          <td>Quantitative</td>
+	</tr>
+	<tr>
+          <td>User ID</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>App Name</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>History Count</td>
+          <td>Ordinal</td>
+	</tr>
+	<tr>
+          <td>Carrier Name</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>Network Type</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>Latitude</td>
+          <td>Quantitative</td>
+	</tr>
+	<tr>
+          <td>Longitude</td>
+          <td>Quantitative</td>
+	</tr>
+	<tr>
+          <td>Differentiation</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>Country</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>State</td>
+          <td>Categorical</td>
+	</tr>
+	<tr>
+          <td>County</td>
+          <td>Categorical</td>
+	</tr>
+
+	<tr>
+          <td>Region</td>
+          <td>Categorical</td>
+	</tr>
+
+      </table>
+
+
+      <h3> Task Analysis</h3>
+      <p>
+	We interviewed one of Wehe's developers to pin down the necessary tasks. We discovered that the desired functionalities were progressive refinements of a comparison query. For a particular country in a specified window of time, one ought to be able to compare the number of positive and negative results for a selection of ISPs. Additionally, overviews and filters were emphasized, with less importance placed on per-app information. We put forth the idea of ranking ISPs, but this was regarded as being too confrontational to be implemented.
+
+      <p>After the interview, the following tasks were established, and then ranked after consultation with Fangfan Li, the main Wehe developer that we interviewed.</p>
+
+
+      </p>
+      <table class="contentTable" style="width:100%; border-collapse:collapse">
+	<tr>
+
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+	</tr>
+
+	<tr>
+
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+	</tr>
+
+	<tr>
+
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+	</tr>
+
+	<tr>
+
+          <td style="font-weight: bold">Rank</td>
+          <td style="font-weight: bold">Domain Task</td>
+          <td style="font-weight: bold">High Level</td>
+          <td style="font-weight: bold">Mid Level</td>
+          <td style="font-weight: bold">Low Level</td>
+
+	</tr>
+
+	<tr>
+
+          <td>1. </td>
+          <td>Show the results across the globe by all ISPs (default view)</td>
+          <td>Discover</td>
+          <td>Explore</td>
+          <td>Summarize</td>
+
+	</tr>
+
+	<tr>
+
+          <td>2. </td>
+          <td>For a region, show the results of all ISPs</td>
+          <td>Derive</td>
+          <td>Browse</td>
+          <td>Summarize</td>
+
+	</tr>
+
+
+	<tr>
+
+          <td>3. </td>
+          <td>For an ISP in a region, show results</td>
+          <td>Derive</td>
+          <td>LookUp</td>
+          <td>Identify</td>
+
+	</tr>
+
+
+	<tr>
+
+          <td>4. </td>
+          <td>Filter any results by a time window</td>
+          <td>Derive</td>
+          <td>Explore </td>
+          <td>Summarize</td>
+
+	</tr>
+
+
+	<tr>
+
+          <td>5. </td>
+          <td>For a given app and an ISP, show differentiation across the week/day</td>
+          <td>Derive</td>
+          <td>Browse</td>
+          <td>Summarize</td>
+
+	</tr>
+
+
+	<tr>
+
+          <td>6. </td>
+          <td>For a given app, show its performance across ISPs</td>
+          <td>Discover</td>
+          <td>Browse</td>
+          <td>Compare</td>
+
+	</tr>
+
+      </table>
+
+
+
+
+      <h3>Design Process</h3>
+      <p>The tasks being primarily filters, we first set about designing the most clear way of enabling them. As geography plays a role in the filtering, a map is the most natural choice. Due the large number of tests in the United States, we also decided to have a US map to see breakdown by state. The most intuitive way to filter by time is through a brush; our design also has a focus view that is evocative of a funnel. The dropdown for ISP was also natural, as we had to allow users to select multiple discrete objects.</p>
+
+      <p>Because the core task is comparison between quantitative values, the lengths in a bar chart are both effective and expressive.</p>
+
+      <p>
+      </p> 
+      <!--     Some of the sketches that led to the final design of our visualization are shown below: -->
+
+      <!--   <p style="font-weight:bold">1. Global Overview</p> -->
+      <!--   <img src="albert1.jpg" alt="" height="200" width="400"> -->
+      <!-- </br> -->
+      <!-- </br> -->
+      <!-- </br> -->
+      <!--   <img src="soup1.jpg" alt="" height="350" width="350"> -->
+      <!-- </br> -->
+      <!-- </br> -->
+      <!-- </br> -->
+      <!--   <p style="font-weight:bold">2. Timeline with an embedded curve</p> -->
+      <!-- </br> -->
+      <!--   <img src="soup2.jpg" alt="" height="400" width="400"> -->
+      <!-- </br> -->
+      <!-- </br> -->
+      <!--   <p style="font-weight:bold">3. State-Specific Overview (with a timeline underneath)</p> -->
+      <!-- </br> -->
+      <!--   <img src="hira1.jpg" alt="" height="300" width="300"> -->
+
+      <p>Based on these, we currently have the following three inter-linked components :</p>
+      <ol class="contentTable">
+
+	<li>A World Map that shows the extent of differentiation for each country by means of Misery-Map-like donut arcs, and the extent of user tests available with the help of a choropleth. </li>
+	<li> A Timeline that shows the distribution of the number of user tests available by means of an embedded curve. Its basic task is to select a timeframe that can be used to filter the differentiation seen on the world map and for individual ISPs on a bargraph.</li>
+	<li> A Bar-Graph for Multiple ISPs, that shows the number of positive and negative differentiation tests for a given region in a given timeframe. </li>
+      </ol>
+      <p>Finally, as mentioned before, we chose the color <span style="color:red;">red</span> as our design choice to highlight <span style="color:red">differentiation</span> because of the pop out effect.</p>
+      <br>
+      <h3>Data Analysis</h3>
+
+      <p>Missing values were abundant: 0,0 latitude and longitude and empty ISP names required processing. Noisy data like multiple ways of spelling a single ISP was also a problem.</p>
+
+      <p>As stated previously, many of the tests were conducted in the US, which forced us to apply log-scaling to the choropleth. We also noted a peak in the number of tests in late January, due to media coverage of the Wehe project.</p>
+
+      <h3>Conclusion</h3>
+      <p>NetVis achieves the core requirement of a detailed ISP comparison as well as a time- and place-based overview. Further work will add a city-level filtering as well as being able to see app-level filtered differentiation results</p>
+      <br>
+
+      <div id="regionTooltip" style="opacity:0">
+	<div style="background-color:white;">
+	  <p id="regionName">Country name</p>
+	</div>
+	<br>
+	<svg id="regionArc">
+	  <path id="arcDiff" class="arc"></path>
+	  <path id="arcNoDiff" class="arc"></path>
+	  <circle id="donutHole" class="donutHole" r="24"></circle>
+	  <text id="numTestsInRegion"></text>
+	</svg>
+      </div>
+
+
+    </div>
+    <!-- <div id="panelblocker" style="display:block;background-color:black;opacity:0.5;"> -->
+    <!-- </div> -->
+
+  </body>
+
+</html>

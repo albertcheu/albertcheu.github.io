@@ -102,7 +102,7 @@ function worldMap(){
     world.map.call( m.zoom.transform, world.identity);
 
     //draw the countries
-    d3.json('http://albertcheu.github.io/scratch/worldMap.json',
+    d3.json('http://albertcheu.github.io/NetVis/worldMap.json',
 	    function(error, worldmapData) {
 		//console.log(worldmapData.objects.countries.geometries[0])
 
@@ -163,7 +163,7 @@ function usMap(){
     	.scale(m.scalingFactor);
 
     //draw the states
-    d3.json('http://albertcheu.github.io/scratch/usMap.json',
+    d3.json('http://albertcheu.github.io/NetVis/usMap.json',
 	    function(error, usmapData) {
 		
 		var geojsonData = topojson.feature(usmapData,usmapData.objects.states).features;

@@ -12,6 +12,4 @@ This paper was accepted to the [Internation Symposium on Informtation Theory (IS
 
 The statement from advisor:
 
-(Jon writes something here)
-
 I currently work on differential privacy. Here, we'd like to evaluate functions on personal data. Reporting the exact value reveals information about the contributors; the game is to add enough randomness to create "plausible deniability" about any individual's data, while keeping the answer close to the true value. Prof. Ullman and I were co-authors on a paper accepted in TPDP 18.

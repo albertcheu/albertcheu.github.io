@@ -8,7 +8,7 @@ I am a PhD. student at Northeastern University in the College of Computer and In
 
 My first accepted paper was [Skyline Identification in Multi-Armed Bandits](https://arxiv.org/abs/1711.04213).
 
-This paper was accepted to the [Internation Symposium on Informtation Theory (ISIT) 2018](https://www.isit2018.org/).
+This paper was accepted to the [Internation Symposium on Informtation Theory 2018](https://www.isit2018.org/).
 
 The statement from advisor:
 

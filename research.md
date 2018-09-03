@@ -4,10 +4,8 @@ title: Research
 permalink: /research/
 ---
 
-I am a PhD. student at Northeastern University. They took a picture of me for my profile on their website, so I could link to that in the future.
+I am a PhD. student at Northeastern University. My advisor is Jon Ullman.
 
-My advisors are Jon Ullman and Ravi Sundaram. Pretty chill guys.
+My first accepted paper was [Skyline Identification in Multi-Armed Bandits](https://arxiv.org/abs/1711.04213).
 
-I designed an algorithm that can be seen as an experimental procedure to determine which drugs are cost-effective, where drugs have unknown effectiveness rate. To use the name of our paper, "Skyline Identification in Multi-Armed Bandits."
-
-I will also work on differential privacy, a means of giving noisy answers to questions about datasets such that we trade accuracy for plausible deniability about a person's participation.
+I currently work on differential privacy. Here, we'd like to evaluate functions on personal data. Reporting the exact value reveals information about the contributors; the game is to add enough randomness to create "plausible deniability" about any individual's data, while keeping the answer close to the true value. Prof. Ullman and I were co-authors on a paper accepted in TPDP 18.

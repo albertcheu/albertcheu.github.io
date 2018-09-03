@@ -40,6 +40,3 @@ Here are my brief thoughts/criticism of AAA games I have played:
 
 * Ocarina of Time (3DS): A good game bogged down by an odd control scheme
 
----
-
-I researched van der Waerden games in 2015.

@@ -8,6 +8,7 @@ layout: post
 title:  "{}"
 date:   {}
 categories: jekyll update
+visible: 1
 ---
 """
 

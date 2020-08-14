@@ -8,4 +8,4 @@ visible: 1
 
 I found this gem [here](https://arxiv.org/abs/2006.15673).
 
-![Ah yes, the six boroughs of New York City.](/six_boroughs.jpg)
+{% include image.html name="six_boroughs.jpg" width="100%" alt="Ah yes, the six boroughs of New York City."%}

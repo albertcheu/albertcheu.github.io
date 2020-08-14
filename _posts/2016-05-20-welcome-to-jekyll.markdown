@@ -3,7 +3,7 @@ layout: post
 title:  "Welcome to Hyde"
 date:   2016-05-20 3:58:34 -0400
 categories: jekyll update
-visible: 1
+visible: 0
 ---
 Getting this Jekyll blog up and running was mildly traumatizing.
 

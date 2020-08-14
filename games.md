@@ -12,31 +12,10 @@ You can download the (Windows) game [here](http://gamejolt.com/games/circum/1530
 
 I took that course because I love games (maybe a little too much).
 
-Here are my brief thoughts/criticism of AAA games I have played:
+Here are my brief thoughts/criticism of games I have recently played:
 
-* Dragon Age Inquisition: Too much crafting (whenever I can craft, I do it. So I take forever). But spectacular story and voice acting.
+* *Mages of Mystralia* has a cute artstyle that's a bit in conflict with the rather dark narrative. The composability of spells is pretty cool. There are rough edges to the story, but not enough to stop me from recommending it.
 
-* Arkham Knight: Too much tank. Why can't we all get along? But Kevin Conroy and Mark Hamill are still great.
+* *Control* has a very unique world that you can't help but become drawn into. The powers you obtain are crazy, though I will say that there were many times I failed to grab/redirect an incoming missile...
 
-* Fallout 4: Too much pew-pew-pew. Why can't we all get along?
-
-* Uncharted 4: Too much pew-pew-pew. Why can't we all get along? Awesome rope physics, gorgeous scenery, and cutting-edge motion capture, though.
-
-* inFamous Second Son: Side missions were a tad repetitive. Great flow of powers.
-
-* Mirror's Edge Catalyst: Story was kind of vague but the flow of movement more than made up for it.
-
-* Deus Ex: Mankind Divided: Missed some storytelling opportunities. Great stealth and visuals, though.
-
-* Rise of the Tomb Raider: "Death gives life meaning" is a line at the end that had no thematic buildup. Still, the stealth, combat, and aesthetic is phenomenal.
-
-* Dishonored 2: The only quibble I have with this game is that maps are hard to get to in the menu. Everything else is great.
-
-* Prey: A great game with overly-long loading times
-
-* Witcher 3: This game is huge and story-rich, but the combat leaves a bit to be desired
-
-* Horizon: Zero Dawn: Excellent
-
-* Ocarina of Time (3DS): A good game bogged down by an odd control scheme
-
+* *GreedFall* is another one of the long line of open world RPGs that are big-but-empty. And oh boy, all the walking... Still, there's interesting stories to be explored here.

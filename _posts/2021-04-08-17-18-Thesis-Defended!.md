@@ -6,6 +6,8 @@ categories: jekyll update
 visible: 1
 ---
 
-{% include image.html name="hillhouse-phd.png" width="100%" alt="I got my fucking PhD. Screenshot from Haunting of Hill House."%}
+A while back, I thought to myself
+
+{% include image.html name="hillhouse-phd.png" width="100%" %}
 
 And I did! I defended my PhD thesis on the 7th of April. Yay me!

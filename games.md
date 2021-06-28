@@ -13,6 +13,8 @@ You can download the (Windows) game [here](http://gamejolt.com/games/circum/1530
 
 On a related note, here are my brief thoughts/criticism of games I have recently played:
 
+* *Demon's Souls* is great, but I can't get Boldwin's voice out of my head now: "I can forge weapons for you, for a fair price."
+
 * *Hitman 3* is the quintessential slapstick puzzle comedy game.
 
 * *Bloodborne* is wild fun, but I must say I enjoyed exploring the world far more than fighting bosses (the Shadows of Yharnam are a real pain in the ass)

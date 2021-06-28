@@ -8,6 +8,6 @@ visible: 1
 
 A while back, I thought to myself
 
-{% include image.html name="hillhouse-phd.png" width="100%" %}
+{% include image.html name="hillhouse_phd.png" width="100%" %}
 
 And I did! I defended my PhD thesis on the 7th of April. Yay me!

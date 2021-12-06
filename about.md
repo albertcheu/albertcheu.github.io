@@ -4,13 +4,15 @@ title: About
 permalink: /about/
 ---
 
-Theoretical Computer Science all the way[^1]; PhD. student at [Northeastern University](http://neu.edu).
+Theoretical Computer Science all the way! Well, most of the way. Remainder filled by genre TV, action movies, and story-rich games.
 
-[New York University](http://nyu.edu), Tandon[^2] [School of Engineering](http://engineering.nyu.edu), 2016.
+I am currently a postdoctoral fellow at Georgetown University, under the advisement of Kobbi Nissim.
+
+PhD from [Northeastern University](http://neu.edu), advised by Jonathan Ullman.
+
+[New York University](http://nyu.edu), Tandon[^1] [School of Engineering](http://engineering.nyu.edu), 2016.
 
 Stuyvesant High School, 2012.
-
-View my [resume](/AlbertCheuResume.pdf).
 
 ---
 
@@ -34,6 +36,4 @@ I have also made use of:
 
 ---
 
-[^1]:Well, most of the way. Remainder filled by genre TV, action movies, and story-rich games.
-
-[^2]:The school has went through literally half a dozen name changes, most recently "Polytechnic Institute of NYU" and "NYU Polytechnic School of Engineering".
+[^1]:The school has went through literally half a dozen name changes, most recently "Polytechnic Institute of NYU" and "NYU Polytechnic School of Engineering".

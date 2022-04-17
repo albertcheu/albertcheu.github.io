@@ -3,7 +3,7 @@ layout: post
 title:  "Elden Ring Log, 13 Hours"
 date:   2022-03-05 13:47:22
 categories: jekyll update
-visible: 1
+visible: 0
 ---
 
 I thought I'd keep track of my progress in this massive open-world video game. I've played around 13 hours over 3 sessions. In addition to the event log copied below, I am also keeping track of facts picked up from conversations and item descriptions (e.g. people/factions, history, locations, and objects in the world). I won't post them until I'm done with the game.

@@ -1,10 +1,10 @@
 ---
-layout: blah
+layout: page
 title: Games
 permalink: /games/
 ---
 
-In Spring 2016, I took Andy Nealen's Game Design course. I worked on a team to make Circum, a one-button atmospheric game. You can download the (Windows) game [here](http://gamejolt.com/games/circum/153034).
+In Spring 2016, I took Andy Nealen's Game Design course. I worked on a team to make Circum, a one-button atmospheric game for Windows. You can download it [here](http://gamejolt.com/games/circum/153034).
 
 ---
 

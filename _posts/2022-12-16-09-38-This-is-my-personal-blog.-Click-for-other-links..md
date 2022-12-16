@@ -6,4 +6,4 @@ categories: jekyll update
 visible: 1
 ---
 
-For research: http://albertcheu.georgetown.domains
+Please click [here](http://albertcheu.georgetown.domains) for research content.

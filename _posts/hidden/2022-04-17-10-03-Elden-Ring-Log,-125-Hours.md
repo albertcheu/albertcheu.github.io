@@ -3,7 +3,7 @@ layout: post
 title:  "Elden Ring Log, 125 Hours"
 date:   2022-04-17 10:03:34
 categories: jekyll update
-visible: 1
+visible: 0
 ---
 
 PS5 without subscription (so no multiplayer, unfortunately). I've been keeping a pen-and-paper log of my journey and lore discoveries. I reached the Flame of Ruin (at around the 118 hour mark), so I thought I'd share the highs and lows so far.

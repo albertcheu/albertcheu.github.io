@@ -3,6 +3,7 @@ layout: post
 title:  "My first Chrome Extension"
 date:   2016-05-22 20:03:34
 categories: jekyll update
+visible: 0
 ---
 
 Working with Chrome isn't awful at all. The documentation is nice and the programmer has access to sufficiently many features.

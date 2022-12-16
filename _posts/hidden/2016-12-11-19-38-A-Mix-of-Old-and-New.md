@@ -3,6 +3,7 @@ layout: post
 title:  "A Mix of Old and New"
 date:   2016-12-11 19:38:36
 categories: jekyll update
+visible: 0
 ---
 
 Lore

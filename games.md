@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: blah
 title: Games
 permalink: /games/
 ---

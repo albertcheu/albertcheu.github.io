@@ -10,10 +10,18 @@ I had the good fortune of attending ITCS at MIT last week. Some papers stuck out
 
 {% include youtubePlayer.html id="K5lajocgMZo" %}
 
+<br>
+
 {% include youtubePlayer.html id="YvdMmXJCfnA" %}
+
+<br>
 
 {% include youtubePlayer.html id="xR1lF0nLizA" %}
 
+<br>
+
 {% include youtubePlayer.html id="DERiUkVpWkk" %}
+
+<br>
 
 {% include youtubePlayer.html id="POBOLMVIXnE" %}

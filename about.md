@@ -6,13 +6,11 @@ permalink: /about/
 
 Theoretical Computer Science all the way! Well, most of the way. Remainder filled by genre TV, action movies, and story-rich games.
 
-I am currently a postdoctoral fellow at Georgetown University, under the advisement of Kobbi Nissim.
+My professional site is http://albertcheu.com
 
-PhD from [Northeastern University](http://neu.edu), advised by Jonathan Ullman.
+*Currently*: a visiting researcher at Google, employed via Magnit. I am fortunate to have Peter Kairouz as a manager.
 
-[New York University](http://nyu.edu), Tandon[^1] [School of Engineering](http://engineering.nyu.edu), 2016.
-
-Stuyvesant High School, 2012.
+*Previously*: Postdoc at Georgetown University, managed by Kobbi Nissim. PhD from [Northeastern University](http://neu.edu), advised by Jonathan Ullman. Bachelor's from [New York University](http://nyu.edu), Tandon[^1] [School of Engineering](http://engineering.nyu.edu), 2016. Even earlier, Stuyvesant High School, 2012.
 
 ---
 
